@@ -1,0 +1,2520 @@
+--------------------------------------------------------------------------------
+-- Copyright (c) 1995-2011 Xilinx, Inc.  All rights reserved.
+--------------------------------------------------------------------------------
+--   ____  ____
+--  /   /\/   /
+-- /___/  \  /    Vendor: Xilinx
+-- \   \   \/     Version: O.61xd
+--  \   \         Application: netgen
+--  /   /         Filename: ctrl_fifo512x64st_v0.vhd
+-- /___/   /\     Timestamp: Wed Oct 19 14:27:28 2011
+-- \   \  /  \ 
+--  \___\/\___\
+--             
+-- Command	: -w -sim -ofmt vhdl D:/TMP/08/SVN/00/tmp/_cg/ctrl_fifo512x64st_v0.ngc D:/TMP/08/SVN/00/tmp/_cg/ctrl_fifo512x64st_v0.vhd 
+-- Device	: 6slx45tfgg484-3
+-- Input file	: D:/TMP/08/SVN/00/tmp/_cg/ctrl_fifo512x64st_v0.ngc
+-- Output file	: D:/TMP/08/SVN/00/tmp/_cg/ctrl_fifo512x64st_v0.vhd
+-- # of Entities	: 1
+-- Design Name	: ctrl_fifo512x64st_v0
+-- Xilinx	: C:\Xilinx\13.2\ISE_DS\ISE\
+--             
+-- Purpose:    
+--     This VHDL netlist is a verification model and uses simulation 
+--     primitives which may not represent the true implementation of the 
+--     device, however the netlist is functionally correct and should not 
+--     be modified. This file cannot be synthesized and should only be used 
+--     with supported simulation tools.
+--             
+-- Reference:  
+--     Command Line Tools User Guide, Chapter 23
+--     Synthesis and Simulation Design Guide, Chapter 6
+--             
+--------------------------------------------------------------------------------
+
+
+-- synthesis translate_off
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+library UNISIM;
+use UNISIM.VCOMPONENTS.ALL;
+use UNISIM.VPKG.ALL;
+
+entity ctrl_fifo512x64st_v0 is
+  port (
+    clk : in STD_LOGIC := 'X'; 
+    rst : in STD_LOGIC := 'X'; 
+    wr_en : in STD_LOGIC := 'X'; 
+    rd_en : in STD_LOGIC := 'X'; 
+    full : out STD_LOGIC; 
+    empty : out STD_LOGIC; 
+    din : in STD_LOGIC_VECTOR ( 63 downto 0 ); 
+    dout : out STD_LOGIC_VECTOR ( 63 downto 0 ); 
+    data_count : out STD_LOGIC_VECTOR ( 8 downto 0 ) 
+  );
+end ctrl_fifo512x64st_v0;
+
+architecture STRUCTURE of ctrl_fifo512x64st_v0 is
+  signal N1 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_i_2 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_i_4 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_tmp_ram_rd_en : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_0_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_fb_i_178 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_n0025_inv : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_srst_i_inv : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count1 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count2 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count3 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count4 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count5 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count6 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count7 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count8 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count9 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_going_empty_PWR_35_o_MUX_13_o : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_comp1 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_comp0 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_comb_GND_292_o_MUX_15_o : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_comp1 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_comp0 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_comb : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_223 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_d2_224 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_d1_225 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_3_bdd0 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_1_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_2_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_3_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_4_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_5_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_6_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_7_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_8_Q_270 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_3_bdd0 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_1_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_2_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_3_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_4_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_5_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_6_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_7_Q : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_8_Q_279 : STD_LOGIC; 
+  signal N2 : STD_LOGIC; 
+  signal N4 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_ram_rd_en_i1_cepot : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_0_dpot_283 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_6_dpot_284 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_7_dpot_285 : STD_LOGIC; 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_8_dpot_286 : STD_LOGIC; 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_31_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_30_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_29_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_28_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_27_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_26_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_25_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_24_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_23_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_22_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_21_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_20_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_19_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_18_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_17_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_16_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_15_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_14_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_13_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_12_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_11_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_10_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_9_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_8_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_7_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_6_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_5_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_4_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_3_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_2_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_1_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_0_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_3_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_2_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_1_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_0_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_31_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_30_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_29_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_28_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_27_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_26_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_25_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_24_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_23_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_22_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_21_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_20_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_19_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_18_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_17_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_16_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_15_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_14_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_13_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_12_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_11_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_10_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_9_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_8_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_7_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_6_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_5_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_4_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_3_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_2_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_1_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_0_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_3_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_2_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_1_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_0_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPB_3_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPB_2_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPB_1_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPB_0_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOB_31_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOB_23_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOB_15_UNCONNECTED : STD_LOGIC;
+ 
+  signal NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOB_7_UNCONNECTED : STD_LOGIC;
+ 
+  signal NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count : STD_LOGIC_VECTOR ( 8 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg : STD_LOGIC_VECTOR ( 1 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1 : STD_LOGIC_VECTOR ( 8 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1 : STD_LOGIC_VECTOR ( 8 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count : STD_LOGIC_VECTOR ( 8 downto 1 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wr_pntr_plus1 : STD_LOGIC_VECTOR ( 0 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count : STD_LOGIC_VECTOR ( 8 downto 1 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut : STD_LOGIC_VECTOR ( 8 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy : STD_LOGIC_VECTOR ( 7 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_carrynet : STD_LOGIC_VECTOR ( 3 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1 : STD_LOGIC_VECTOR ( 4 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_carrynet : STD_LOGIC_VECTOR ( 3 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1 : STD_LOGIC_VECTOR ( 4 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_carrynet : STD_LOGIC_VECTOR ( 3 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1 : STD_LOGIC_VECTOR ( 4 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_carrynet : STD_LOGIC_VECTOR ( 3 downto 0 ); 
+  signal U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1 : STD_LOGIC_VECTOR ( 4 downto 0 ); 
+begin
+  data_count(8) <= NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(8);
+  data_count(7) <= NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(7);
+  data_count(6) <= NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(6);
+  data_count(5) <= NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(5);
+  data_count(4) <= NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(4);
+  data_count(3) <= NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(3);
+  data_count(2) <= NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(2);
+  data_count(1) <= NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(1);
+  data_count(0) <= NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(0);
+  full <= U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_i_2;
+  empty <= U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_i_4;
+  XST_VCC : VCC
+    port map (
+      P => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_srst_i_inv
+    );
+  XST_GND : GND
+    port map (
+      G => N1
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy_0_Q : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      DI => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(0),
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_xor_0_Q : XORCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      LI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count1
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy_1_Q : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(0),
+      DI => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(1),
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(1),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_xor_1_Q : XORCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(0),
+      LI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(1),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count2
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy_2_Q : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(1),
+      DI => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(2),
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(2),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_xor_2_Q : XORCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(1),
+      LI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(2),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count3
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy_3_Q : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(2),
+      DI => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(3),
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(3),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_xor_3_Q : XORCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(2),
+      LI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(3),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count4
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy_4_Q : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(3),
+      DI => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(4),
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(4),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(4)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_xor_4_Q : XORCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(3),
+      LI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(4),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count5
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy_5_Q : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(4),
+      DI => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(5),
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(5),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(5)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_xor_5_Q : XORCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(4),
+      LI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(5),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count6
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy_6_Q : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(5),
+      DI => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(6),
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(6),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(6)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_xor_6_Q : XORCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(5),
+      LI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(6),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count7
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy_7_Q : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(6),
+      DI => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(7),
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(7),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(7)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_xor_7_Q : XORCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(6),
+      LI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(7),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count8
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_xor_8_Q : XORCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_cy(7),
+      LI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(8),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count9
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count_0 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_n0025_inv,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count1,
+      Q => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count_1 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_n0025_inv,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count2,
+      Q => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count_2 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_n0025_inv,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count3,
+      Q => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count_3 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_n0025_inv,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count4,
+      Q => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count_4 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_n0025_inv,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count5,
+      Q => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(4)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count_5 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_n0025_inv,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count6,
+      Q => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(5)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count_6 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_n0025_inv,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count7,
+      Q => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(6)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count_7 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_n0025_inv,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count8,
+      Q => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(7)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count_8 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_n0025_inv,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count9,
+      Q => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(8)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_i : FDP
+    generic map(
+      INIT => '1'
+    )
+    port map (
+      C => clk,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_going_empty_PWR_35_o_MUX_13_o,
+      PRE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_i_4
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i : FDP
+    generic map(
+      INIT => '1'
+    )
+    port map (
+      C => clk,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_going_empty_PWR_35_o_MUX_13_o,
+      PRE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_i : FDC
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(0),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_comb_GND_292_o_MUX_15_o,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_i_2
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_fb_i : FDC
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(0),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_comb_GND_292_o_MUX_15_o,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_fb_i_178
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_d2 : FD
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_d1_225,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_d2_224
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_d1 : FD
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_223,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_d1_225
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg : FDPE
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_d1_225,
+      D => N1,
+      PRE => rst,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_223
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2 : FDP
+    generic map(
+      INIT => '1'
+    )
+    port map (
+      C => clk,
+      D => N1,
+      PRE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_comb,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_0 : FDP
+    generic map(
+      INIT => '1'
+    )
+    port map (
+      C => clk,
+      D => N1,
+      PRE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_comb,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_0_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg_1 : FDP
+    generic map(
+      INIT => '1'
+    )
+    port map (
+      C => clk,
+      D => N1,
+      PRE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_comb,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg_0 : FDP
+    generic map(
+      INIT => '1'
+    )
+    port map (
+      C => clk,
+      D => N1,
+      PRE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_comb,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_gm_3_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_carrynet(2),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1(3),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_carrynet(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_gm_2_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_carrynet(1),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1(2),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_carrynet(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_gm_1_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_carrynet(0),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1(1),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_carrynet(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_gm_0_gm1_m1 : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_srst_i_inv,
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_carrynet(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_gm_4_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_gmux_carrynet(3),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1(4),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_comp1
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_gm_3_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_carrynet(2),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1(3),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_carrynet(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_gm_2_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_carrynet(1),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1(2),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_carrynet(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_gm_1_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_carrynet(0),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1(1),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_carrynet(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_gm_0_gm1_m1 : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_srst_i_inv,
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_carrynet(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_gm_4_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_gmux_carrynet(3),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1(4),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_comp0
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_gm_3_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_carrynet(2),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1(3),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_carrynet(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_gm_2_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_carrynet(1),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1(2),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_carrynet(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_gm_1_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_carrynet(0),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1(1),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_carrynet(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_gm_0_gm1_m1 : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_srst_i_inv,
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_carrynet(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_gm_4_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_gmux_carrynet(3),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1(4),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_comp1
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_gm_3_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_carrynet(2),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1(3),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_carrynet(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_gm_2_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_carrynet(1),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1(2),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_carrynet(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_gm_1_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_carrynet(0),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1(1),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_carrynet(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_gm_0_gm1_m1 : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_srst_i_inv,
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_carrynet(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_gm_4_gms_ms : MUXCY
+    port map (
+      CI => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_gmux_carrynet(3),
+      DI => N1,
+      S => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1(4),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_comp0
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_8 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_ram_rd_en_i1_cepot,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_8_dpot_286,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(8)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_7 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_ram_rd_en_i1_cepot,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_7_dpot_285,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(7)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_6 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_ram_rd_en_i1_cepot,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_6_dpot_284,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(6)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_5 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(5),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(5)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_4 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(4),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(4)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_3 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(3),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_2 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(2),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_1 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(1),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_0 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_ram_rd_en_i1_cepot,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_0_dpot_283,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_8_Q_270,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(8)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_7 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_7_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(7)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_6 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_6_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(6)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_5 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_5_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(5)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_4 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_4_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(4)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_3 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_3_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_2 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_2_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_1 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_2_Q,
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_1_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1_8 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(8),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(8)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1_7 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(7),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(7)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1_6 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(6),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(6)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1_5 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(5),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(5)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1_4 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(4),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(4)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1_3 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(3),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1_2 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(2),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1_1 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(1),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1_0 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wr_pntr_plus1(0),
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_8_Q_279,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(8)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_7 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_7_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(7)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_6 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_6_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(6)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_5 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_5_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(5)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_4 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_4_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(4)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_3 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_3_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_2 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_2_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_1 : FDCE
+    generic map(
+      INIT => '0'
+    )
+    port map (
+      C => clk,
+      CE => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      CLR => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_wr_rst_reg(1),
+      D => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_1_Q,
+      Q => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_ram_rd_en_i1 : LUT2
+    generic map(
+      INIT => X"2"
+    )
+    port map (
+      I0 => rd_en,
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_ram_wr_en_i1 : LUT2
+    generic map(
+      INIT => X"2"
+    )
+    port map (
+      I0 => wr_en,
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_fb_i_178,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_tmp_ram_rd_en1 : LUT3
+    generic map(
+      INIT => X"CE"
+    )
+    port map (
+      I0 => rd_en,
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_0_Q,
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_tmp_ram_rd_en
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_comb1 : LUT2
+    generic map(
+      INIT => X"2"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_223,
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_asreg_d2_224,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_rd_rst_comb
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1_3_1 : LUT4
+    generic map(
+      INIT => X"8241"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(7),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(6),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(6),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(7),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1_2_1 : LUT4
+    generic map(
+      INIT => X"9009"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(5),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(5),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(4),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(4),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1_1_1 : LUT4
+    generic map(
+      INIT => X"8421"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(2),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(3),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(2),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(3),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1_4_1 : LUT2
+    generic map(
+      INIT => X"9"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(8),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(8),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1(4)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1_3_1 : LUT4
+    generic map(
+      INIT => X"8421"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(6),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(7),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(6),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(7),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1_2_1 : LUT4
+    generic map(
+      INIT => X"9009"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(5),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(5),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(4),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(4),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1_1_1 : LUT4
+    generic map(
+      INIT => X"9009"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(3),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(3),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(2),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(2),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1_0_1 : LUT4
+    generic map(
+      INIT => X"9009"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(1),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(1),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1_4_1 : LUT2
+    generic map(
+      INIT => X"9"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(8),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(8),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c0_v1(4)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1_3_1 : LUT4
+    generic map(
+      INIT => X"9009"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(7),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(7),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(6),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(6),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1_2_1 : LUT4
+    generic map(
+      INIT => X"8241"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(4),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(5),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(5),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(4),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1_1_1 : LUT4
+    generic map(
+      INIT => X"8421"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(2),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(3),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(2),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(3),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1_4_1 : LUT2
+    generic map(
+      INIT => X"9"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(8),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(8),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1(4)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1_3_1 : LUT4
+    generic map(
+      INIT => X"8421"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(6),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(7),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(6),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(7),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1_2_1 : LUT4
+    generic map(
+      INIT => X"9009"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(5),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(5),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(4),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(4),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1_1_1 : LUT4
+    generic map(
+      INIT => X"9009"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(3),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(3),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(2),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(2),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1_0_1 : LUT4
+    generic map(
+      INIT => X"9009"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(1),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(1),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1_4_1 : LUT2
+    generic map(
+      INIT => X"9"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(8),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(8),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c1_v1(4)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_7_1 : LUT6
+    generic map(
+      INIT => X"AAAAAAAA6AAAAAAA"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(7),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(6),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(5),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(4),
+      I4 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(3),
+      I5 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_3_bdd0,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_7_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_6_1 : LUT5
+    generic map(
+      INIT => X"AAAA6AAA"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(6),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(5),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(4),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(3),
+      I4 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_3_bdd0,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_6_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_7_1 : LUT6
+    generic map(
+      INIT => X"AAAAAAAA6AAAAAAA"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(7),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(6),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(5),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(4),
+      I4 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(3),
+      I5 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_3_bdd0,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_7_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_6_1 : LUT5
+    generic map(
+      INIT => X"AAAA6AAA"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(6),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(5),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(4),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(3),
+      I4 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_3_bdd0,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_6_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_8_SW0 : LUT2
+    generic map(
+      INIT => X"8"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(6),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(4),
+      O => N2
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_8_Q : LUT6
+    generic map(
+      INIT => X"AAAAAAAA6AAAAAAA"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(8),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(7),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(5),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(3),
+      I4 => N2,
+      I5 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_3_bdd0,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_8_Q_270
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_8_SW0 : LUT2
+    generic map(
+      INIT => X"8"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(6),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(4),
+      O => N4
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_8_Q : LUT6
+    generic map(
+      INIT => X"AAAAAAAA6AAAAAAA"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(8),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(7),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(5),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(3),
+      I4 => N4,
+      I5 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_3_bdd0,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_8_Q_279
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1_0_1 : LUT4
+    generic map(
+      INIT => X"0990"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(1),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(1),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_c1_v1(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1_0_1 : LUT4
+    generic map(
+      INIT => X"0990"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(1),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(1),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_c2_v1(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_Mmux_going_empty_PWR_35_o_MUX_13_o11 : LUT6
+    generic map(
+      INIT => X"F3A2FFA2F300FF00"
+    )
+    port map (
+      I0 => rd_en,
+      I1 => wr_en,
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_fb_i_178,
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      I4 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_comp0,
+      I5 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_comp1,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_going_empty_PWR_35_o_MUX_13_o
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_Mmux_ram_full_comb_GND_292_o_MUX_15_o11 : LUT6
+    generic map(
+      INIT => X"FA32F030FAF2F0F0"
+    )
+    port map (
+      I0 => wr_en,
+      I1 => rd_en,
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_fb_i_178,
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      I4 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_comp1,
+      I5 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_comp0,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_comb_GND_292_o_MUX_15_o
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_3_11 : LUT3
+    generic map(
+      INIT => X"F7"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(2),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(1),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_3_bdd0
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_3_11 : LUT3
+    generic map(
+      INIT => X"F7"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(2),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(1),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_3_bdd0
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_n0025_inv1 : LUT4
+    generic map(
+      INIT => X"0AC6"
+    )
+    port map (
+      I0 => wr_en,
+      I1 => rd_en,
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_gwss_wsts_ram_full_fb_i_178,
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_n0025_inv
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut_0_Q : LUT3
+    generic map(
+      INIT => X"65"
+    )
+    port map (
+      I0 => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(0),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      I2 => rd_en,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut_1_Q : LUT3
+    generic map(
+      INIT => X"A6"
+    )
+    port map (
+      I0 => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(1),
+      I1 => rd_en,
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(1)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut_2_Q : LUT3
+    generic map(
+      INIT => X"A6"
+    )
+    port map (
+      I0 => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(2),
+      I1 => rd_en,
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(2)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut_3_Q : LUT3
+    generic map(
+      INIT => X"A6"
+    )
+    port map (
+      I0 => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(3),
+      I1 => rd_en,
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(3)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut_4_Q : LUT3
+    generic map(
+      INIT => X"A6"
+    )
+    port map (
+      I0 => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(4),
+      I1 => rd_en,
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(4)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut_5_Q : LUT3
+    generic map(
+      INIT => X"A6"
+    )
+    port map (
+      I0 => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(5),
+      I1 => rd_en,
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(5)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut_6_Q : LUT3
+    generic map(
+      INIT => X"A6"
+    )
+    port map (
+      I0 => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(6),
+      I1 => rd_en,
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(6)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut_7_Q : LUT3
+    generic map(
+      INIT => X"A6"
+    )
+    port map (
+      I0 => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(7),
+      I1 => rd_en,
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(7)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut_8_Q : LUT3
+    generic map(
+      INIT => X"A6"
+    )
+    port map (
+      I0 => NlwRenamedSig_OI_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_count(8),
+      I1 => rd_en,
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_gdc_dc_dc_Mcount_count_lut(8)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_Mmux_gc0_count_8_GND_277_o_mux_2_OUT21 : LUT2
+    generic map(
+      INIT => X"9"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(1),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_1_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_Mmux_gc0_count_8_GND_277_o_mux_2_OUT31 : LUT3
+    generic map(
+      INIT => X"A6"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(2),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(1),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_2_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_Mmux_gcc0_gc0_count_8_GND_290_o_mux_2_OUT21 : LUT2
+    generic map(
+      INIT => X"9"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(1),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_1_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_Mmux_gcc0_gc0_count_8_GND_290_o_mux_2_OUT31 : LUT3
+    generic map(
+      INIT => X"A6"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(2),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(1),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_2_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_3_2 : LUT4
+    generic map(
+      INIT => X"AA6A"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(3),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(2),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(1),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_3_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_4_1 : LUT5
+    generic map(
+      INIT => X"AAAA6AAA"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(4),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(2),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(3),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(1),
+      I4 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_4_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_5_1 : LUT6
+    generic map(
+      INIT => X"AAAAAAAA6AAAAAAA"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(5),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(2),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(3),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(4),
+      I4 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(1),
+      I5 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_8_GND_277_o_mux_2_OUT_5_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_3_2 : LUT4
+    generic map(
+      INIT => X"AA6A"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(3),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(2),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(1),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_3_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_4_1 : LUT5
+    generic map(
+      INIT => X"AAAA6AAA"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(4),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(2),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(3),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(1),
+      I4 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_4_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_5_1 : LUT6
+    generic map(
+      INIT => X"AAAAAAAA6AAAAAAA"
+    )
+    port map (
+      I0 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(5),
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(2),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(3),
+      I3 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(4),
+      I4 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count(1),
+      I5 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_8_GND_290_o_mux_2_OUT_5_Q
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_6_dpot : LUT3
+    generic map(
+      INIT => X"D8"
+    )
+    port map (
+      I0 => rd_en,
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(6),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(6),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_6_dpot_284
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_7_dpot : LUT3
+    generic map(
+      INIT => X"D8"
+    )
+    port map (
+      I0 => rd_en,
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(7),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(7),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_7_dpot_285
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_8_dpot : LUT3
+    generic map(
+      INIT => X"D8"
+    )
+    port map (
+      I0 => rd_en,
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count(8),
+      I2 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(8),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_8_dpot_286
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_0_dpot : LUT2
+    generic map(
+      INIT => X"6"
+    )
+    port map (
+      I0 => rd_en,
+      I1 => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1_0_dpot_283
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_wr_pntr_0_inv1_INV_0 : INV
+    port map (
+      I => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wr_pntr_plus1(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_ram_rd_en_i1_cepot_INV_0 : INV
+    port map (
+      I => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_grss_rsts_ram_empty_fb_i_3,
+      O => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_ram_rd_en_i1_cepot
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram : 
+RAMB16BWER
+    generic map(
+      DATA_WIDTH_A => 36,
+      DATA_WIDTH_B => 36,
+      DOA_REG => 0,
+      DOB_REG => 0,
+      EN_RSTRAM_A => FALSE,
+      EN_RSTRAM_B => TRUE,
+      INITP_00 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_01 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_02 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_03 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_04 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_05 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_06 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_07 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_00 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_01 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_02 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_03 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_04 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_05 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_06 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_07 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_08 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_09 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_0A => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_0B => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_0C => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_0D => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_0E => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_0F => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_10 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_11 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_12 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_13 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_14 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_15 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_16 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_17 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_18 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_19 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_1A => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_1B => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_1C => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_1D => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_1E => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_1F => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_20 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_21 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_22 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_23 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_24 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_25 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_26 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_27 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_28 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_29 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_2A => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_2B => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_2C => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_2D => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_2E => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_2F => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_30 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_31 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_32 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_33 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_34 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_35 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_36 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_37 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_38 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_39 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_3A => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_3B => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_3C => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_3D => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_3E => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_3F => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_A => X"000000000",
+      INIT_B => X"000000000",
+      INIT_FILE => "NONE",
+      RSTTYPE => "SYNC",
+      RST_PRIORITY_A => "CE",
+      RST_PRIORITY_B => "CE",
+      SIM_COLLISION_CHECK => "ALL",
+      SIM_DEVICE => "SPARTAN6",
+      SRVAL_A => X"000000000",
+      SRVAL_B => X"000000000",
+      WRITE_MODE_A => "READ_FIRST",
+      WRITE_MODE_B => "READ_FIRST"
+    )
+    port map (
+      REGCEA => N1,
+      CLKA => clk,
+      ENB => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_tmp_ram_rd_en,
+      RSTB => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_0_Q,
+      CLKB => clk,
+      REGCEB => N1,
+      RSTA => N1,
+      ENA => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      DIPA(3) => din(35),
+      DIPA(2) => din(26),
+      DIPA(1) => din(17),
+      DIPA(0) => din(8),
+      WEA(3) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      WEA(2) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      WEA(1) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      WEA(0) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      DOA(31) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_31_UNCONNECTED
+,
+      DOA(30) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_30_UNCONNECTED
+,
+      DOA(29) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_29_UNCONNECTED
+,
+      DOA(28) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_28_UNCONNECTED
+,
+      DOA(27) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_27_UNCONNECTED
+,
+      DOA(26) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_26_UNCONNECTED
+,
+      DOA(25) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_25_UNCONNECTED
+,
+      DOA(24) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_24_UNCONNECTED
+,
+      DOA(23) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_23_UNCONNECTED
+,
+      DOA(22) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_22_UNCONNECTED
+,
+      DOA(21) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_21_UNCONNECTED
+,
+      DOA(20) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_20_UNCONNECTED
+,
+      DOA(19) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_19_UNCONNECTED
+,
+      DOA(18) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_18_UNCONNECTED
+,
+      DOA(17) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_17_UNCONNECTED
+,
+      DOA(16) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_16_UNCONNECTED
+,
+      DOA(15) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_15_UNCONNECTED
+,
+      DOA(14) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_14_UNCONNECTED
+,
+      DOA(13) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_13_UNCONNECTED
+,
+      DOA(12) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_12_UNCONNECTED
+,
+      DOA(11) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_11_UNCONNECTED
+,
+      DOA(10) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_10_UNCONNECTED
+,
+      DOA(9) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_9_UNCONNECTED
+,
+      DOA(8) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_8_UNCONNECTED
+,
+      DOA(7) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_7_UNCONNECTED
+,
+      DOA(6) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_6_UNCONNECTED
+,
+      DOA(5) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_5_UNCONNECTED
+,
+      DOA(4) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_4_UNCONNECTED
+,
+      DOA(3) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_3_UNCONNECTED
+,
+      DOA(2) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_2_UNCONNECTED
+,
+      DOA(1) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_1_UNCONNECTED
+,
+      DOA(0) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_0_UNCONNECTED
+,
+      ADDRA(13) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(8),
+      ADDRA(12) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(7),
+      ADDRA(11) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(6),
+      ADDRA(10) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(5),
+      ADDRA(9) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(4),
+      ADDRA(8) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(3),
+      ADDRA(7) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(2),
+      ADDRA(6) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(1),
+      ADDRA(5) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      ADDRA(4) => N1,
+      ADDRA(3) => N1,
+      ADDRA(2) => N1,
+      ADDRA(1) => N1,
+      ADDRA(0) => N1,
+      ADDRB(13) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(8),
+      ADDRB(12) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(7),
+      ADDRB(11) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(6),
+      ADDRB(10) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(5),
+      ADDRB(9) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(4),
+      ADDRB(8) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(3),
+      ADDRB(7) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(2),
+      ADDRB(6) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(1),
+      ADDRB(5) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      ADDRB(4) => N1,
+      ADDRB(3) => N1,
+      ADDRB(2) => N1,
+      ADDRB(1) => N1,
+      ADDRB(0) => N1,
+      DIB(31) => N1,
+      DIB(30) => N1,
+      DIB(29) => N1,
+      DIB(28) => N1,
+      DIB(27) => N1,
+      DIB(26) => N1,
+      DIB(25) => N1,
+      DIB(24) => N1,
+      DIB(23) => N1,
+      DIB(22) => N1,
+      DIB(21) => N1,
+      DIB(20) => N1,
+      DIB(19) => N1,
+      DIB(18) => N1,
+      DIB(17) => N1,
+      DIB(16) => N1,
+      DIB(15) => N1,
+      DIB(14) => N1,
+      DIB(13) => N1,
+      DIB(12) => N1,
+      DIB(11) => N1,
+      DIB(10) => N1,
+      DIB(9) => N1,
+      DIB(8) => N1,
+      DIB(7) => N1,
+      DIB(6) => N1,
+      DIB(5) => N1,
+      DIB(4) => N1,
+      DIB(3) => N1,
+      DIB(2) => N1,
+      DIB(1) => N1,
+      DIB(0) => N1,
+      DOPA(3) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_3_UNCONNECTED
+,
+      DOPA(2) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_2_UNCONNECTED
+,
+      DOPA(1) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_1_UNCONNECTED
+,
+      DOPA(0) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_0_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_0_UNCONNECTED
+,
+      DIPB(3) => N1,
+      DIPB(2) => N1,
+      DIPB(1) => N1,
+      DIPB(0) => N1,
+      DOPB(3) => dout(35),
+      DOPB(2) => dout(26),
+      DOPB(1) => dout(17),
+      DOPB(0) => dout(8),
+      DOB(31) => dout(34),
+      DOB(30) => dout(33),
+      DOB(29) => dout(32),
+      DOB(28) => dout(31),
+      DOB(27) => dout(30),
+      DOB(26) => dout(29),
+      DOB(25) => dout(28),
+      DOB(24) => dout(27),
+      DOB(23) => dout(25),
+      DOB(22) => dout(24),
+      DOB(21) => dout(23),
+      DOB(20) => dout(22),
+      DOB(19) => dout(21),
+      DOB(18) => dout(20),
+      DOB(17) => dout(19),
+      DOB(16) => dout(18),
+      DOB(15) => dout(16),
+      DOB(14) => dout(15),
+      DOB(13) => dout(14),
+      DOB(12) => dout(13),
+      DOB(11) => dout(12),
+      DOB(10) => dout(11),
+      DOB(9) => dout(10),
+      DOB(8) => dout(9),
+      DOB(7) => dout(7),
+      DOB(6) => dout(6),
+      DOB(5) => dout(5),
+      DOB(4) => dout(4),
+      DOB(3) => dout(3),
+      DOB(2) => dout(2),
+      DOB(1) => dout(1),
+      DOB(0) => dout(0),
+      WEB(3) => N1,
+      WEB(2) => N1,
+      WEB(1) => N1,
+      WEB(0) => N1,
+      DIA(31) => din(34),
+      DIA(30) => din(33),
+      DIA(29) => din(32),
+      DIA(28) => din(31),
+      DIA(27) => din(30),
+      DIA(26) => din(29),
+      DIA(25) => din(28),
+      DIA(24) => din(27),
+      DIA(23) => din(25),
+      DIA(22) => din(24),
+      DIA(21) => din(23),
+      DIA(20) => din(22),
+      DIA(19) => din(21),
+      DIA(18) => din(20),
+      DIA(17) => din(19),
+      DIA(16) => din(18),
+      DIA(15) => din(16),
+      DIA(14) => din(15),
+      DIA(13) => din(14),
+      DIA(12) => din(13),
+      DIA(11) => din(12),
+      DIA(10) => din(11),
+      DIA(9) => din(10),
+      DIA(8) => din(9),
+      DIA(7) => din(7),
+      DIA(6) => din(6),
+      DIA(5) => din(5),
+      DIA(4) => din(4),
+      DIA(3) => din(3),
+      DIA(2) => din(2),
+      DIA(1) => din(1),
+      DIA(0) => din(0)
+    );
+  U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram : 
+RAMB16BWER
+    generic map(
+      DATA_WIDTH_A => 36,
+      DATA_WIDTH_B => 36,
+      DOA_REG => 0,
+      DOB_REG => 0,
+      EN_RSTRAM_A => FALSE,
+      EN_RSTRAM_B => TRUE,
+      INITP_00 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_01 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_02 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_03 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_04 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_05 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_06 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INITP_07 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_00 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_01 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_02 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_03 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_04 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_05 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_06 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_07 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_08 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_09 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_0A => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_0B => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_0C => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_0D => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_0E => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_0F => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_10 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_11 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_12 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_13 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_14 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_15 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_16 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_17 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_18 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_19 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_1A => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_1B => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_1C => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_1D => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_1E => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_1F => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_20 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_21 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_22 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_23 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_24 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_25 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_26 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_27 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_28 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_29 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_2A => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_2B => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_2C => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_2D => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_2E => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_2F => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_30 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_31 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_32 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_33 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_34 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_35 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_36 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_37 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_38 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_39 => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_3A => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_3B => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_3C => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_3D => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_3E => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_3F => X"0000000000000000000000000000000000000000000000000000000000000000",
+      INIT_A => X"000000000",
+      INIT_B => X"000000000",
+      INIT_FILE => "NONE",
+      RSTTYPE => "SYNC",
+      RST_PRIORITY_A => "CE",
+      RST_PRIORITY_B => "CE",
+      SIM_COLLISION_CHECK => "ALL",
+      SIM_DEVICE => "SPARTAN6",
+      SRVAL_A => X"000000000",
+      SRVAL_B => X"000000000",
+      WRITE_MODE_A => "READ_FIRST",
+      WRITE_MODE_B => "READ_FIRST"
+    )
+    port map (
+      REGCEA => N1,
+      CLKA => clk,
+      ENB => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_tmp_ram_rd_en,
+      RSTB => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_rstblk_ngwrdrst_grst_rd_rst_reg_0_Q,
+      CLKB => clk,
+      REGCEB => N1,
+      RSTA => N1,
+      ENA => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      DIPA(3) => N1,
+      DIPA(2) => N1,
+      DIPA(1) => N1,
+      DIPA(0) => N1,
+      WEA(3) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      WEA(2) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      WEA(1) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      WEA(0) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_ram_wr_en,
+      DOA(31) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_31_UNCONNECTED
+,
+      DOA(30) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_30_UNCONNECTED
+,
+      DOA(29) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_29_UNCONNECTED
+,
+      DOA(28) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_28_UNCONNECTED
+,
+      DOA(27) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_27_UNCONNECTED
+,
+      DOA(26) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_26_UNCONNECTED
+,
+      DOA(25) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_25_UNCONNECTED
+,
+      DOA(24) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_24_UNCONNECTED
+,
+      DOA(23) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_23_UNCONNECTED
+,
+      DOA(22) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_22_UNCONNECTED
+,
+      DOA(21) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_21_UNCONNECTED
+,
+      DOA(20) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_20_UNCONNECTED
+,
+      DOA(19) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_19_UNCONNECTED
+,
+      DOA(18) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_18_UNCONNECTED
+,
+      DOA(17) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_17_UNCONNECTED
+,
+      DOA(16) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_16_UNCONNECTED
+,
+      DOA(15) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_15_UNCONNECTED
+,
+      DOA(14) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_14_UNCONNECTED
+,
+      DOA(13) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_13_UNCONNECTED
+,
+      DOA(12) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_12_UNCONNECTED
+,
+      DOA(11) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_11_UNCONNECTED
+,
+      DOA(10) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_10_UNCONNECTED
+,
+      DOA(9) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_9_UNCONNECTED
+,
+      DOA(8) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_8_UNCONNECTED
+,
+      DOA(7) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_7_UNCONNECTED
+,
+      DOA(6) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_6_UNCONNECTED
+,
+      DOA(5) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_5_UNCONNECTED
+,
+      DOA(4) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_4_UNCONNECTED
+,
+      DOA(3) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_3_UNCONNECTED
+,
+      DOA(2) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_2_UNCONNECTED
+,
+      DOA(1) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_1_UNCONNECTED
+,
+      DOA(0) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOA_0_UNCONNECTED
+,
+      ADDRA(13) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(8),
+      ADDRA(12) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(7),
+      ADDRA(11) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(6),
+      ADDRA(10) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(5),
+      ADDRA(9) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(4),
+      ADDRA(8) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(3),
+      ADDRA(7) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(2),
+      ADDRA(6) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(1),
+      ADDRA(5) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_wr_wpntr_gcc0_gc0_count_d1(0),
+      ADDRA(4) => N1,
+      ADDRA(3) => N1,
+      ADDRA(2) => N1,
+      ADDRA(1) => N1,
+      ADDRA(0) => N1,
+      ADDRB(13) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(8),
+      ADDRB(12) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(7),
+      ADDRB(11) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(6),
+      ADDRB(10) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(5),
+      ADDRB(9) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(4),
+      ADDRB(8) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(3),
+      ADDRB(7) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(2),
+      ADDRB(6) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(1),
+      ADDRB(5) => U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_gl0_rd_rpntr_gc0_count_d1(0),
+      ADDRB(4) => N1,
+      ADDRB(3) => N1,
+      ADDRB(2) => N1,
+      ADDRB(1) => N1,
+      ADDRB(0) => N1,
+      DIB(31) => N1,
+      DIB(30) => N1,
+      DIB(29) => N1,
+      DIB(28) => N1,
+      DIB(27) => N1,
+      DIB(26) => N1,
+      DIB(25) => N1,
+      DIB(24) => N1,
+      DIB(23) => N1,
+      DIB(22) => N1,
+      DIB(21) => N1,
+      DIB(20) => N1,
+      DIB(19) => N1,
+      DIB(18) => N1,
+      DIB(17) => N1,
+      DIB(16) => N1,
+      DIB(15) => N1,
+      DIB(14) => N1,
+      DIB(13) => N1,
+      DIB(12) => N1,
+      DIB(11) => N1,
+      DIB(10) => N1,
+      DIB(9) => N1,
+      DIB(8) => N1,
+      DIB(7) => N1,
+      DIB(6) => N1,
+      DIB(5) => N1,
+      DIB(4) => N1,
+      DIB(3) => N1,
+      DIB(2) => N1,
+      DIB(1) => N1,
+      DIB(0) => N1,
+      DOPA(3) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_3_UNCONNECTED
+,
+      DOPA(2) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_2_UNCONNECTED
+,
+      DOPA(1) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_1_UNCONNECTED
+,
+      DOPA(0) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPA_0_UNCONNECTED
+,
+      DIPB(3) => N1,
+      DIPB(2) => N1,
+      DIPB(1) => N1,
+      DIPB(0) => N1,
+      DOPB(3) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPB_3_UNCONNECTED
+,
+      DOPB(2) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPB_2_UNCONNECTED
+,
+      DOPB(1) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPB_1_UNCONNECTED
+,
+      DOPB(0) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOPB_0_UNCONNECTED
+,
+      DOB(31) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOB_31_UNCONNECTED
+,
+      DOB(30) => dout(63),
+      DOB(29) => dout(62),
+      DOB(28) => dout(61),
+      DOB(27) => dout(60),
+      DOB(26) => dout(59),
+      DOB(25) => dout(58),
+      DOB(24) => dout(57),
+      DOB(23) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOB_23_UNCONNECTED
+,
+      DOB(22) => dout(56),
+      DOB(21) => dout(55),
+      DOB(20) => dout(54),
+      DOB(19) => dout(53),
+      DOB(18) => dout(52),
+      DOB(17) => dout(51),
+      DOB(16) => dout(50),
+      DOB(15) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOB_15_UNCONNECTED
+,
+      DOB(14) => dout(49),
+      DOB(13) => dout(48),
+      DOB(12) => dout(47),
+      DOB(11) => dout(46),
+      DOB(10) => dout(45),
+      DOB(9) => dout(44),
+      DOB(8) => dout(43),
+      DOB(7) => 
+NLW_U0_xst_fifo_generator_gconvfifo_rf_grf_rf_gntv_or_sync_fifo_mem_gbm_gbmg_gbmga_ngecc_bmg_gnativebmg_native_blk_mem_gen_valid_cstr_ramloop_1_ram_r_s6_noinit_ram_SDP_SIMPLE_PRIM18_ram_DOB_7_UNCONNECTED
+,
+      DOB(6) => dout(42),
+      DOB(5) => dout(41),
+      DOB(4) => dout(40),
+      DOB(3) => dout(39),
+      DOB(2) => dout(38),
+      DOB(1) => dout(37),
+      DOB(0) => dout(36),
+      WEB(3) => N1,
+      WEB(2) => N1,
+      WEB(1) => N1,
+      WEB(0) => N1,
+      DIA(31) => N1,
+      DIA(30) => din(63),
+      DIA(29) => din(62),
+      DIA(28) => din(61),
+      DIA(27) => din(60),
+      DIA(26) => din(59),
+      DIA(25) => din(58),
+      DIA(24) => din(57),
+      DIA(23) => N1,
+      DIA(22) => din(56),
+      DIA(21) => din(55),
+      DIA(20) => din(54),
+      DIA(19) => din(53),
+      DIA(18) => din(52),
+      DIA(17) => din(51),
+      DIA(16) => din(50),
+      DIA(15) => N1,
+      DIA(14) => din(49),
+      DIA(13) => din(48),
+      DIA(12) => din(47),
+      DIA(11) => din(46),
+      DIA(10) => din(45),
+      DIA(9) => din(44),
+      DIA(8) => din(43),
+      DIA(7) => N1,
+      DIA(6) => din(42),
+      DIA(5) => din(41),
+      DIA(4) => din(40),
+      DIA(3) => din(39),
+      DIA(2) => din(38),
+      DIA(1) => din(37),
+      DIA(0) => din(36)
+    );
+
+end STRUCTURE;
+
+-- synthesis translate_on

@@ -1,0 +1,35 @@
+#!/bin/sh 
+
+# 
+# This script is loading modules in the kernel. 
+# 
+
+kernel=`uname -r | grep 2.6`
+
+if [ ${kernel} = "" ]
+    then
+	module=ambpex.o
+        mname=${module%.o}
+    else
+        module=`find *.ko`
+        mname=${module%.ko}
+fi
+module="pexdrv.ko"
+
+if [ ${module} = "" ]
+    then
+        echo No kernel module found. ${module}
+	exit
+    else
+        echo Find ${module} - kernel module.
+fi
+
+/sbin/insmod ./$module $* || exit 1
+
+sleep 1
+
+devfiles=`ls /dev/* | grep AMB`
+
+#echo ${devfiles}
+
+chmod -v 666 ${devfiles}
