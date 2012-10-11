@@ -1,0 +1,14 @@
+[Version]
+Version=9.1
+[Designs]
+sp605_lx45t_wishbone=sp605_lx45t_wishbone.adf
+[Settings]
+Active=sp605_lx45t_wishbone
+[Expand]
+sp605_lx45t_wishbone=1
+[Browser]
+sort=order
+mode=none
+[Order]
+order=1
+macro=
