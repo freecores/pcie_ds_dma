@@ -791,7 +791,7 @@ u32 pex_board::core_set_local_addr(int DmaChan, u32 addr)
 {
     AMB_SET_DMA_CHANNEL DmaParam;
     DmaParam.DmaChanNum = DmaChan;
-    DmaParam.Param = 0;
+    DmaParam.Param = addr;
 
     if(m_Descr[DmaChan])
     {
