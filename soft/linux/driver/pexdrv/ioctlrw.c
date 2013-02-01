@@ -15,6 +15,7 @@
 #include "pexioctl.h"
 #include "hardware.h"
 #include "ambpexregs.h"
+#include "brd_info.h"
 
 //--------------------------------------------------------------------
 

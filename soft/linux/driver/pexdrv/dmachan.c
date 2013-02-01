@@ -79,6 +79,8 @@ int RequestMemory(struct CDmaChannel *dma, void** ppVirtAddr, u32 size, u32 *pCo
     // а при повторных только отображаем выделенную память на пользовательское пространство
     if(!dma->m_UseCount)
     {
+        dma_addr_t pa = (dma_addr_t)0;
+
         dma->m_MemType = bMemType;
         dma->m_BlockCount = *pCount;
         dma->m_BlockSize = size;
@@ -86,13 +88,14 @@ int RequestMemory(struct CDmaChannel *dma, void** ppVirtAddr, u32 size, u32 *pCo
         // выделяем память под описатели блоков (системный, и логический адрес для каждого блока)
         dma->m_pBufDscr.SystemAddress = (void*)dma_alloc_coherent( dma->m_dev,
                                                                    dma->m_BlockCount * sizeof(SHARED_MEMORY_DESCRIPTION),
-                                                                   &dma->m_pBufDscr.LogicalAddress, GFP_KERNEL);
+                                                                   &pa, GFP_KERNEL);
         if(!dma->m_pBufDscr.SystemAddress)
         {
             printk("<0>%s(): Not memory for buffer descriptions\n", __FUNCTION__);
             return -ENOMEM;
         }
 
+        dma->m_pBufDscr.LogicalAddress = (size_t)pa;
         dma->m_ScatterGatherTableEntryCnt = 0;
     }
 

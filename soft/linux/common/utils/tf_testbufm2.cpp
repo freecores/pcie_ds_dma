@@ -1,10 +1,16 @@
 /**     \file
+        \brief Функции формирования и проверки массива данных
+
+        В файле содержится реализация класса TF_TestBufM2 - формирование и проверка массива данных.
+
+        \author Dmitry Smekhov
+        \version 1.0
+
+
 */
 
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 
 #include "utypes.h"
 #include "tf_testbufm2.h"
@@ -33,16 +39,13 @@ void	TF_TestBufM2::buf_set( U32 *buf, U32 n, U32 size, U32 mode )
 {
     //  n%100 - тип блока
     U32 ii;
-    //U32 di0, di1;
-    //U32 cnt_err=0;
 
     __int64 *ptr=(__int64*)buf;
     U32 size64 = size/2;
-    __int64 data_ex;
-    //__int64 data_in;
-    __int64 data_sig;
-    __int64 data_ex1;
-    __int64 data_ex2;
+    __int64 data_ex = 0ULL;
+    __int64 data_sig = 0ULL;
+    __int64 data_ex1 = 0ULL;
+    __int64 data_ex2 = 0ULL;
 
     data_sig = n;
     if( mode & 0x80 )
@@ -62,7 +65,7 @@ void	TF_TestBufM2::buf_set( U32 *buf, U32 n, U32 size, U32 mode )
     case 2:  data_ex = 1; break;
     case 3:  data_ex = ~1; break;
     case 4:  data_ex = 1;  data_ex2=0; break;
-    case 5:  data_ex = ~1; data_ex2=0xFFFFFFFFFFFFFFFFLL;  break;
+    case 5:  data_ex = ~1; data_ex2=0xFFFFFFFFFFFFFFFFULL;  break;
     case 6:
     case 7:  data_ex = data_ex_cnt; break;
     case 8:
@@ -79,7 +82,7 @@ void	TF_TestBufM2::buf_set( U32 *buf, U32 n, U32 size, U32 mode )
             //data_in=*ptr++;
             *ptr++=data_ex;
             {
-                U32 f= (data_ex & 0x8000000000000000LL) ? 1:0;
+                U32 f= (data_ex & 0x8000000000000000ULL) ? 1:0;
                 data_ex <<= 1;
                 data_ex &=~1;
                 data_ex |=f;
@@ -93,7 +96,7 @@ void	TF_TestBufM2::buf_set( U32 *buf, U32 n, U32 size, U32 mode )
         //data_in=*ptr++;
         *ptr++=(~data_ex);
         {
-            U32 f= (data_ex & 0x8000000000000000LL) ? 1:0;
+            U32 f= (data_ex & 0x8000000000000000ULL) ? 1:0;
             data_ex <<= 1;
             data_ex &=~1;
             data_ex |=f;
@@ -106,7 +109,7 @@ void	TF_TestBufM2::buf_set( U32 *buf, U32 n, U32 size, U32 mode )
             *ptr++=~data_ex;
 
             {
-                U32 f= (data_ex & 0x8000000000000000LL) ? 1:0;
+                U32 f= (data_ex & 0x8000000000000000ULL) ? 1:0;
                 data_ex <<= 1;
                 data_ex &=~1;
                 data_ex |=f;
@@ -128,7 +131,7 @@ void	TF_TestBufM2::buf_set( U32 *buf, U32 n, U32 size, U32 mode )
                 *ptr++=data_ex1;
                 if( flag )
                 {
-                    U32 f= (data_ex & 0x8000000000000000LL) ? 1:0;
+                    U32 f= (data_ex & 0x8000000000000000ULL) ? 1:0;
                     data_ex <<= 1;
                     data_ex &=~1;
                     data_ex |=f;
@@ -325,11 +328,11 @@ U32     TF_TestBufM2::buf_check( U32 *buf, U32 n, U32 size, U32 mode ) {
 
     __int64 *ptr=(__int64*)buf;
     U32 size64 = size/2;
-    __int64 data_ex;
-    __int64 data_in;
-    __int64 data_sig;
-    __int64 data_ex1;
-    __int64 data_ex2;
+    __int64 data_ex = 0ULL;
+    __int64 data_in = 0ULL;
+    __int64 data_sig = 0ULL;
+    __int64 data_ex1 = 0ULL;
+    __int64 data_ex2 = 0ULL;
 
     data_sig = n;
     if( mode & 0x80 )
@@ -369,7 +372,7 @@ U32     TF_TestBufM2::buf_check( U32 *buf, U32 n, U32 size, U32 mode ) {
     case 2:  data_ex = 1; break;
     case 3:  data_ex = ~1; break;
     case 4:  data_ex = 1;  data_ex2=0; break;
-    case 5:  data_ex = ~1; data_ex2=0xFFFFFFFFFFFFFFFFLL;  break;
+    case 5:  data_ex = ~1; data_ex2=0xFFFFFFFFFFFFFFFFULL;  break;
     case 6:
     case 7:  data_ex = data_ex_cnt; break;
     case 8:
@@ -390,7 +393,7 @@ U32     TF_TestBufM2::buf_check( U32 *buf, U32 n, U32 size, U32 mode ) {
                 //cnt_err=0;
             }
             {
-                U32 f= (data_ex & 0x8000000000000000LL) ? 1:0;
+                U32 f= (data_ex & 0x8000000000000000ULL) ? 1:0;
                 data_ex <<= 1;
                 data_ex &=~1;
                 data_ex |=f;
@@ -407,7 +410,7 @@ U32     TF_TestBufM2::buf_check( U32 *buf, U32 n, U32 size, U32 mode ) {
             cnt_err+=check( 1, ~data_ex, data_in );
         }
         {
-            U32 f= (data_ex & 0x8000000000000000LL) ? 1:0;
+            U32 f= (data_ex & 0x8000000000000000ULL) ? 1:0;
             data_ex <<= 1;
             data_ex &=~1;
             data_ex |=f;
@@ -431,7 +434,7 @@ U32     TF_TestBufM2::buf_check( U32 *buf, U32 n, U32 size, U32 mode ) {
 
 
             {
-                U32 f= (data_ex & 0x8000000000000000LL) ? 1:0;
+                U32 f= (data_ex & 0x8000000000000000ULL) ? 1:0;
                 data_ex <<= 1;
                 data_ex &=~1;
                 data_ex |=f;
@@ -457,7 +460,7 @@ U32     TF_TestBufM2::buf_check( U32 *buf, U32 n, U32 size, U32 mode ) {
                 }
                 if( flag )
                 {
-                    U32 f= (data_ex & 0x8000000000000000LL) ? 1:0;
+                    U32 f= (data_ex & 0x8000000000000000ULL) ? 1:0;
                     data_ex <<= 1;
                     data_ex &=~1;
                     data_ex |=f;
@@ -590,7 +593,7 @@ U32     TF_TestBufM2::buf_check( U32 *buf, U32 n, U32 size, U32 mode ) {
         Массив должен быть сформирован функцией buf_set или аналогичной
         При обнаружении ошибки в массив word_error записываются четыре числа:
                 - номер массива
-                - индекс в массиве
+                - индекс в массивк
                 - ожидаемые данные
                 - полученные данные
         В массивы bit_error0 и bit_error1 заносится распределение ошибок по битам.
@@ -616,7 +619,6 @@ U32     TF_TestBufM2::buf_check_psd( U32 *buf, U32 size  )
     __int64 data_ex;
     __int64 data_in;
 
-
     data_ex = data_ex_psd ;
 
 
@@ -626,7 +628,16 @@ U32     TF_TestBufM2::buf_check_psd( U32 *buf, U32 size  )
 
         if( data_ex!=data_in )
         {
-            cnt_err+=check( ii, data_ex, data_in );
+            if( word_cnt_error<max_cnt_error )
+            {
+                word_error[ word_cnt_error*4+0 ]=buf_current;
+                word_error[ word_cnt_error*4+1 ]=ii;
+                word_error[ word_cnt_error*4+2 ]=data_ex;
+                word_error[ word_cnt_error*4+3 ]=data_in;
+            }
+            word_cnt_error++;
+            cnt_err++;
+            //cnt_err+=check( ii, data_ex, data_in );
             data_ex=data_in;
         }
 
@@ -637,12 +648,14 @@ U32     TF_TestBufM2::buf_check_psd( U32 *buf, U32 size  )
              f59 = data_ex >> 59;
              f0 = (f63 ^ f62 ^ f60 ^ f59)&1;
              */
+
             U32 data_h=data_ex>>32;
             U32 f63 = data_h >> 31;
             U32 f62 = data_h >> 30;
             U32 f60 = data_h >> 28;
             U32 f59 = data_h >> 27;
             U32 f0 = (f63 ^ f62 ^ f60 ^ f59)&1;
+
             //U32 data_l=data_ex;
             //U32 f31 = (data_l>>31) & 1;
             //data_l<<=1;
@@ -680,6 +693,58 @@ U32     TF_TestBufM2::buf_check_psd( U32 *buf, U32 size  )
 
 }
 
+//! Проверка двоично-инверсной последовательности
+U32     TF_TestBufM2::buf_check_inv( U32 *buf, U32 size  )
+{
+
+    //  n%100 - тип блока
+    U32 ii;
+    U32 cnt_err=0;
+
+    __int64 *ptr=(__int64*)buf;
+    U32 size64 = size/2;
+    __int64 data_ex;
+    __int64 data_in;
+
+    register unsigned f0;
+
+
+    data_ex = data_ex_inv ;
+
+
+    for( ii=0; ii<size64; ii++ )
+    {
+        data_in=*ptr++;
+
+        if( data_ex!=data_in )
+        {
+            cnt_err+=check( ii, data_ex, data_in );
+            //data_ex=data_in;
+        }
+
+        //data_h=data_ex>>32; f63 = data_h >> 31; f0 = f63^1; data_ex <<= 1; data_ex &= ~1; data_ex |=f0;
+        f0 = ((data_ex >>63) & 1) ^1; data_ex <<= 1; data_ex &= ~1; data_ex |=f0;
+
+
+
+
+    }
+
+    data_ex_inv = data_ex;
+
+    block_mode++;
+    if( block_mode==10 )
+        block_mode=0;
+
+    buf_current++;
+    if (cnt_err==0)
+        buf_cnt_ok++;
+    else
+        buf_cnt_error++;
+
+    return cnt_err;
+
+}
 
 //! Начало проверки группы массивов
 /**     Функция подготавливает параметры для проверки нескольких массивов.
@@ -764,10 +829,11 @@ char*  TF_TestBufM2::report_word_error( void ) {
 
     char *ptr=str;
     int len;
-    char bit[64], *ptr_bit;
+    //char bit[64], *ptr_bit;
     U32 nb, na;
     __int64 dout, din;
     int size=0;
+    //U32 mask;
     *ptr=0;
     int cnt=max_cnt_error;
     if( word_cnt_error<max_cnt_error )
@@ -777,7 +843,7 @@ char*  TF_TestBufM2::report_word_error( void ) {
         na=word_error[ii*4+1];
         dout=word_error[ii*4+2];
         din=word_error[ii*4+3];
-        ptr_bit=bit;
+        //ptr_bit=bit;
         /*
           mask=0x80000000;
           for( int jj=0; jj<32; jj++ ) {
@@ -816,63 +882,14 @@ char*  TF_TestBufM2::report_word_error( void ) {
 char*  TF_TestBufM2::report_bit_error( void ) {
 
     char *ptr=str;
+    //int len;
+    //char bit[64], *ptr_bit;
+    //U32 mask;
     *ptr=0;
 
     return str;
 }
 
-//! Проверка двоично-инверсной последовательности
-U32     TF_TestBufM2::buf_check_inv( U32 *buf, U32 size  )
-{
-
-    //  n%100 - тип блока
-    U32 ii;
-    U32 cnt_err=0;
-
-    __int64 *ptr=(__int64*)buf;
-    U32 size64 = size/2;
-    __int64 data_ex;
-    __int64 data_in;
-
-    register unsigned f0;
-
-
-    data_ex = data_ex_inv ;
-
-
-    for( ii=0; ii<size64; ii++ )
-    {
-        data_in=*ptr++;
-
-        if( data_ex!=data_in )
-        {
-            cnt_err+=check( ii, data_ex, data_in );
-            //data_ex=data_in;
-        }
-
-        //data_h=data_ex>>32; f63 = data_h >> 31; f0 = f63^1; data_ex <<= 1; data_ex &= ~1; data_ex |=f0;
-        f0 = ((data_ex >>63) & 1) ^1; data_ex <<= 1; data_ex &= ~1; data_ex |=f0;
-
-
-
-
-    }
-
-    data_ex_inv = data_ex;
-
-    block_mode++;
-    if( block_mode==10 )
-        block_mode=0;
-
-    buf_current++;
-    if (cnt_err==0)
-        buf_cnt_ok++;
-    else
-        buf_cnt_error++;
-
-    return cnt_err;
-
-}
-
 
 //---------------------------------------------------------------------------
+

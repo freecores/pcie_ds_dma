@@ -12,7 +12,6 @@
 #ifndef TF_TestBufM2H
 #define TF_TestBufM2H
 
-
 //!  Проверка массива данных
 /**     Класс содержит функции для проверки произвольных
         массивов.
@@ -51,7 +50,7 @@
 			Начальное значение - 1
 			Слово формируется сдвигом на один разряд вправо.
 			В младший разряд слова записывается значение x[63] xor x[62] xor x[60] xor x[59] 
-																
+
 
 		Для режима счётчика и псевдослучайной последовательности начальное значение
 		формируется при инициализации тестовой последовательности.
@@ -74,75 +73,55 @@
 */
 class TF_TestBufM2 {
 
-        U32     bit_error0[64]; //!< Число ошибок типа принят 0
-        U32     bit_error1[64]; //!< Число ошибок типа принят 1
+    U32     bit_error0[64]; //!< Число ошибок типа принят 0
+    U32     bit_error1[64]; //!< Число ошибок типа принят 1
 
-        U32     max_cnt_error;  //!< Заданное максимальное число ошибок
-        U32     max_bit_cnt;    //!< Число бит в слове
-        U32     buf_cnt_ok;     //!< Число правильных массивов.
-        U32     buf_cnt_error;  //!< Число неправильных массивов.
-        U32     word_cnt_error; //!< Число неправильных слов.
-        U32     buf_current;    //!< Номер текущего массива.
-         __int64 word_error[4*32];  //!< Список ошибок
+    U32     max_cnt_error;  //!< Заданное максимальное число ошибок
+    U32     max_bit_cnt;    //!< Число бит в слове
+    U32     buf_cnt_ok;     //!< Число правильных массивов.
+    U32     buf_cnt_error;  //!< Число неправильных массивов.
+    U32     word_cnt_error; //!< Число неправильных слов.
+    U32     buf_current;    //!< Номер текущего массива.
+    __int64 word_error[4*32];  //!< Список ошибок
 
-        char   str[10240];       //!< Буфер сообщений
-        U32     block_mode;     //!< Тип блока
-        __int64 data_ex_cnt;
-        __int64 data_ex_noise;
-        __int64 data_ex_psd;
-        __int64 data_ex_inv;
+    char   str[10240];       //!< Буфер сообщений
+    U32     block_mode;     //!< Тип блока
+    __int64 data_ex_cnt;
+    __int64 data_ex_noise;
+    __int64 data_ex_psd;
+	__int64 data_ex_inv;
 
+public:
 
-
-        float *resData;
-        int FFT_size;
-        int numberOfSteps;
-        int numberOfFFTSizeSteps;
-        int m_chanMask;
-
-        U32   lowRange;
-        U32   topRange;
-        U32   fftSize;
+    TF_TestBufM2();      //!< Конструктор
+    ~TF_TestBufM2();     //!< Деструктор
 
 
-  public:
+    //! Формирование массива
+    void buf_set( U32 *buf, U32 n, U32 size, U32 mode ) ;
 
-        TF_TestBufM2();      //!< Конструктор
-        ~TF_TestBufM2();     //!< Деструктор
+    inline U32 check( U32 index, __int64 d0, __int64 di0 );
 
+    //! Проверка массива
+    U32  buf_check( U32 *buf, U32 n, U32 size, U32 mode );//, U32 *err, U32 size_err, U32 *bit_err, U32 bit_cnt );
 
-        //! Формирование массива
-        void buf_set( U32 *buf, U32 n, U32 size, U32 mode ) ;
+    //! Начало проверки группы массивов
+    void  buf_check_start( U32 n_error, U32 bit_cnt );
 
-        inline U32 check( U32 index, __int64 d0, __int64 di0 );
+    //! Результаты проверки группы массивов
+    U32   check_result( U32 *cnt_ok, U32 *cnt_error, U32 **error, U32 **bit0, U32 **bit1 );
 
-        //! Проверка массива
-        U32  buf_check( U32 *buf, U32 n, U32 size, U32 mode );//, U32 *err, U32 size_err, U32 *bit_err, U32 bit_cnt );
+    //! Формирование отчёта по ошибкам
+    char*  report_word_error( void );
 
-        //! Начало проверки группы массивов
-        void  buf_check_start( U32 n_error, U32 bit_cnt );
+    //! Формирование отчёта распределения ошибок по битам
+    char*  report_bit_error( void );
 
-        //! Результаты проверки группы массивов
-        U32   check_result( U32 *cnt_ok, U32 *cnt_error, U32 **error, U32 **bit0, U32 **bit1 );
+    //! Проверка псевдослучайной последовательности
+    U32 buf_check_psd( U32 *buf, U32 size  );
 
-        //! Формирование отчёта по ошибкам
-        char*  report_word_error( void );
-
-        //! Формирование отчёта распределения ошибок по битам
-        char*  report_bit_error( void );
-
-        //! Проверка псевдослучайной последовательности
-        U32     buf_check_psd( U32 *buf, U32 size  );
-
-        //! Проверка двоично-инверсной последовательности
-        U32     buf_check_inv( U32 *buf, U32 size  );
-
-
+    //! Проверка двоично-инверсной последовательности
+    U32 buf_check_inv( U32 *buf, U32 size  );
 };
 
-
-
-
-
-//---------------------------------------------------------------------------
 #endif

@@ -12,14 +12,28 @@ ROOT_DIR = $(shell pwd)
 CC = $(CROSS_COMPILE)g++
 LD = $(CROSS_COMPILE)g++
 
-CFLAGS := -D__LINUX__ -O2 -Wall -I../../../driver/pexdrv -I../../../common/board -I../../../common/pex -I./work -I./utils
-LFLAGS := -Wl -ldl -lrt -lpthread
-SRCDIR := board pex work utils
+INCDIR := . \
+ ../../../driver/pexdrv \
+ ../../../common/board \
+ ../../../common/pex \
+ ../../../common/utils \
+ ../../../common/dac \
+ ../../../common/adc \
+ ../../../common/dma
+ 
+INCLUDE := $(addprefix -I, $(INCDIR))
+
+CFLAGS := -D__LINUX__ -O2 -Wall $(INCLUDE)
+LFLAGS := -Wl -ldl -lrt -lpthread -lm
+
 SRCFILE := $(wildcard *.cpp)
+SRCFILE += $(wildcard ../../../common/board/*.cpp)
 SRCFILE += $(wildcard ../../../common/pex/*.cpp)
-SRCFILE += $(wildcard ../../../common/board/*.cpp) 
-SRCFILE += $(wildcard ./work/*.cpp) 
-SRCFILE += $(wildcard ./utils/*.cpp)
+SRCFILE += $(wildcard ../../../common/utils/*.cpp)
+#SRCFILE += $(wildcard ../../../common/dma/*.cpp)
+#SRCFILE += $(wildcard ../../../common/adc/*.cpp)
+#SRCFILE += $(wildcard ../../../common/dac/*.cpp)
+SRCFILE += $(wildcard ./work/*.cpp)
 OBJFILE := $(patsubst %.cpp,%.o, $(SRCFILE))
 
 $(TARGET_NAME): $(OBJFILE)

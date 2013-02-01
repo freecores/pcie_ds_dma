@@ -1,17 +1,6 @@
-/**
-	\file
-	\brief	Объявление класса TF_WorkParam
 
-	\version 1
-
-
-*/
-
-#pragma once
-
-
-
-
+#ifndef __TF_WORK_PARAM_H__
+#define __TF_WORK_PARAM_H__
 
 //! Класс хранения параметров обработки
 /**
@@ -38,8 +27,8 @@ public:
     struct STR_CFG {
 
         U32     is_float;       //!< 1 - число с плавающей точкой; 0 - целое.
-        const char    *name;			//!< Название параметра
-        const char	*def;			//!< Значение по умолчанию
+        const char *name;			//!< Название параметра
+        const char *def;			//!< Значение по умолчанию
         U32     *ptr;			//!< Указатель на переменную
         const char	*cmt;			//!< Комментарий для параметра
 
@@ -101,3 +90,5 @@ public:
     //! Функция отображения параметров
     void log_out( const char* fmt, ... );
 };
+
+#endif //__TF_WORK_PARAM_H__

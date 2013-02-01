@@ -27,8 +27,10 @@ int set_device_name(struct pex_device *brd, u16 dev_id, int index)
     case AMBPEX8_DEVID: snprintf(brd->m_name, 128, "%s%d", "AMBPEX8", index); break;
     case ADP201X1AMB_DEVID: snprintf(brd->m_name, 128, "%s%d", "ADP201X1AMB", index); break;
     case ADP201X1DSP_DEVID: snprintf(brd->m_name, 128, "%s%d", "ADP201X1DSP", index); break;
-    case AMBPEXARM_DEVID: snprintf(brd->m_name, 128, "%s%d", "AMBPEXARM_DEVID", index); break;
-    case AMBFMC106P_DEVID: snprintf(brd->m_name, 128, "%s%d", "AMBFMC106P_DEVID", index); break;
+    case AMBPEXARM_DEVID: snprintf(brd->m_name, 128, "%s%d", "D2XT005", index); break;
+    case AMBFMC106P_DEVID: snprintf(brd->m_name, 128, "%s%d", "AMBFMC106P", index); break;
+    case AMBFMC114V_DEVID: snprintf(brd->m_name, 128, "%s%d", "AMBFMC114V", index); break;
+    case AMBKU_SSCOS_DEVID: snprintf(brd->m_name, 128, "%s%d", "AMBKU_SSCOS", index); break;
     default:
         snprintf(brd->m_name, sizeof(brd->m_name), "%s%d", "Unknown", index); break;
     }
@@ -113,8 +115,12 @@ int InitializeBoard(struct pex_device *brd)
     if((AMBPEX8_DEVID != deviceID) &&
             (ADP201X1AMB_DEVID != deviceID) &&
             (AMBPEX5_DEVID != deviceID) &&
-            (AMBPEXARM_DEVID != deviceID))
+            (AMBPEXARM_DEVID != deviceID) &&
+            (AMBFMC114V_DEVID != deviceID)) {
+
+        dbg_msg(dbg_trace, "%s(): Unsupported device id: 0x%X.\n", __FUNCTION__, deviceID);
         return -ENODEV;
+    }
 
     temp = ReadOperationWordReg(brd, PEMAINadr_PLD_VER);
 
@@ -265,28 +271,18 @@ void WriteOperationReg(struct pex_device *brd, u32 RelativePort, u32 Value)
 
 u16 ReadOperationWordReg(struct pex_device *brd, u32 RelativePort)
 {
-    return readw((u16*)((u8*)brd->m_BAR0.virtual_address + RelativePort));
+    u32 tmpVal = readl((u32*)((u8*)brd->m_BAR0.virtual_address + RelativePort));
+    return (tmpVal & 0xFFFF);
+    //return readw((u16*)((u8*)brd->m_BAR0.virtual_address + RelativePort));
 }
 
 //--------------------------------------------------------------------
 
 void WriteOperationWordReg(struct pex_device *brd, u32 RelativePort, u16 Value)
 {
-    writew( Value, (u16*)((u8*)brd->m_BAR0.virtual_address + RelativePort));
-}
-
-//--------------------------------------------------------------------
-
-u8 ReadOperationByteReg(struct pex_device *brd, u32 RelativePort)
-{
-    return readb((u8*)((u8*)brd->m_BAR0.virtual_address + RelativePort));
-}
-
-//--------------------------------------------------------------------
-
-void WriteOperationByteReg(struct pex_device *brd, u32 RelativePort, u8 Value)
-{
-    writeb( Value, (u8*)((u8*)brd->m_BAR0.virtual_address + RelativePort));
+    u32 tmpVal = Value;
+    //writew( Value, (u16*)((u8*)brd->m_BAR0.virtual_address + RelativePort));
+    writel( tmpVal, (u32*)((u8*)brd->m_BAR0.virtual_address + RelativePort));
 }
 
 //--------------------------------------------------------------------

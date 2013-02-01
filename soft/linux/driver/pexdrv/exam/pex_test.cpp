@@ -15,6 +15,8 @@
 #include <sys/mman.h>
 #include <fcntl.h>
 
+#include "utypes_linux.h"
+#include "brd_info.h"
 #include "pexioctl.h"
 #include "ambpexregs.h"
 

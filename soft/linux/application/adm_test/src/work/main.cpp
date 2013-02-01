@@ -31,10 +31,9 @@ using namespace std;
 #include "tf_test.h"
 #include "tf_teststrm.h"
 #include "tf_teststrmout.h"
-//#include "useful.h"
 
-#define DEVICE_NAME "/dev/AMBPEXARM_DEVID0"
-//#define DEVICE_NAME "/dev/AMBPEX50"
+#define DEVICE_NAME "/dev/pexdrv0"
+
 CL_AMBPEX *pBrd = NULL;
 U32 isTwoTest=0;
 static volatile int exit_flag = 0;
@@ -74,6 +73,7 @@ int BRDC_main(int argc, BRDCHAR* argv[])
         {
             BRDC_fprintf( stderr, _BRDC("Module "DEVICE_NAME" successfuly opened\n") );
 
+
             for( int trd=0; trd<8; trd++ )
                 pBrd->RegPokeInd( trd, 0, 1 );
 
@@ -83,6 +83,7 @@ int BRDC_main(int argc, BRDCHAR* argv[])
 
             for( int trd=0; trd<8; trd++ )
                 pBrd->RegPokeInd( trd, 0, 0 );
+
 
 
         } else
@@ -119,51 +120,37 @@ int BRDC_main(int argc, BRDCHAR* argv[])
 
         //int key;
         int isFirstCallStep=1;
+        int isStopped = 0;
         for( ; ; )
         {
-            //if( kbhit() )
-            //{
-                //int key=getch();
-                if( exit_flag )
-                {
-                    pTest->Stop();
-                    if( pTest2 )
-                        pTest2->Stop();
-                    BRDC_fprintf( stderr, _BRDC("\n\nCancel\n") );
-                }
-/*
-                if( key=='i' )
-                {
-                    pBrd->RegPokeInd( 4, TRDIND_DELAY_CTRL, 0x12 );
-                    pBrd->RegPokeInd( 4, TRDIND_DELAY_CTRL, 0x10 );
-                    g_DelayCnt--; BRDC_fprintf( stderr, "\n\ng_DelayCnt = %d ", g_DelayCnt );
-                }
-
-                if( key=='o' )
-                {
-                    pBrd->RegPokeInd( 4, TRDIND_DELAY_CTRL, 0x13 );
-                    pBrd->RegPokeInd( 4, TRDIND_DELAY_CTRL, 0x11 );
-                    g_DelayCnt++; BRDC_fprintf( stderr, "\n\ng_DelayCnt = %d ", g_DelayCnt );
-                }
-*/
-            //}
-
-            ret=pTest->isComplete();
-            if( ret )
+            if( exit_flag )
             {
-                if( pTest2 )
-                {
-                    ret=pTest2->isComplete();
-                    if( ret )
-                        break;
-                } else
-                {
-                    break;
+                if(!isStopped) {
+                    pTest->Stop();
+                    if( pTest2 ) {
+                        pTest2->Stop();
+                    }
+                    BRDC_fprintf( stderr, _BRDC("\n\nCancel\n") );
+                    isStopped = 1;
                 }
-
             }
 
-            //SetConsoleCursorPosition(hConsoleOut, rCursorPosition);
+            if( exit_flag )
+            {
+                if(isStopped) {
+
+                    if( pTest->isComplete() ) {
+
+                        if( pTest2 ) {
+                            if( pTest2->isComplete() )
+                                break;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+
             if( isFirstCallStep || isTwoTest )
             {
 
@@ -184,17 +171,13 @@ int BRDC_main(int argc, BRDCHAR* argv[])
             if( isTwoTest )
                 BRDC_fprintf( stderr, "\n\n" );
 
-            Sleep( 400 );
+            Sleep( 1400 );
 
             fflush( stdout );
-
-            if(exit_flag)
-                break;
         }
         pTest->GetResult();
         if( pTest2 )
             pTest2->GetResult();
-
 
         delete pTest; pTest=NULL;
         delete pTest2; pTest2=NULL;
@@ -209,7 +192,7 @@ int BRDC_main(int argc, BRDCHAR* argv[])
         BRDC_fprintf( stderr, _BRDC("Неизвестная ошибка выполнения программы\n") );
     }
 
-    BRDC_fprintf( stderr, "\n Press any key\n" );
+    BRDC_fprintf( stderr, "Exit program\n" );
 
     return 0;
 }

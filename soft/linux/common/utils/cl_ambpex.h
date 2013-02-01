@@ -4,19 +4,16 @@
 #define TF_CheckItem_CL_AMBPEXH
 
 #include "utypes.h"
-//#include "brd.h"
-//#include "time.h"
+#include "board.h"
+#include "time.h"
 #include "ctrlstrm.h"
-
-//#include <string.h>
-
-class board;
 
 class  CL_AMBPEX
 {
 
 
 public:
+    // virtual char* GetName( void );  //!< Возвращает название класса
 
     //!  Инициализация модуля
     virtual U32  init( void );
@@ -57,13 +54,15 @@ public:
     //! Чтение из прямого регистра
     U32 RegPeekDir( S32 trdNo, S32 rgnum );
 
-    CL_AMBPEX(const char* dev_name = NULL);
+
+    CL_AMBPEX(const char *devname);
     virtual ~CL_AMBPEX();
 
-private:
 
+private:
     //! Указатель на модуль
     board  *m_pBoard;
+
 
     struct StreamParam
     {
@@ -95,6 +94,8 @@ private:
 
 };
 
-void Sleep( int ms );
+void Sleep(int ms);
+
 //---------------------------------------------------------------------------
+
 #endif

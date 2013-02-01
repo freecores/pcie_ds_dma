@@ -11,6 +11,8 @@
 #define AMBPEX5_DEVID		0x5507
 #define AMBPEXARM_DEVID		0x5702
 #define AMBFMC106P_DEVID	0x550A
+#define AMBFMC114V_DEVID	0x550C
+#define AMBKU_SSCOS_DEVID	0x5703
 
 //-----------------------------------------------------------------------------
 
@@ -26,8 +28,6 @@ u32 ReadOperationReg(struct pex_device *brd, u32 RelativePort);
 void WriteOperationReg(struct pex_device *brd, u32 RelativePort, u32 Value);
 u16 ReadOperationWordReg(struct pex_device *brd, u32 RelativePort);
 void WriteOperationWordReg(struct pex_device *brd, u32 RelativePort, u16 Value);
-u8 ReadOperationByteReg(struct pex_device *brd, u32 RelativePort);
-void WriteOperationByteReg(struct pex_device *brd, u32 RelativePort, u8 Value);
 u32 ReadAmbReg(struct pex_device *brd, u32 AdmNumber, u32 RelativePort);
 u32 ReadAmbMainReg(struct pex_device *brd, u32 RelativePort);
 void WriteAmbReg(struct pex_device *brd, u32 AdmNumber, u32 RelativePort, u32 Value);

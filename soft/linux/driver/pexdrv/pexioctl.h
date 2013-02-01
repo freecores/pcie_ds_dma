@@ -93,18 +93,6 @@ typedef enum _PEX_NUM_FUNC {
             PEX_MAKE_IOCTL(PEX_DEVICE_TYPE, PEX_ADJUST)
 
 //-----------------------------------------------------------------------------
-// board configuration data structure
-struct board_info {
-        size_t	PhysAddress[6];	// OUT
-        void*	VirtAddress[6];	// OUT
-        size_t	Size[6];	// OUT
-	size_t	InterruptLevel;	// OUT
-	size_t	InterruptVector;// OUT
-        unsigned short vendor_id;  // OUT
-        unsigned short device_id;  // OUT
-};
-
-//-----------------------------------------------------------------------------
 // memory block structure
 struct memory_block {
         size_t	phys;

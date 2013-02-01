@@ -12,11 +12,11 @@ ROOT_DIR = $(shell pwd)
 CC = $(CROSS_COMPILE)g++
 LD = $(CROSS_COMPILE)g++
 
-CFLAGS := -D__LINUX__ -g -Wall -I../driver/pexdrv -I../common/board
+CFLAGS := -D__LINUX__ -g -Wall -I../driver/pexdrv -I../common/board -I../common/utils
 LFLAGS = -Wl
 
 $(TARGET_NAME): $(patsubst %.cpp,%.o, $(wildcard *.cpp))
-	$(LD) $(LFLAGS) $(notdir $^) -o $(TARGET_NAME)
+	$(LD) -o $(TARGET_NAME) $(notdir $^) $(LFLAGS)
 	rm -f *.o *~ core
 
 %.o: %.cpp

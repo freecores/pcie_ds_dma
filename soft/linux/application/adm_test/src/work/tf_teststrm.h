@@ -5,7 +5,7 @@
 
 class CL_AMBPEX;
 class TF_TestDDS;
-
+class TF_Emac;
 
 class TF_TestStrm : public TF_WorkParam, public TF_Test
 {
@@ -96,31 +96,26 @@ public:
     //! Отображение параметров
     virtual void ShowParam( void );
 
-
     U32 Terminate;
     U32 BlockRd;
     U32 BlockOk;
     U32 BlockError;
     U32 TotalError;
 
-    U32 CntBuffer;			// Число буферов стрима
+    U32 CntBuffer;		// Число буферов стрима
     U32 CntBlockInBuffer;	// Число блоков в буфере
     U32 SizeBlockOfWords;	// Размер блока в словах
     U32 SizeBlockOfBytes;	// Размер блока в байтах
     U32	SizeBuferOfBytes;	// Размер буфера в байтах
     U32 SizeStreamOfBytes;	// Общий размер буфера стрима
-    U32 isCycle;			// 1 - циклический режим работы стрима
-    U32 isSystem;			// 1 - системная память
+    U32 isCycle;		// 1 - циклический режим работы стрима
+    U32 isSystem;		// 1 - системная память
     U32 isAgreeMode;		// 1 - согласованный режим
 
     U32	trdNo;		// номер тетрады
     U32 strmNo;		// номер стрима
     U32 isTest;		// 1 - проверка псевдослучайной последовательности, 2 - проверка тестовой последовательности
     U32 isMainTest; // 1 - включение режима тестирования в тетараде MAIN
-
-    U32   lowRange;
-    U32   topRange;
-    U32   fftSize;
 
     U32 isFifoRdy;	// 1 - генератор тестовой последовательности анализирует флаг готовности FIFO
     U32 Cnt1;		// Число тактов записи в FIFO, 0 - постоянная запись в FIFO
@@ -158,35 +153,29 @@ public:
     U32 lc_status;
     float cpuFreq;
 
-    ParamExchange	rd0;
+    ParamExchange       rd0;
 
-
-
-    //void SendPkg( ParamExchange *pr );
-    //void ReceivePkg( ParamExchange *pr );
-    //void SendData( ParamExchange *pr );
     void ReceiveData(  ParamExchange *pr );
 
     U32	 TestSeq;	// Региср управления режимом формирования тестовой последовательности
 
+    void RestartAdc( void );
+
+    U32 isRestart;	// 1 - перезапуск сбора после завершения заполнения буфера стрима
+    U32 cntRestart; // число перезапусков
+
+    U32 isSystemMonitor;    //!< 1 - чтение данных системного монитора
 
 private :
 
     bool isFirstCallStep;
 
     void PrepareAdm( void );
-
     void PrepareAdmReg( char* fname );
-
-
-    //! Подготовка MAIN
+    void PrepareAdc( void );
+    void PrepareDac( void );
+    void RestartDac(void);
     void PrepareMain( void );
-
-    //! Подготовка TEST_CTRL
     void PrepareTestCtrl( void );
-
-    //! Запуск TestCtrl
     void StartTestCtrl( void );
-
-
 };

@@ -1,27 +1,34 @@
-#
-#change this makefile for your target...
-#
 
 PHONY = clean
 TARGET_NAME = pex_board_test
 
 all: $(TARGET_NAME)
 
-ROOT_DIR = $(shell pwd)
+BINPATH  := ../..
+BINDIR  := $(BINPATH)/bin
+LIBPATH  := ../..
+LIBDIR := $(LIBPATH)/lib
 
-CC = $(CROSS_COMPILE)g++
-LD = $(CROSS_COMPILE)g++
+CC := $(CROSS_COMPILE)g++
+LD := $(CROSS_COMPILE)g++
 
-CFLAGS := -D__LINUX__ -g -Wall -I../../driver/pexdrv -I../../common/board -I../../common/pex -I../adm_test/src/utils
-LFLAGS := -Wl
-SRCDIR := ../../common/board ../../common/pex
-#SRCFILE := $(wildcard *.cpp) $(wildcard $(SRCDIR)/*.cpp)
-SRCFILE := $(wildcard *.cpp) $(wildcard ../../common/board/*.cpp)
-SRCFILE += $(wildcard *.cpp) $(wildcard ../../common/pex/*.cpp)
-OBJFILE := $(patsubst %.cpp,%.o, $(SRCFILE))
+INCDIR := . \
+ ../../driver/pexdrv \
+ ../../common/board \
+ ../../common/utils
 
-$(TARGET_NAME): $(OBJFILE)
-	$(LD) $(LFLAGS) $(notdir $^) -o $(TARGET_NAME)
+INCLUDE := $(addprefix -I, $(INCDIR))
+
+#CFLAGS := -D__linux__ -D__VERBOSE__ -g -Wall $(INCLUDE)
+CFLAGS := -D__linux__ -O2 -Wall $(INCLUDE)
+LFLAGS := -Wl,-rpath $(LIBDIR) -L"$(LIBDIR)" -lboard -ldl -lpthread
+
+#EXTFILES := ../common/net/net_board.cpp
+#EXTFILES := ../common/net/netcmn.cpp
+
+$(TARGET_NAME): $(patsubst %.cpp,%.o, $(wildcard *.cpp)) $(EXTFILES)
+	$(LD) -o $(TARGET_NAME) $(notdir $^) $(LFLAGS)
+	cp $(TARGET_NAME) $(BINDIR)
 	rm -f *.o *~ core
 
 %.o: %.cpp
@@ -29,6 +36,9 @@ $(TARGET_NAME): $(OBJFILE)
 	
 include $(wildcard *.d)
 
+
+test:
+	@echo $(SRC)
 
 clean:
 	rm -f *.o *~ core
@@ -39,7 +49,3 @@ distclean:
 	rm -f *.o *~ core
 	rm -f *.d *~ core
 	rm -f $(TARGET_NAME)
-
-src:
-	@echo $(SRCFILE)
-	@echo $(OBJFILE)

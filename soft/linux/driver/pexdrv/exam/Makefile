@@ -12,7 +12,7 @@ ROOT_DIR = $(shell pwd)
 CC = $(CROSS_COMPILE)g++
 LD = $(CROSS_COMPILE)g++
 
-CFLAGS := -D__LINUX__ -g -Wall -I..
+CFLAGS := -D__LINUX__ -g -Wall -I.. -I../../../common/utils -I../../../common/board
 LFLAGS = -Wl
 
 $(TARGET_NAME): $(patsubst %.cpp,%.o, $(wildcard *.cpp))

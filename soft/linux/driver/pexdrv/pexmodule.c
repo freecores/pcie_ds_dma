@@ -39,7 +39,7 @@ static struct class *pex_class = NULL;
 static LIST_HEAD(device_list);
 static int boards_count = 0;
 static struct mutex pex_mutex;
-int dbg_trace = 0;
+int dbg_trace = 1;
 int err_trace = 1;
 
 //-----------------------------------------------------------------------------
@@ -473,6 +473,18 @@ static const struct pci_device_id pex_device_id[] = {
         .subvendor =    PCI_ANY_ID,
         .subdevice =    PCI_ANY_ID,
 },
+{
+        .vendor =       INSYS_VENDOR_ID,
+        .device =       AMBFMC114V_DEVID,
+        .subvendor =    PCI_ANY_ID,
+        .subdevice =    PCI_ANY_ID,
+},
+{
+        .vendor =       INSYS_VENDOR_ID,
+        .device =       AMBKU_SSCOS_DEVID,
+        .subvendor =    PCI_ANY_ID,
+        .subdevice =    PCI_ANY_ID,
+},
 { },
 };
 
@@ -573,9 +585,9 @@ static int  __devinit pex_device_probe(struct pci_dev *dev, const struct pci_dev
     dbg_msg(dbg_trace, "%s(): Add cdev %d\n", __FUNCTION__, boards_count);
 
 #if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,27)
-    brd->m_device = device_create(pex_class, NULL, brd->m_devno, "%s", brd->m_name);
+    brd->m_device = device_create(pex_class, NULL, brd->m_devno, "%s%d", "pexdrv", boards_count);
 #else
-    brd->m_device = device_create(pex_class, NULL, brd->m_devno, NULL, "%s", brd->m_name);
+    brd->m_device = device_create(pex_class, NULL, brd->m_devno, NULL, "%s%d", "pexdrv", boards_count);
 #endif
     if(!brd->m_device ) {
         err_msg(err_trace, "%s(): Error create device for board: %s\n", __FUNCTION__, brd->m_name);
@@ -643,6 +655,7 @@ static void __devexit pex_device_remove(struct pci_dev *dev)
 {
     struct list_head *pos, *n;
     struct pex_device *brd = NULL;
+    int i = 0;
 
     dbg_msg(dbg_trace, "%s(): device_id = %x, vendor_id = %x\n", __FUNCTION__, dev->device, dev->vendor);
 
@@ -658,6 +671,12 @@ static void __devexit pex_device_remove(struct pci_dev *dev)
             dbg_msg(dbg_trace, "%s(): free_irq() - complete\n", __FUNCTION__);
             pex_remove_proc(brd->m_name);
             dbg_msg(dbg_trace, "%s(): pex_remove_proc() - complete\n", __FUNCTION__);
+            for(i = 0; i < MAX_NUMBER_OF_DMACHANNELS; i++) {
+                if(brd->m_DmaChannel[i]) {
+                     CDmaChannelDelete(brd->m_DmaChannel[i]);
+                     dbg_msg(dbg_trace, "%s(): free DMA channel %d - complete\n", __FUNCTION__, i);
+                }
+            }
             free_memory(brd);
             dbg_msg(dbg_trace, "%s(): free_memory() - complete\n", __FUNCTION__);
             device_destroy(pex_class, brd->m_devno);

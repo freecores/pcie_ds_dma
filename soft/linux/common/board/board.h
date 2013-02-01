@@ -23,6 +23,13 @@ typedef uint64_t  u64;
 #include "ctrlstrm.h"
 #endif
 
+#ifdef __VERBOSE__
+#include <stdio.h>
+#define DEBUG_PRINT(fmt, args...)    fprintf(stderr, fmt, ## args)
+#else
+#define DEBUG_PRINT(fmt, args...)
+#endif
+
 class board {
 
 private:
@@ -36,9 +43,12 @@ private:
     virtual int core_board_info() = 0;
     virtual int core_pld_info() = 0;
     virtual int core_resource() = 0;
+    virtual void core_delay(int ms) = 0;
 
     virtual u32 core_alloc(int DmaChan, BRDctrl_StreamCBufAlloc* sSCA) = 0;
-    virtual u32 core_allocate_memory(int DmaChan, void** pBuf, u32 blkSize, u32 blkNum, u32 isSysMem, u32 dir, u32 addr) = 0;
+    virtual u32 core_allocate_memory(int DmaChan, void** pBuf, u32 blkSize, 
+				     u32 blkNum, u32 isSysMem, u32 dir, 
+				     u32 addr, BRDstrm_Stub **pStub ) = 0;
     virtual u32 core_free_memory(int DmaChan) = 0;
     virtual u32 core_start_dma(int DmaChan, int IsCycling) = 0;
     virtual u32 core_stop_dma(int DmaChan) = 0;
@@ -69,6 +79,7 @@ public:
     int brd_close();
     int brd_load_dsp();
     int brd_load_pld();
+    void brd_delay(int ms);
 
     int brd_board_info();
     int brd_pld_info();
@@ -76,7 +87,9 @@ public:
 
     //! Методы управления каналами DMA BRDSHELL
     u32 dma_alloc(int DmaChan, BRDctrl_StreamCBufAlloc* sSCA);
-    u32 dma_allocate_memory(int DmaChan, void** pBuf, u32 blkSize, u32 blkNum, u32 isSysMem, u32 dir, u32 addr);
+    u32 dma_allocate_memory(int DmaChan, void** pBuf, u32 blkSize, 
+			    u32 blkNum, u32 isSysMem, 
+			    u32 dir, u32 addr, BRDstrm_Stub **pStub);
     u32 dma_free_memory(int DmaChan);
     u32 dma_start(int DmaChan, int IsCycling);
     u32 dma_stop(int DmaChan);
@@ -100,9 +113,7 @@ public:
     void brd_bar1_write( u32 offset, u32 val );
 };
 
-//#define RegPeekDir(trd, reg) brd_reg_peek_dir((trd), (reg))
-//#define RegPeekInd(trd, reg) brd_reg_peek_ind((trd), (reg));
-//#define RegPokeDir(trd, reg, val) brd_reg_poke_dir((trd), (reg), (val));
-//#define RegPokeOnd(trd, reg, val) brd_reg_poke_ind((trd), (reg), (val));
+//! Тип конструктора объектов
+typedef board* (*board_factory)(void);
 
 #endif //__BOARD_H__

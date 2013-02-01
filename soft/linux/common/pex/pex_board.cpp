@@ -2,9 +2,6 @@
 #ifndef __PEX_BOARD_H__
 #include "pex_board.h"
 #endif
-#ifndef __DMA_MEMORY__H__
-#include "dma_memory.h"
-#endif
 
 //-----------------------------------------------------------------------------
 
@@ -33,14 +30,14 @@ pex_board::pex_board()
     fd = -1;
     bar0 = bar1 = NULL;
     memset(&bi, 0, sizeof(bi));
-    m_dma = new dma_memory();
+    //m_dma = new dma_memory();
 }
 
 //-----------------------------------------------------------------------------
 
 pex_board::~pex_board()
 {
-    if(m_dma) delete m_dma;
+    //if(m_dma) delete m_dma;
     core_close();
 }
 
@@ -161,21 +158,21 @@ int pex_board::core_init()
     // подготовим к работе ПЛИС ADM
     fprintf(stderr,"%s(): Prepare ADM PLD.\n", __FUNCTION__);
     core_block_write( 0, 8, 0);
-    core_pause(100);	// pause ~ 100 msec
+    core_delay(100);	// pause ~ 100 msec
     for(i = 0; i < 10; i++)
     {
         core_block_write( 0, 8, 1);
-        core_pause(100);	// pause ~ 100 msec
+        core_delay(100);	// pause ~ 100 msec
         core_block_write( 0, 8, 3);
-        core_pause(100);	// pause ~ 100 msec
+        core_delay(100);	// pause ~ 100 msec
         core_block_write( 0, 8, 7);
-        core_pause(100);	// pause ~ 100 msec
+        core_delay(100);	// pause ~ 100 msec
         temp = core_block_read( 0, 010 ) & 0x01;
         if(temp)
             break;
     }
     core_block_write( 0, 8, 0xF );
-    core_pause(100);	// pause ~ 100 msec
+    core_delay(100);	// pause ~ 100 msec
 
     return 0;
 }
@@ -293,9 +290,9 @@ int pex_board::core_pld_info()
         d5=core_reg_peek_ind(  ii, 0x105 );
 
         switch( d ) {
-        case 1: str="TRD_MAIN      "; break;
-        case 2: str="TRD_BASE_DAC  "; break;
-        case 3: str="TRD_PIO_STD   "; break;
+        case 1: str="TRD_MAIN         "; break;
+        case 2: str="TRD_BASE_DAC     "; break;
+        case 3: str="TRD_PIO_STD      "; break;
         case 0:    str=" -            "; break;
         case 0x47: str="SBSRAM_IN     "; break;
         case 0x48: str="SBSRAM_OUT    "; break;
@@ -319,6 +316,9 @@ int pex_board::core_pld_info()
         case 0x72: str="TRD_TS201     "; break;
         case 0x73: str="TRD_STREAM_IN "; break;
         case 0x74: str="TRD_STREAM_OUT"; break;
+        case 0xA0: str="TRD_ADC       "; break;
+        case 0xA1: str="TRD_DAC       "; break;
+        case 0x91: str="TRD_EMAC      "; break;
 
 
         default: str="UNKNOWN"; break;
@@ -351,7 +351,7 @@ int pex_board::core_resource()
 
 //-----------------------------------------------------------------------------
 
-void pex_board::core_pause(int ms)
+void pex_board::core_delay(int ms)
 {
     struct timeval tv = {0, 0};
     tv.tv_usec = 1000*ms;
@@ -394,7 +394,7 @@ u32 pex_board::core_reg_peek_ind( u32 trd, u32 reg )
             break;
 
         if( ii>10000 )
-            core_pause( 1 );
+            core_delay( 1 );
         if( ii>20000 ) {
             return 0xFFFF;
         }
@@ -439,7 +439,7 @@ void pex_board::core_reg_poke_ind( u32 trd, u32 reg, u32 val )
             break;
 
         if( ii>10000 )
-            core_pause( 1 );
+            core_delay( 1 );
         if( ii>20000 ) {
             return;
         }
@@ -452,21 +452,21 @@ void pex_board::core_reg_poke_ind( u32 trd, u32 reg, u32 val )
 
 u32  pex_board::core_bar0_read( u32 offset )
 {
-    return bar0[offset];
+    return bar0[2*offset];
 }
 
 //-----------------------------------------------------------------------------
 
 void pex_board::core_bar0_write( u32 offset, u32 val )
 {
-    bar0[offset] = val;
+    bar0[2*offset] = val;
 }
 
 //-----------------------------------------------------------------------------
 
 u32  pex_board::core_bar1_read( u32 offset )
 {
-    return bar1[offset];
+    return bar1[2*offset];
 }
 
 //-----------------------------------------------------------------------------
@@ -582,7 +582,14 @@ u32 pex_board::core_alloc(int DmaChan, BRDctrl_StreamCBufAlloc* sSCA)
 
 //-----------------------------------------------------------------------------
 
-u32 pex_board::core_allocate_memory(int DmaChan, void** pBuf, u32 blkSize, u32 blkNum, u32 isSysMem, u32 dir, u32 addr)
+u32 pex_board::core_allocate_memory(int DmaChan,
+				    void** pBuf,
+				    u32 blkSize,
+				    u32 blkNum,
+				    u32 isSysMem,
+				    u32 dir,
+				    u32 addr,
+				    BRDstrm_Stub **pStub )
 {
     m_DescrSize[DmaChan] = sizeof(AMB_MEM_DMA_CHANNEL) + (blkNum - 1) * sizeof(void*);
     m_Descr[DmaChan] = (AMB_MEM_DMA_CHANNEL*) new u8[m_DescrSize[DmaChan]];
@@ -644,6 +651,7 @@ u32 pex_board::core_allocate_memory(int DmaChan, void** pBuf, u32 blkSize, u32 b
     }
 
     *pBuf = &m_Descr[DmaChan]->pBlock[0];
+    *pStub = (BRDstrm_Stub*)m_Descr[DmaChan]->pStub;
 
     return 0;
 }

@@ -1,6 +1,7 @@
 
 KERNELVER := $(shell uname -r)
 EXTRA_CFLAGS += -O2 
+EXTRA_CFLAGS += -I $(PWD)/../../common/board
 
 ifneq ($(KERNELRELEASE),)
 
@@ -14,7 +15,7 @@ KERNELDIR ?= /lib/modules/$(shell uname -r)/build
 PWD := $(shell pwd)
 
 modules:
-	$(MAKE) -C $(KERNELDIR) M=$(PWD) $(DIRS)
+	$(MAKE) -C $(KERNELDIR) M=$(PWD) EXTRA_CFLAGS="$(EXTRA_CFLAGS)"
 
 endif
 
@@ -29,3 +30,6 @@ depend .depend dep:
 ifeq (.depend, $(wildcard .depend))
 include .depend
 endif
+
+install:
+	./insert

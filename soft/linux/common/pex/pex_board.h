@@ -21,7 +21,7 @@
 
 //-----------------------------------------------------------------------------
 
-class dma_memory;
+//class dma_memory;
 
 //-----------------------------------------------------------------------------
 #define MAX_NUMBER_OF_DMACHANNELS 4
@@ -36,7 +36,7 @@ private:
     struct board_info bi;
     void core_pause(int ms);
 
-    dma_memory *m_dma;
+    //dma_memory *m_dma;
 
     AMB_MEM_DMA_CHANNEL *m_Descr[MAX_NUMBER_OF_DMACHANNELS];
     u32                  m_DescrSize[MAX_NUMBER_OF_DMACHANNELS];
@@ -54,9 +54,12 @@ public:
     int core_board_info();
     int core_pld_info();
     int core_resource();
+    void core_delay(int ms);
 
     u32 core_alloc(int DmaChan, BRDctrl_StreamCBufAlloc* sSCA);
-    u32 core_allocate_memory(int DmaChan, void** pBuf, u32 blkSize, u32 blkNum, u32 isSysMem, u32 dir, u32 addr);
+    u32 core_allocate_memory(int DmaChan, void** pBuf, u32 blkSize, 
+			     u32 blkNum, u32 isSysMem, u32 dir, 
+			     u32 addr, BRDstrm_Stub **pStub);
     u32 core_free_memory(int DmaChan);
     u32 core_start_dma(int DmaChan, int IsCycling);
     u32 core_stop_dma(int DmaChan);

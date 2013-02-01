@@ -72,8 +72,8 @@ typedef	signed   int	S32, *PS32;
 
 #if _MSC_VER == 1200
 #else
-	typedef	unsigned long long int	U64, *PU64;
-	typedef	signed   long long int	S64, *PS64;
+typedef	unsigned long long int	U64, *PU64;
+typedef	signed   long long int	S64, *PS64;
 #endif
 
 typedef float			REAL32, *PREAL32;
@@ -329,15 +329,15 @@ typedef UINT32	Uns;
 */
 #if !defined(WIN32) && !defined(__WIN32__)
 //#ifndef WIN32
-	#define FENTRY
-	#define STDCALL
+#define FENTRY
+#define STDCALL
 #else
-	#include <windows.h>
-	#define DllImport	__declspec( dllimport )
-	#define DllExport	__declspec( dllexport )
-	#define FENTRY		DllExport
-	#define STDCALL		__stdcall
-	#define	huge
+#include <windows.h>
+#define DllImport	__declspec( dllimport )
+#define DllExport	__declspec( dllexport )
+#define FENTRY		DllExport
+#define STDCALL		__stdcall
+#define	huge
 #endif  // WIN32
 
 

@@ -171,7 +171,7 @@ enum
     BRDstrm_STAT_STOP = 2,
     BRDstrm_STAT_DESTROY = 3,
     BRDstrm_STAT_BREAK = 4
-};
+                     };
 
 //
 // Constants: Direction of CBUF
@@ -193,6 +193,6 @@ enum
     BRDstrm_DRQ_ALMOST	= 0x0,			// Almost empty = 1 for input FIFO, Almost full = 1 for output FIFO
     BRDstrm_DRQ_READY	= 0x1,			// Ready = 1
     BRDstrm_DRQ_HALF	= 0x2			// Half full = 0 for input FIFO, Half full = 1 for output FIFO
-};
+                      };
 
 #endif // _CTRL_STREAM_H

@@ -24,8 +24,8 @@
 //!  Инициализация модуля
 U32  CL_WBPEX::init( void )
 {
-    S32 err;
-    S32 num;
+    //S32 err;
+    //S32 num;
 
     /*
     if( g_hBrd<=0)
@@ -41,7 +41,7 @@ U32  CL_WBPEX::init( void )
     board *brd = new pex_board();
     m_pBoard = brd;
 
-    brd->brd_open( "/dev/AMBPEX50" );
+    brd->brd_open( "/dev/pexdrv0" );
     brd->brd_init();
     brd->brd_board_info();
     //brd->brd_pld_info();
@@ -53,7 +53,7 @@ U32  CL_WBPEX::init( void )
 //!  Завершение работы с модулем
 void  CL_WBPEX::cleanup( void )
 {
-    S32 ret;
+    //S32 ret;
     //ret=BRD_cleanup();
 
 }
@@ -195,8 +195,8 @@ void CL_WBPEX::StreamStart( U32 strm )
     if( pStrm->status!=1 )
         return;
 
-    S32 err;
-    U32 val;
+    //S32 err;
+    //U32 val;
 
     //val=RegPeekInd( pStrm->trd, 0 );
     //err = BRD_ctrl( pStrm->hStream, 0, BRDctrl_STREAM_CBUF_STOP, NULL);
@@ -205,7 +205,7 @@ void CL_WBPEX::StreamStart( U32 strm )
     pStrm->indexDma=-1;
     pStrm->indexPc=-1;
 
-    val=pStrm->cycle; // 0 - однократный режим, 1 - циклический
+    //val=pStrm->cycle; // 0 - однократный режим, 1 - циклический
     //err = BRD_ctrl( pStrm->hStream, 0, BRDctrl_STREAM_CBUF_START, &val );
 }
 
@@ -214,9 +214,9 @@ void CL_WBPEX::StreamStop( U32 strm )
     if( strm>1 )
         return;
 
-    StreamParam *pStrm= m_streamParam+strm;
+    //StreamParam *pStrm= m_streamParam+strm;
 
-    S32 err;
+    //S32 err;
 
     //RegPokeInd( pStrm->trd, 0, 2 );
 
@@ -259,7 +259,7 @@ int CL_WBPEX::StreamGetIndexDma( U32 strm )
     if( strm>1 )
         return -1;
 
-    StreamParam *pStrm= m_streamParam+strm;
+    //StreamParam *pStrm= m_streamParam+strm;
 
 
 
@@ -273,8 +273,8 @@ void CL_WBPEX::StreamGetBufDone( U32 strm )
         return;
 
     StreamParam *pStrm= m_streamParam+strm;
-    S32 err;
-    static U32 err_code=0;
+    //S32 err;
+    //static U32 err_code=0;
 
     if( pStrm->agree_mode )
     {
