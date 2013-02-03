@@ -54,10 +54,9 @@ if [ ${was_loaded} ]
         /sbin/rmmod $device
         status $? 0
     else
-        echo Loading module: ${module}
+        echo -n " Loading pexdrv module      : "
 fi
 
-echo -n " Loading pexdrv module      : "
 insmod ./${module}
 
 until [ -e /dev/pexdrv0 ]

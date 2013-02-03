@@ -20,39 +20,9 @@
 #ifndef _STREAMLL_H_
     #include "streamll.h"
 #endif
-
-//-----------------------------------------------------------------------------
-
-struct address_t {
-
-    size_t physical_address;
-    void  *virtual_address;
-    size_t size;
-
-};
-
-//-----------------------------------------------------------------------------
-
-struct mem_t {
-
-    struct list_head list;
-    dma_addr_t dma_handle;
-    void  *cpu_addr;
-    size_t size;
-
-};
-
-//-----------------------------------------------------------------------------
-
-struct dma_channel {
-    int                     m_Number;
-    int                     m_Use;
-    struct pci_dev         *m_pci;
-    spinlock_t              m_MemListLock;
-    atomic_t                m_MemListCount;
-    struct list_head        m_MemList;
-    struct mem_t            m_MemStub;
-};
+#ifndef _MEMORY_H_
+    #include "memory.h"
+#endif
 
 //-----------------------------------------------------------------------------
 

@@ -14,6 +14,7 @@
 #include "pexmodule.h"
 #include "hardware.h"
 #include "ambpexregs.h"
+#include "memory.h"
 
 //--------------------------------------------------------------------
 
@@ -36,36 +37,6 @@ int set_device_name(struct pex_device *brd, u16 dev_id, int index)
     }
 
     return 0;
-}
-
-//--------------------------------------------------------------------
-
-int lock_pages( void *va, u32 size )
-{
-    struct page *start_page_addr = virt_to_page(va);
-    int i = 0;
-
-    for (i=0; i < (size >> PAGE_CACHE_SHIFT); i++) {
-        SetPageReserved(start_page_addr+i);
-        //dbg_msg(dbg_trace, "%s(): page_addr[%d] = 0x%x\n", __FUNCTION__, i, (int)(start_page_addr+i));
-    }
-
-    return i;
-}
-
-//--------------------------------------------------------------------
-
-int unlock_pages( void *va, u32 size )
-{
-    struct page *start_page_addr = virt_to_page(va);
-    int i = 0;
-
-    for (i=0; i < (size >> PAGE_CACHE_SHIFT); i++) {
-        ClearPageReserved(start_page_addr+i);
-        //dbg_msg(dbg_trace, "%s(): page_addr[%d] = 0x%x\n", __FUNCTION__, i, (int)(start_page_addr+i));
-    }
-
-    return i;
 }
 
 //--------------------------------------------------------------------

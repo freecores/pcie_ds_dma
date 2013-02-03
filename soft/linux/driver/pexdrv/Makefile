@@ -5,7 +5,7 @@ EXTRA_CFLAGS += -I $(PWD)/../../common/board
 
 ifneq ($(KERNELRELEASE),)
 
-pexdrv-objs := event.o dmachan.o ioctlrw.o pexmodule.o pexproc.o hardware.o
+pexdrv-objs := memory.o event.o dmachan.o ioctlrw.o pexmodule.o pexproc.o hardware.o
 obj-m := pexdrv.o
 
 else
