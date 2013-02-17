@@ -19,17 +19,19 @@ INCDIR := . \
  ../../../common/utils \
  ../../../common/dac \
  ../../../common/adc \
- ../../../common/dma
+ ../../../common/dma \
+ ../../../common/console
  
 INCLUDE := $(addprefix -I, $(INCDIR))
 
 CFLAGS := -D__LINUX__ -O2 -Wall $(INCLUDE)
-LFLAGS := -Wl -ldl -lrt -lpthread -lm
+LFLAGS := -Wl -ldl -lrt -lpthread -lm -lncurses
 
 SRCFILE := $(wildcard *.cpp)
 SRCFILE += $(wildcard ../../../common/board/*.cpp)
 SRCFILE += $(wildcard ../../../common/pex/*.cpp)
 SRCFILE += $(wildcard ../../../common/utils/*.cpp)
+SRCFILE += $(wildcard ../../../common/console/*.cpp)
 #SRCFILE += $(wildcard ../../../common/dma/*.cpp)
 #SRCFILE += $(wildcard ../../../common/adc/*.cpp)
 #SRCFILE += $(wildcard ../../../common/dac/*.cpp)
