@@ -916,6 +916,7 @@ void DmaDpcForIsr( unsigned long Context )
 
     //printk("<0>%s(): [DMA%d] m_CurBlockNum = %d, m_BlockCount = %d\n",
     //       __FUNCTION__, DmaChannel->m_NumberOfChannel, DmaChannel->m_CurBlockNum, DmaChannel->m_BlockCount );
+    DmaChannel->m_State = *DmaChannel->m_pStub;
 
     SetEvent( &DmaChannel->m_BlockEndEvent );
 
