@@ -5,11 +5,16 @@
 -- Company     : Instrumental Systems
 -- E-mail      : dsmv@insys.ru
 --
--- Version     : 1.0
+-- Version     : 1.2
 --
 -------------------------------------------------------------------------------
 --
--- Description : 
+-- Description : Stend for test stend_sp605_wishbone
+--
+-------------------------------------------------------------------------------
+--
+--  Version 1.2  01.02.2013 Dmitry Smekhov
+--      Add parameters: test_id, test_log
 --
 -------------------------------------------------------------------------------
 --
@@ -35,42 +40,33 @@ use work.test_pkg.all;
 use std.textio.all;
 use std.textio;
 
-entity stend_sp605_wishbone is
+entity stend_sp605_wishbone is 
+	generic(
+		test_id			: in integer:=0;	-- идентификатор теста
+		test_log		: in string:="src\testbench\log\file_id_"	-- имя файла отчёта
+	);
 end stend_sp605_wishbone;
 
 
 architecture stend_sp605_wishbone of stend_sp605_wishbone is
+--
+--function set_file_name( test_log : in string; test_id: in integer ) return string is
+--variable	str		: line;
+--variable 	ret		: string( 255 downto 1 );
+--begin
+--
+--	write( str, test_log );
+--	write( str, string'("_id_") );
+--	write( str, test_id );
+--	
+--	ret:=conv_string( str );
+--	return ret;
+--	
+--	
+--end set_file_name;
 
---component xilinx_pcie_2_0_rport_v6 is
---generic (
---          REF_CLK_FREQ   : integer;          -- 0 - 100 MHz, 1 - 125 MHz,  2 - 250 MHz
---          ALLOW_X8_GEN2  : boolean;
---          PL_FAST_TRAIN  : boolean;
---          LINK_CAP_MAX_LINK_SPEED : bit_vector;
---          DEVICE_ID : bit_vector;
---          LINK_CAP_MAX_LINK_WIDTH  : bit_vector;
---          LINK_CAP_MAX_LINK_WIDTH_int  : integer;
---          LINK_CTRL2_TARGET_LINK_SPEED  : bit_vector;
---          LTSSM_MAX_LINK_WIDTH  : bit_vector;
---          DEV_CAP_MAX_PAYLOAD_SUPPORTED : integer;
---          USER_CLK_FREQ : integer;
---          VC0_TX_LASTPACKET : integer;
---          VC0_RX_RAM_LIMIT : bit_vector;
---          VC0_TOTAL_CREDITS_PD : integer;
---          VC0_TOTAL_CREDITS_CD : integer
---);
---port  (
---
---  sys_clk : in std_logic;
---  sys_reset_n : in std_logic;
---
---  pci_exp_rxn : in std_logic_vector((LINK_CAP_MAX_LINK_WIDTH_int - 1) downto 0);
---  pci_exp_rxp : in std_logic_vector((LINK_CAP_MAX_LINK_WIDTH_int - 1) downto 0);
---  pci_exp_txn : out std_logic_vector((LINK_CAP_MAX_LINK_WIDTH_int - 1) downto 0);
---  pci_exp_txp : out std_logic_vector((LINK_CAP_MAX_LINK_WIDTH_int - 1) downto 0)
---
---);
---end component;
+constant	fname_test_log	: string:= test_log & integer'image(test_id) & ".log";
+
 
 signal	clk125			: std_logic:='0';
 signal	clk125p			: std_logic;
@@ -111,7 +107,7 @@ signal  si_wb_outgoing_fifo_counter :   integer:=0;
 
 
 begin
-	
+
  dut: sp605_lx45t_wishbone 
 	generic map(
 		is_simulation	=> 2	-- 0 - синтез, 1 - моделирование ADM, 2 - моделирование pcie_core  
@@ -196,18 +192,24 @@ variable	data	: std_logic_vector( 31 downto 0 );
 variable 	str 	: LINE;		-- pointer to string
 
 begin
+	
+	--   test_init( "test.log" );
     
-    --test_init( "src\log\test.log" );
-    test_init( "test.log" );
+    test_init( fname_test_log );
     
     wait for 180 us;	
     
-    --test_dsc_incorrect( cmd, ret );
-    test_read_4kb( cmd, ret );      -- was original
-    --test_adm_read_8kb( cmd, ret );
-    --test_adm_read_16kb( cmd, ret );
-    --test_adm_write_16kb( cmd, ret );
-    --test_block_main( cmd, ret );
+	
+	case( test_id ) is
+		when 0 => test_dsc_incorrect( cmd, ret );
+    	when 1 => test_read_4kb( cmd, ret );      -- was original
+    	when 2 => test_adm_read_8kb( cmd, ret );
+    	--when 3 => test_adm_read_16kb( cmd, ret );
+    	--when 4 => test_adm_write_16kb( cmd, ret );
+    	--when 5 => test_block_main( cmd, ret );	   
+		
+		when others => null;
+	end case;
     
     --test_num_1(cmd, ret);
     --test_num_2(cmd, ret);
@@ -218,10 +220,10 @@ begin
     test_close;
     --
     -- Print Final Banner
-    report "Init END OF TEST" severity WARNING;
-    assert false
-    report "End of TEST; Ending simulation (not a Failure)"
-    severity FAILURE;
+--    report "Init END OF TEST" severity WARNING;
+--    assert false
+--    report "End of TEST; Ending simulation (not a Failure)"
+--    severity FAILURE;
     wait;
     
 end process pr_main;

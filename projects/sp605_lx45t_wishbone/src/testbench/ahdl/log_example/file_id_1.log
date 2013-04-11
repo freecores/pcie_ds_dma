@@ -1,0 +1,36 @@
+TEST_READ_4KB
+BLOCK TEST_GEN  ID: 00000001
+STATUS: A101 - descriptor is correct
+STATUS: A101
+STATUS: A101
+STATUS: A121 - DMA finished 
+
+STATUS: A121
+STATUS: A121
+STATUS: A121
+STATUS: A121
+ Read: 
+0   A5A50123
+1   00000000
+2   FFFFFFFF
+3   FFFFFFFF
+4   00000001
+5   00000000
+6   FFFFFFFE
+7   FFFFFFFF
+8   00000002
+9   00000000
+10   FFFFFFFD
+11   FFFFFFFF
+12   00000003
+13   00000000
+14   FFFFFFFC
+15   FFFFFFFF
+
+Test is correct
+
+ 
+
+check completed
+the number of successful tests:  1
+the number of false test: 0

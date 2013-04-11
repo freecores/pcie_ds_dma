@@ -1,0 +1,145 @@
+asim -ieee_nowarn -O5 -g test_id=1 +access +r +m+test_read_4kB stend_sp605_wishbone stend_sp605_wishbone
+# ELBREAD: Elaboration process.
+# ELBREAD: Elaboration time 1.8 [s].
+# asim: Stack memory: 32MB
+# asim: Retval memory: 32MB
+# KERNEL: Main thread initiated.
+# KERNEL: Kernel process initialization phase.
+# KERNEL: Time resolution set to 10fs.
+# ELAB2: Elaboration final pass...
+# ELAB2: Create instances ...
+# ELAB2: Create instances complete.
+# SLP: Started
+# SLP: Elaboration phase ...
+# SLP: Elaboration phase ... done : 20.9 [s]
+# SLP: Generation phase ...
+# SLP: Generation phase ... done : 27.5 [s]
+# SLP: Finished : 48.3 [s]
+# SLP: 108406 (60.51%) primitives and 64668 (36.10%) other processes in SLP
+# SLP: 285580 (94.99%) signals in SLP and 15068 (5.01%) interface signals
+# ELAB2: Elaboration final pass complete - time: 59.1 [s].
+# KERNEL: SLP loading done - time: 0.6 [s].
+# KERNEL: SLP simulation initialization done - time: 0.4 [s].
+# KERNEL: Kernel process initialization done.
+# Allocation: Simulator allocated 212652 kB (elbread=33277 elab2=80384 kernel=98991 sdf=0)
+#  1:16, 12 апреля 2013 г.
+#  Simulation has been initialized
+#  Selected Top-Level: stend_sp605_wishbone (stend_sp605_wishbone)
+run {300 us}
+# KERNEL: [ 1000 ns ] : Init start
+# KERNEL: [ 15923.246 ns ] : Transaction Reset is De-asserted
+# KERNEL: [ 25603.246 ns ] : Transaction Link is Up
+# KERNEL: [ 25603.246 ns ] : PCI EXPRESS BAR MEMORY/IO MAPPING PROCESS BEGUN..
+# KERNEL:             BAR 0 = 0x10000000 RANGE = 0xFFE00000 MEM32 MAPPED
+# KERNEL:             BAR 1 = 0x20000000 RANGE = 0xFFE00000 MEM32 MAPPED
+# KERNEL:             BAR 2 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 3 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 4 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 5 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 6 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL: [ 25603.246 ns ] : Setting Core Configuration Space...
+# KERNEL: [ 73651.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 75299.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 76595.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 76947.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 78227.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 78595.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 79891.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 80243.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 81523.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 81891.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 83187.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 83539.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 84819.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 85187.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 86483.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 86835.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 88115.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 89779.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 107635.146 ns ] : BUS Master Enable 
+# KERNEL: [ 107635.146 ns ] : Reading Config space
+# KERNEL:   Addr: [0x001]
+# KERNEL:   Cfg Addr [0x001] -> Data [0x00100000]
+# KERNEL: [ 107795.146 ns ] : Writing Config space
+# KERNEL:   Addr: [0x001] -> Data [0x00000007]
+# KERNEL: [ 107955.146 ns ] : Reading Config space
+# KERNEL:   Addr: [0x001]
+# KERNEL:   Cfg Addr [0x001] -> Data [0x00100007]
+# KERNEL: [ 113083.146 ns ] : Init complete
+# KERNEL: [ 182947.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183011.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190067.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 190179.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190243.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190307.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190371.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190435.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190499.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190563.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 191619.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 198355.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 198515.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 198531.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 198579.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 198675.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 198707.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 198883.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 199059.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 199235.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 199411.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 199587.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 199763.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 207699.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 208307.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 208883.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 209491.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 210067.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 210675.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 211251.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 211667.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 211859.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 212435.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 213043.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 213619.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 214259.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 214835.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 215507.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 215539.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 215651.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 216179.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 216787.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 217363.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 217971.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 218547.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 219219.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 219795.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 219827.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 220563.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 220931.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 221139.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 221747.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 222323.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 222931.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 223507.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 224115.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 224755.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 225363.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 225395.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 226035.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 226499.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 226675.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 234643.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 234755.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 242931.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 243523.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 251155.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 251747.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 259411.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 260003.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 267635.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 268227.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: TEST finished successfully
+# KERNEL: stopped at time: 300 us
+endsim
+#  Simulation has been stopped
+transcript to src/testbench/log/console_test_adm_read_8kb.log

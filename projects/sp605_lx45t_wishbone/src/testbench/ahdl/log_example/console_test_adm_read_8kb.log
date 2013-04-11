@@ -1,0 +1,488 @@
+asim -ieee_nowarn -O5 -g test_id=2 +access +r +m+test_adm_read_8kb stend_sp605_wishbone stend_sp605_wishbone
+# ELBREAD: Elaboration process.
+# ELBREAD: Elaboration time 1.8 [s].
+# asim: Stack memory: 32MB
+# asim: Retval memory: 32MB
+# KERNEL: Main thread initiated.
+# KERNEL: Kernel process initialization phase.
+# KERNEL: Time resolution set to 10fs.
+# ELAB2: Elaboration final pass...
+# ELAB2: Create instances ...
+# ELAB2: Create instances complete.
+# SLP: Started
+# SLP: Elaboration phase ...
+# SLP: Elaboration phase ... done : 20.7 [s]
+# SLP: Generation phase ...
+# SLP: Generation phase ... done : 27.5 [s]
+# SLP: Finished : 48.2 [s]
+# SLP: 108406 (60.51%) primitives and 64668 (36.10%) other processes in SLP
+# SLP: 285580 (94.99%) signals in SLP and 15068 (5.01%) interface signals
+# ELAB2: Elaboration final pass complete - time: 59.0 [s].
+# KERNEL: SLP loading done - time: 0.4 [s].
+# KERNEL: SLP simulation initialization done - time: 0.4 [s].
+# KERNEL: Kernel process initialization done.
+# Allocation: Simulator allocated 212652 kB (elbread=33277 elab2=80384 kernel=98991 sdf=0)
+#  1:18, 12 апреля 2013 г.
+#  Simulation has been initialized
+#  Selected Top-Level: stend_sp605_wishbone (stend_sp605_wishbone)
+run {350 us}
+# KERNEL: [ 1000 ns ] : Init start
+# KERNEL: [ 15923.246 ns ] : Transaction Reset is De-asserted
+# KERNEL: [ 25603.246 ns ] : Transaction Link is Up
+# KERNEL: [ 25603.246 ns ] : PCI EXPRESS BAR MEMORY/IO MAPPING PROCESS BEGUN..
+# KERNEL:             BAR 0 = 0x10000000 RANGE = 0xFFE00000 MEM32 MAPPED
+# KERNEL:             BAR 1 = 0x20000000 RANGE = 0xFFE00000 MEM32 MAPPED
+# KERNEL:             BAR 2 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 3 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 4 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 5 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 6 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL: [ 25603.246 ns ] : Setting Core Configuration Space...
+# KERNEL: [ 73651.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 75299.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 76595.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 76947.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 78227.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 78595.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 79891.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 80243.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 81523.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 81891.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 83187.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 83539.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 84819.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 85187.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 86483.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 86835.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 88115.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 89779.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 107635.146 ns ] : BUS Master Enable 
+# KERNEL: [ 107635.146 ns ] : Reading Config space
+# KERNEL:   Addr: [0x001]
+# KERNEL:   Cfg Addr [0x001] -> Data [0x00100000]
+# KERNEL: [ 107795.146 ns ] : Writing Config space
+# KERNEL:   Addr: [0x001] -> Data [0x00000007]
+# KERNEL: [ 107955.146 ns ] : Reading Config space
+# KERNEL:   Addr: [0x001]
+# KERNEL:   Cfg Addr [0x001] -> Data [0x00100007]
+# KERNEL: [ 113083.146 ns ] : Init complete
+# KERNEL: stopped at time: 148371150 ps
+endsim
+#  Simulation has been stopped
+acom -dbg -work sp605_lx45t_wishbone -2002  $dsn/src/testbench/test_pkg.vhd
+# Compile...
+# File: E:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\src\testbench\test_pkg.vhd
+# Compile Package "test_pkg"
+# Compile Package Body "test_pkg"
+# Warning: COMP96_0564: test_pkg.vhd : (107, 9): Shared variable is not of a protected type. (IEEE Std 1076-2002, 4.3.1.3)
+# Compile success 0 Errors 1 Warnings  Analysis time :  0.1 [s]
+acom -dbg -work sp605_lx45t_wishbone -2002  $dsn/src/testbench/test_pkg.vhd
+# Compile...
+# File: E:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\src\testbench\test_pkg.vhd
+# Compile Package "test_pkg"
+# Compile Package Body "test_pkg"
+# Warning: COMP96_0564: test_pkg.vhd : (107, 9): Shared variable is not of a protected type. (IEEE Std 1076-2002, 4.3.1.3)
+# Compile success 0 Errors 1 Warnings  Analysis time :  0.1 [s]
+acom -dbg -work sp605_lx45t_wishbone -2002  $dsn/src/testbench/stend_sp605_wishbone.vhd
+# Compile...
+# File: E:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\src\testbench\stend_sp605_wishbone.vhd
+# Compile Entity "stend_sp605_wishbone"
+# Compile Architecture "stend_sp605_wishbone" of Entity "stend_sp605_wishbone"
+# Compile success 0 Errors 0 Warnings  Analysis time :  0.2 [s]
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/rstp}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/clk}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/aclk}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/tx_ext_fifo}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/tx_ext_fifo_back}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/rx_ext_fifo}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_ext_fifo}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_ext_fifo_back}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ext_fifo_disp}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ext_fifo_disp_back}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/irq}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/test}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ram_adra}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ram_adrb}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ram_di_a}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ram_do_a}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ram_we_a}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ram_do_b}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_dma0_status}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_dma1_status}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/address}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/instruction}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/port_id}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/write_strobe}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/read_strobe}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/interrupt}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/interrupt_ack}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/kc_reset}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/in_port}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/out_port}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg4_do}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg8_do}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ram0_wr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ram1_wr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ram_adr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_dma_chn}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_status}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_dma_status}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_descriptor_status}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc_adr_h}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc_adr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc_size}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma0_rs0}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma1_rs0}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma0_rs0x}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma1_rs0x}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma_rs0}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_test}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dx}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ram_transfer_rdy}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma0_transfer_rdy}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma1_transfer_rdy}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma0_eot_clr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma1_eot_clr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma0_ctrl}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma1_ctrl}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ram_change}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_dma0_ctrl}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_dma1_ctrl}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_dma0_mode}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reg_dma1_mode}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc_correct}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc_cmd}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc_change_adr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc_change_mode}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc_load_en}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma_reg0}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma_change_adr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma_cmd_status}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma_chn}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/pci_adr_we}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/pci_adr_h_we}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/loc_adr_we}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/ack_cnt}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/reset}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma_wraddr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma_rdaddr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dma_wrdata}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/req_rd}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/req_wr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc_check_start}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc_check_ready}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/reset}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/clk}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/data_in}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/pci_adr_we}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/pci_adr_h_we}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dma_chn}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dsc_correct}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dsc_cmd}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dsc_change_adr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dsc_change_mode}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dsc_load_en}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dsc_check_start}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dsc_check_ready}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/ram0_wr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dma_wraddr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dma_wrdata}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dsc_adr_h}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dsc_adr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dsc_size}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/test}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/ram_a_out}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/ram_a_out_x}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/ram_a_in}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/ram_a_adr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/ram_a_wr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/ram_b_wr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/ram_b_adr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/reg_write}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/status}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/port_a}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/port_b}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/port_c}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/port_p}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/opmode}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/carry}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/reg_0}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/reg_1}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/reg_2}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/reg0_z}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/crc_reset}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/crc}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/crc_z}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/sig_error}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dma_descriptor_error}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dsc_change_adr_i}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/crc_we}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/crc_we_0}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/dsc_check_ready_i}
+asim -noglitch -noglitchmsg +notimingchecks +no_tchk_msg -relax -ieee_nowarn  -O5 +access +r +m+stend_sp605_wishbone stend_sp605_wishbone stend_sp605_wishbone
+# ELBREAD: Elaboration process.
+# ELBREAD: Elaboration time 1.8 [s].
+# asim: Stack memory: 32MB
+# asim: Retval memory: 32MB
+# KERNEL: Main thread initiated.
+# KERNEL: Kernel process initialization phase.
+# KERNEL: Time resolution set to 10fs.
+# ELAB2: Elaboration final pass...
+# ELAB2: Create instances ...
+# ELAB2: Create instances complete.
+# SLP: Started
+# SLP: Elaboration phase ...
+# SLP: Elaboration phase ... done : 20.9 [s]
+# SLP: Generation phase ...
+# SLP: Generation phase ... done : 29.5 [s]
+# SLP: Finished : 50.4 [s]
+# SLP: 108406 (60.51%) primitives and 64668 (36.10%) other processes in SLP
+# SLP: 285580 (94.99%) signals in SLP and 15068 (5.01%) interface signals
+# ELAB2: Elaboration final pass complete - time: 61.3 [s].
+# KERNEL: SLP loading done - time: 0.5 [s].
+# KERNEL: SLP simulation initialization done - time: 0.4 [s].
+# KERNEL: Kernel process initialization done.
+# Allocation: Simulator allocated 212652 kB (elbread=33277 elab2=80384 kernel=98991 sdf=0)
+#  1:22, 12 апреля 2013 г.
+#  Simulation has been initialized
+#  Selected Top-Level: stend_sp605_wishbone (stend_sp605_wishbone)
+run 300 us
+# KERNEL: [ 1000 ns ] : Init start
+# KERNEL: stopped at time: 9731146 ps
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/reset}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/clk}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_ctrl}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_ctrl}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_transfer_rdy}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_transfer_rdy}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_chn}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/ram_do}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/ram_adr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/ram_we}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_eot_clr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_eot_clr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/reg_dma0_status}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/reg_dma1_status}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/ram_change}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/loc_adr_we}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/pci_adr_we}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/pci_adr_h_we}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dsc_correct}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dsc_cmd}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dsc_change_adr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dsc_change_mode}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dsc_load_en}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dsc_check_start}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dsc_check_ready}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_reg0}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_change_adr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_status}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_eot}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_eot}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_sg_eot}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_sg_eot}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_eot_set}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_sg_eot_set}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/ra}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_chni}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/ram_a_adr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/ram_a_out}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/rstp}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_chn_change_en}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_ctrl_z}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_ctrl_z}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_flag_start}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_flag_start}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_flag_start}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_flag_start_clr}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_transfer_start}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_chn_change}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_start}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_start}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/ram_adr_l}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_start}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_wait_eot}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_wait_eot}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_wait_eot2}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_wait_eot2}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/stp}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/ram_sel}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/stw}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/init_compelte}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma_rotate}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_block}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_block}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_block_in}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_block_in}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma0_block_z}
+# add wave -noreg {/stend_sp605_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/main/dma1_block_z}
+run 300 us
+# KERNEL: [ 15923.246 ns ] : Transaction Reset is De-asserted
+# KERNEL: [ 25603.246 ns ] : Transaction Link is Up
+# KERNEL: [ 25603.246 ns ] : PCI EXPRESS BAR MEMORY/IO MAPPING PROCESS BEGUN..
+# KERNEL:             BAR 0 = 0x10000000 RANGE = 0xFFE00000 MEM32 MAPPED
+# KERNEL:             BAR 1 = 0x20000000 RANGE = 0xFFE00000 MEM32 MAPPED
+# KERNEL:             BAR 2 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 3 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 4 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 5 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 6 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL: [ 25603.246 ns ] : Setting Core Configuration Space...
+# KERNEL: [ 73651.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 75299.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 76595.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 76947.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 78227.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 78595.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 79891.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 80243.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 81523.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 81891.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 83187.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 83539.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 84819.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 85187.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 86483.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 86835.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 88115.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 89779.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 107635.146 ns ] : BUS Master Enable 
+# KERNEL: [ 107635.146 ns ] : Reading Config space
+# KERNEL:   Addr: [0x001]
+# KERNEL:   Cfg Addr [0x001] -> Data [0x00100000]
+# KERNEL: [ 107795.146 ns ] : Writing Config space
+# KERNEL:   Addr: [0x001] -> Data [0x00000007]
+# KERNEL: [ 107955.146 ns ] : Reading Config space
+# KERNEL:   Addr: [0x001]
+# KERNEL:   Cfg Addr [0x001] -> Data [0x00100007]
+# KERNEL: [ 113083.146 ns ] : Init complete
+# KERNEL: [ 182899.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 182963.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183027.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183091.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183155.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183219.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190291.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 190387.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 190451.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 190467.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190547.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 190643.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190819.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190995.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 191171.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 191347.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 191523.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 191699.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 193283.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 198803.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 198915.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: TEST finished with ERR
+# KERNEL: stopped at time: 230798104 ps
+acom -dbg -work sp605_lx45t_wishbone -2002  $dsn/src/testbench/test_pkg.vhd
+# Compile...
+# File: E:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\src\testbench\test_pkg.vhd
+# Compile Package "test_pkg"
+# Compile Package Body "test_pkg"
+# Warning: COMP96_0564: test_pkg.vhd : (107, 9): Shared variable is not of a protected type. (IEEE Std 1076-2002, 4.3.1.3)
+# Compile success 0 Errors 1 Warnings  Analysis time :  0.2 [s]
+acom -dbg -work sp605_lx45t_wishbone -2002  $dsn/src/testbench/stend_sp605_wishbone.vhd
+# Compile...
+# File: E:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\src\testbench\stend_sp605_wishbone.vhd
+# Compile Entity "stend_sp605_wishbone"
+# Compile Architecture "stend_sp605_wishbone" of Entity "stend_sp605_wishbone"
+# Compile success 0 Errors 0 Warnings  Analysis time :  0.2 [s]
+run 300 us
+endsim
+# KERNEL: stopped at time: 504001551 ps
+#  Simulation has been stopped
+asim -noglitch -noglitchmsg +notimingchecks +no_tchk_msg -relax -ieee_nowarn  -O5 +access +r +m+stend_sp605_wishbone stend_sp605_wishbone stend_sp605_wishbone
+# ELBREAD: Elaboration process.
+# ELBREAD: Elaboration time 1.8 [s].
+# asim: Stack memory: 32MB
+# asim: Retval memory: 32MB
+# KERNEL: Main thread initiated.
+# KERNEL: Kernel process initialization phase.
+# KERNEL: Time resolution set to 10fs.
+# ELAB2: Elaboration final pass...
+# ELAB2: Create instances ...
+# ELAB2: Create instances complete.
+# SLP: Started
+# SLP: Elaboration phase ...
+# SLP: Elaboration phase ... skipped, using existing simulator library: 3.1 [s]
+# SLP: Finished : 3.3 [s]
+# SLP: 108406 (60.51%) primitives and 64668 (36.10%) other processes in SLP
+# SLP: 285580 (94.99%) signals in SLP and 15068 (5.01%) interface signals
+# ELAB2: Elaboration final pass complete - time: 14.1 [s].
+# KERNEL: SLP loading done - time: 0.0 [s].
+# KERNEL: SLP simulation initialization done - time: 0.4 [s].
+# KERNEL: Kernel process initialization done.
+# Allocation: Simulator allocated 212652 kB (elbread=33277 elab2=80384 kernel=98991 sdf=0)
+#  1:31, 12 апреля 2013 г.
+#  Simulation has been initialized
+#  Selected Top-Level: stend_sp605_wishbone (stend_sp605_wishbone)
+run 300 us
+# KERNEL: [ 1000 ns ] : Init start
+# KERNEL: [ 15923.246 ns ] : Transaction Reset is De-asserted
+# KERNEL: [ 25603.246 ns ] : Transaction Link is Up
+# KERNEL: [ 25603.246 ns ] : PCI EXPRESS BAR MEMORY/IO MAPPING PROCESS BEGUN..
+# KERNEL:             BAR 0 = 0x10000000 RANGE = 0xFFE00000 MEM32 MAPPED
+# KERNEL:             BAR 1 = 0x20000000 RANGE = 0xFFE00000 MEM32 MAPPED
+# KERNEL:             BAR 2 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 3 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 4 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 5 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 6 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL: [ 25603.246 ns ] : Setting Core Configuration Space...
+# KERNEL: [ 73651.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 75299.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 76595.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 76947.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 78227.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 78595.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 79891.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 80243.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 81523.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 81891.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 83187.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 83539.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 84819.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 85187.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 86483.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 86835.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 88115.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 89779.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 107635.146 ns ] : BUS Master Enable 
+# KERNEL: [ 107635.146 ns ] : Reading Config space
+# KERNEL:   Addr: [0x001]
+# KERNEL:   Cfg Addr [0x001] -> Data [0x00100000]
+# KERNEL: [ 107795.146 ns ] : Writing Config space
+# KERNEL:   Addr: [0x001] -> Data [0x00000007]
+# KERNEL: [ 107955.146 ns ] : Reading Config space
+# KERNEL:   Addr: [0x001]
+# KERNEL:   Cfg Addr [0x001] -> Data [0x00100007]
+# KERNEL: [ 113083.146 ns ] : Init complete
+# KERNEL: [ 182899.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 182963.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183027.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183091.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183155.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183219.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190291.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 190387.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 190451.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 190467.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190547.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 190643.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190819.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 190995.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 191171.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 191347.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 191523.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 191699.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 203283.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 210003.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 210115.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: TEST finished successfully
+# KERNEL: stopped at time: 300 us
+#  Simulation has been stopped

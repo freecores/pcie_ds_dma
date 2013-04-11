@@ -14,11 +14,7 @@
 .\src\pcie_src\pcie_core64_m1\pcie_ctrl\core64_interrupt.vhd
 .\src\pcie_src\pcie_core64_m1\pcie_ctrl\core64_pb_disp.vhd
 .\src\pcie_src\pcie_core64_m1\pcie_ctrl\core64_reg_access.vhd
-.\src\pcie_src\pcie_core64_m1\pcie_ctrl\core64_rx_engine.vhd
-.\src\pcie_src\pcie_core64_m1\pcie_ctrl\core64_rx_engine_m2.vhd
 .\src\pcie_src\pcie_core64_m1\pcie_ctrl\core64_rx_engine_m4.vhd
-.\src\pcie_src\pcie_core64_m1\pcie_ctrl\core64_tx_engine.vhd
-.\src\pcie_src\pcie_core64_m1\pcie_ctrl\core64_tx_engine_m2.vhd
 .\src\pcie_src\pcie_core64_m1\pcie_ctrl\core64_tx_engine_m4.vhd
 .\src\pcie_src\pcie_core64_m1\pcie_fifo_ext\ctrl_dma_adr.vhd
 .\src\pcie_src\pcie_core64_m1\pcie_fifo_ext\ctrl_dma_ext_cmd.vhd

@@ -30,30 +30,30 @@ use work.wb_block_pkg.all;
 
 package test_pkg is
 	
---! Инициализация теста	
+--! Initialising
 procedure test_init(
 		fname: in string 	--! имя файла отчёта
 	);
 	
---! Завершение теста		
+--! Finished
 procedure test_close;						
 	
 	
 	
---! Запуск DMA с неправильным дескриптором 
+--! Start DMA with incorrect descriptor
 procedure test_dsc_incorrect (
 		signal  cmd:	out bh_cmd; --! команда
 		signal  ret:	in  bh_ret  --! ответ
 		);
 
---! Запуск DMA на приём одного блока 4 кБ
+--! Start DMA for one block 4 kB
 procedure test_read_4kb (
 		signal  cmd:	out bh_cmd; --! команда
 		signal  ret:	in  bh_ret  --! ответ
 		);
 
 				
---! Чтение 8 кБ из тетрады DIO_IN 
+--! Read block_test_check 8 kB
 procedure test_adm_read_8kb (
 		signal  cmd:	out bh_cmd; --! команда
 		signal  ret:	in  bh_ret  --! ответ
@@ -106,9 +106,9 @@ package body test_pkg is
 	
 	shared variable cnt_ok, cnt_error: integer;
 	
-	-- Инициализация теста	
+	-- Initialising
 	procedure test_init(
-		fname: in string 					-- имя файла отчёта
+		fname: in string 					
 		) is
 	begin
 		
@@ -118,7 +118,7 @@ package body test_pkg is
 		
 	end test_init;	
 	
-	-- Завершение теста		
+	--! Finished
 	procedure test_close is		
 		variable str : LINE;		-- pointer to string
 	begin					  	
@@ -127,23 +127,32 @@ package body test_pkg is
 		writeline( log, str );		
 		writeline( log, str );		
 		
-		write( str, string'("Проверка завершена" ));
+		write( str, string'("check completed" ));
 		writeline( log, str );		
-		write( str, string'("Число успешных тестов:  " ));
+		write( str, string'("the number of successful tests:  " ));
 		write( str, cnt_ok );
 		writeline( log, str );		
-		write( str, string'("Число ошибочных тестов: " ));
+		write( str, string'("the number of false test: " ));
 		write( str, cnt_error );
 		writeline( log, str );		
 		
 		
 		file_close( log ); 
 		
+		if( cnt_ok>0 and cnt_error=0 ) then
+			write( str, string'("TEST finished successfully") );
+			writeline( output, str );		
+		else
+			write( str, string'("TEST finished with ERR") );
+			writeline( output, str );		
+			
+		end if;
+		
 	end test_close;	
 	
 	
 	
---! Запуск DMA с неправильным дескриптором 
+--! Start DMA with incorrect descriptor
 procedure test_dsc_incorrect (
 		signal  cmd:	out bh_cmd; --! команда
 		signal  ret:	in  bh_ret  --! ответ
@@ -158,7 +167,7 @@ begin
 	write( str, string'("TEST_DSC_INCORRECT" ));
 	writeline( log, str );	
 	
-	---- Формирование блока дескрипторов ---
+	---- Init block of descriptor ---
 	for ii in 0 to 127 loop
 		adr:= x"00100000";
 		adr:=adr + ii*4;
@@ -168,7 +177,7 @@ begin
 	int_mem_write( cmd, ret, x"00100000",  x"03020100" );
 	int_mem_write( cmd, ret, x"001001FC",  x"FF00AA00" );
 	
-	---- Программирование канала DMA ----
+	---- DMA program ----
 	block_write( cmd, ret, 4, 8, x"00000027" );		-- DMA_MODE 
 	block_write( cmd, ret, 4, 9, x"00000010" );		-- DMA_CTRL - RESET FIFO 
 	
@@ -178,7 +187,7 @@ begin
 	
 	block_write( cmd, ret, 4, 9, x"00000001" );		-- DMA_CTRL - START 
 	
-	wait for 10 us;
+	wait for 20 us;
 	
 	block_read( cmd, ret, 4, 16, data );			-- STATUS 
 	
@@ -198,7 +207,7 @@ begin
 end test_dsc_incorrect;
 	
 
---! Запуск DMA приём одного блока 4 кБ
+--! Start DMA for one block 4 kB
 procedure test_read_4kb (
 		signal  cmd:	out bh_cmd; --! команда
 		signal  ret:	in  bh_ret  --! ответ
@@ -217,7 +226,7 @@ begin
 	write( str, string'("TEST_READ_4KB" ));
 	writeline( log, str );	
 	
-	---- Формирование блока дескрипторов ---
+	---- Init block of descriptor ---
 	for ii in 0 to 127 loop
 		adr:= x"00100000";
 		adr:=adr + ii*4;
@@ -231,25 +240,25 @@ begin
 	int_mem_write( cmd, ret, x"001001F8",  x"00000000" );
 	int_mem_write( cmd, ret, x"001001FC",  x"762C4953" );
 	
-	--wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"00000001" ); -- сброс
+	--wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"00000001" ); -- reset
 	wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"00000000" ); 
-	wb_block_gen_read( cmd, ret, REG_BLOCK_ID, data ); -- чтение идентификатора блока
+	wb_block_gen_read( cmd, ret, REG_BLOCK_ID, data ); -- read block id
 	write( str, string'("BLOCK TEST_GEN  ID: " ));
 	hwrite( str, data );
 	writeline( log, str );	
 	
-	wb_block_gen_write( cmd, ret, REG_TEST_GEN_SIZE, x"00000001" ); -- размер блока - 1 килобайт
+	wb_block_gen_write( cmd, ret, REG_TEST_GEN_SIZE, x"00000001" ); -- size of block = 4 kByte
 	
 
-	---- Программирование канала DMA ----
-	block_write( cmd, ret, 4, 8, x"00000025" );		-- DMA_MODE - без запросов DMA 
+	---- DMA program ----
+	block_write( cmd, ret, 4, 8, x"00000025" );		-- DMA_MODE - without request
 	block_write( cmd, ret, 4, 9, x"00000010" );		-- DMA_CTRL - RESET FIFO 
 	
 	block_write( cmd, ret, 4, 20, x"00100000" );	-- PCI_ADRL 
 	block_write( cmd, ret, 4, 21, x"00100000" );	-- PCI_ADRH  
 	block_write( cmd, ret, 4, 23, TEST_GEN_WB_BURST_SLAVE );	-- LOCAL_ADR 
 
-	wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"000006A0" ); -- запуск тестовой последовательности
+	wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"000006A0" ); -- start test sequence
 
 	wait for 1 us;
 	
@@ -264,9 +273,9 @@ begin
 	
 	write( str, string'("STATUS: " )); hwrite( str, data( 15 downto 0 ) );
 	if( data( 8 )='1' ) then
-		write( str, string'(" - Дескриптор правильный" ));	
+		write( str, string'(" - descriptor is correct" ));	
 	else
-		write( str, string'(" - Ошибка чтения дескриптора" ));
+		write( str, string'(" - descriptor is incorrect" ));
 		error := error + 1;
 	end if;
 	
@@ -274,14 +283,14 @@ begin
 	
 	if( error=0 ) then
 		
-		---- Ожидание завершения DMA ----
+		---- Wait for DMA finished ----
 		dma_complete := 0;
 		for ii in 0 to 100 loop
 			
 		block_read( cmd, ret, 4, 16, data );			-- STATUS 
 		write( str, string'("STATUS: " )); hwrite( str, data( 15 downto 0 ) );
 			if( data(5)='1' ) then
-				write( str, string'(" - DMA завершён " ));
+				write( str, string'(" - DMA finished " ));
 				dma_complete := 1;
 			end if;
 			writeline( log, str );			
@@ -297,7 +306,7 @@ begin
 		writeline( log, str );			
 		
 		if( dma_complete=0 ) then
-			write( str, string'("Ошибка - DMA не завершён " ));
+			write( str, string'("Error - DMA not finished" ));
 			writeline( log, str );			
 			error:=error+1;
 		end if;
@@ -316,7 +325,7 @@ begin
 	
 	block_write( cmd, ret, 4, 9, x"00000000" );		-- DMA_CTRL - STOP  	
 	
-	write( str, string'(" Прочитано: " ));
+	write( str, string'(" Read: " ));
 	writeline( log, str );		
 	
 	for ii in 0 to 15 loop
@@ -338,10 +347,10 @@ begin
 	
 	writeline( log, str );		
 	if( error=0 ) then
-		write( str, string'(" Тест завершён успешно " ));
+		write( str, string'("Test is correct" ));
 		cnt_ok := cnt_ok + 1;
 	else
-		write( str, string'(" Тест не выполнен " ));
+		write( str, string'("Test have ERRORS" ));
 		cnt_error := cnt_error + 1;
 	end if;
 	writeline( log, str );	
@@ -350,7 +359,7 @@ begin
 end test_read_4kb;
 
 
---! Чтение 8 кБ из тетрады DIO_IN 
+--! Read block_test_check 8 kB
 procedure test_adm_read_8kb (
 		signal  cmd:	out bh_cmd; --! команда
 		signal  ret:	in  bh_ret  --! ответ
@@ -369,20 +378,20 @@ begin
 	write( str, string'("TEST_ADM_READ_8KB" ));
 	writeline( log, str );	
 	
-	---- Формирование блока дескрипторов ---
+	---- Init block of descriptor ---
 	for ii in 0 to 127 loop
 		adr:= x"00100000";
 		adr:=adr + ii*4;
 		int_mem_write( cmd, ret, adr,  x"00000000" );
 	end loop;										 
 	
-	--- Дескриптор 0 ---
+	--- Desctriptor 0 ---
 	int_mem_write( cmd, ret, x"00100000",  x"00008000" ); 
-	int_mem_write( cmd, ret, x"00100004",  x"00000111" );  	-- переход к следующему 
+	int_mem_write( cmd, ret, x"00100004",  x"00000111" );  	-- jump to next descriptor
 
-	--- Дескриптор 1 ---
+	--- Desctriptor 1 ---
 	int_mem_write( cmd, ret, x"00100008",  x"00008010" ); 
-	int_mem_write( cmd, ret, x"0010000C",  x"00000110" );  	-- остановка
+	int_mem_write( cmd, ret, x"0010000C",  x"00000110" );  	-- stop
 	
 	
 	int_mem_write( cmd, ret, x"001001F8",  x"00000000" );
@@ -398,18 +407,18 @@ begin
 	block_write( cmd, ret, 4, 23, TEST_GEN_WB_BURST_SLAVE );	-- LOCAL_ADR 
 	
 	
-	wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"00000001" ); -- сброс
+	wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"00000001" ); -- reset
 	wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"00000000" ); 
-	wb_block_gen_read( cmd, ret, REG_BLOCK_ID, data ); -- чтение идентификатора блока
+	wb_block_gen_read( cmd, ret, REG_BLOCK_ID, data ); -- read block id
 	write( str, string'("BLOCK TEST_GEN  ID: " ));
 	hwrite( str, data );
 	writeline( log, str );	
 	
-	wb_block_gen_write( cmd, ret, REG_TEST_GEN_SIZE, x"00000001" ); -- размер блока - 1 килобайт
+	wb_block_gen_write( cmd, ret, REG_TEST_GEN_SIZE, x"00000001" ); -- size of block = 4 kByte
 
 	block_write( cmd, ret, 4, 9, x"00000001" );		-- DMA_CTRL - START 
 	
-	wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"000006A0" ); -- запуск тестовой последовательности	
+	wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"000006A0" ); -- start test sequence	
 	
 	wait for 20 us;
 	
@@ -417,9 +426,9 @@ begin
 	
 	write( str, string'("STATUS: " )); hwrite( str, data( 15 downto 0 ) );
 	if( data( 8 )='1' ) then
-		write( str, string'(" - Дескриптор правильный" ));	
+		write( str, string'(" - descriptor is correct" ));	
 	else
-		write( str, string'(" - Ошибка чтения дескриптора" ));
+		write( str, string'(" - descriptor is incorrect" ));
 		error := error + 1;
 	end if;
 	
@@ -434,10 +443,10 @@ begin
 		block_read( cmd, ret, 4, 16, data );			-- STATUS 
 		write( str, string'("STATUS: " )); hwrite( str, data( 15 downto 0 ) );
 			if( data(5)='1' ) then
-				write( str, string'(" - DMA завершён " ));
+				write( str, string'(" - DMA finished " ));
 				dma_complete := 1;	
 				
-				block_write( cmd, ret, 4, 16#11#, x"00000010" );		-- FLAG_CLR - сброс EOT 
+				block_write( cmd, ret, 4, 16#11#, x"00000010" );		-- FLAG_CLR - reset EOT 
 				
 			end if;
 			writeline( log, str );			
@@ -453,7 +462,7 @@ begin
 		writeline( log, str );			
 		
 		if( dma_complete=0 ) then
-			write( str, string'("Ошибка - DMA не завершён " ));
+			write( str, string'("Error - DMA not finished " ));
 			writeline( log, str );			
 			error:=error+1;
 		end if;
@@ -472,7 +481,7 @@ begin
 	
 	block_write( cmd, ret, 4, 9, x"00000000" );		-- DMA_CTRL - STOP  	
 	
-	write( str, string'(" Блок 0 - прочитано: " ));
+	write( str, string'(" Block 0 - read: " ));
 	writeline( log, str );		
 	
 	for ii in 0 to 15 loop
@@ -488,7 +497,7 @@ begin
 
 	writeline( log, str );		
 	
-	write( str, string'(" Блок 1 - прочитано: " ));
+	write( str, string'(" Block 1 - read: " ));
 	writeline( log, str );		
 	
 	for ii in 0 to 15 loop
@@ -510,10 +519,10 @@ begin
 	
 	writeline( log, str );		
 	if( error=0 ) then
-		write( str, string'(" Тест завершён успешно " ));
+		write( str, string'(" Test is correct " ));
 		cnt_ok := cnt_ok + 1;
 	else
-		write( str, string'(" Тест не выполнен " ));
+		write( str, string'(" Test have ERRORS " ));
 		cnt_error := cnt_error + 1;
 	end if;
 	writeline( log, str );	

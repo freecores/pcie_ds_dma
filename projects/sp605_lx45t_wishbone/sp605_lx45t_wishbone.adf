@@ -35,8 +35,8 @@ FAMILY=Xilinx12x VIRTEX5
 RUN_MODE_SYNTH=0
 VerilogDirsChanged=1
 WireDelay=2
-NoTchkMsg=0
-NoTimingChecks=0
+NoTchkMsg=1
+NoTimingChecks=1
 HESPrepare=0
 EnableXtrace=0
 SplitNetVectors=0
@@ -59,6 +59,10 @@ ReportDroppedCoverEvaluations=0
 ReportActivatedCoverEvaluations=0
 fileopeninsrc=1
 fileopenfolder=E:\prog\ds_dma_project\sp605_lx45t_wishbone
+DisableVitalMsg=1
+VitalAccel=1
+VitalGlitches=1
+DisableIEEEWarnings=1
 
 [LocalVerilogSets]
 EnableSLP=1
@@ -78,10 +82,28 @@ MonitoringOfEventsUDP=0
 DisablePulseError=0
 HasInitialRegsValue=0
 InitialRegsValue=X
-PriorityLibNames=ovi_unisim;ovi_xilinxcorelib;ovi_unimacro;
 
 [LocalVhdlSets]
 CompileWithDebug=1
+DisableVHDL87Key=0
+EnableVHDL93Key=0
+EnableVHDL2002Key=1
+EnableVHDL2006Key=0
+EnableVHDL2008Key=0
+NetlistCompilation=1
+Syntax RelaxLRM=0
+MaxErrorsKey=100
+OptimizationLevel=3
+DisableRangeChecks=0
+ProtectLevel=0
+AdditionalOptions=
+IncrementalCompilation=0
+ReorderOnFirstRebuild=1
+ElaborationAfterCompilation=0
+PrintErrWarnOnly=0
+GenMultiplatformLib=0
+VhdlChangeEvalAsynchronous=0
+VhdlDisableAssertionsProcessing=0
 
 [$LibMap$]
 sp605_lx45t_wishbone=.
@@ -105,17 +127,12 @@ impl_opt(dont_run_bitgen)=1
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=cl_s6pcie_m2|rtl|0 stend_sp605_wishbone|stend_sp605_wishbone|0 
+HierarchyInformation=stend_sp605_wishbone|stend_sp605_wishbone|0 
 ShowHide=ShowTopLevel
 Selected=
 
 [DefineMacro]
 Global=
-
-[Verilog Library]
-ovi_unimacro=
-ovi_unisim=
-ovi_xilinxcorelib=
 
 [Folders]
 Name3=Makefiles
@@ -159,7 +176,6 @@ testbench\modelsim\required_tests\test0=1
 testbench\modelsim\required_tests\test0\zz_do=1
 testbench\ahdl=1
 top=1
-log=1
 wishbone=1
 wishbone\block_test_check=1
 wishbone\block_test_generate=1
@@ -179,6 +195,12 @@ wishbone\testbecnh\dev_test_gen\sim\zz_do=1
 wishbone\testbecnh\dev_wb_cross=1
 wishbone\testbecnh\dev_wb_cross\sim=1
 wishbone\testbecnh\dev_wb_cross\sim\zz_do=1
+testbench\log=1
+
+[Verilog Library]
+ovi_unimacro=
+ovi_unisim=
+ovi_xilinxcorelib=
 
 [Files]
 pcie_src\components\block_main/block_pe_main.vhd=-1
@@ -339,10 +361,10 @@ testbench\ahdl/test_gen.awf=-1
 testbench\ahdl/pb_wishbone.awf=-1
 testbench\ahdl/rx.awf=-1
 testbench\ahdl/tx.awf=-1
+testbench\ahdl/run_ahdl.tcl=-1
 top/sp605_lx45t_wishbone.ucf=-1
 top/sp605_lx45t_wishbone_sopc_wb.vhd=-1
 top/sp605_lx45t_wishbone.vhd=-1
-log/..\..\test.log=-1
 wishbone\block_test_check/block_check_wb_pkg.vhd=-1
 wishbone\block_test_check/block_check_wb_burst_slave.v=-1
 wishbone\block_test_check/block_check_wb_config_slave.vhd=-1
@@ -568,10 +590,10 @@ wishbone\testbecnh\dev_wb_cross\sim\zz_do/setup_sim.do=-1
 .\src\testbench\ahdl\pb_wishbone.awf=Waveform File
 .\src\testbench\ahdl\rx.awf=Waveform File
 .\src\testbench\ahdl\tx.awf=Waveform File
+.\src\testbench\ahdl\run_ahdl.tcl=Tcl Script
 .\src\top\sp605_lx45t_wishbone.ucf=External File
 .\src\top\sp605_lx45t_wishbone_sopc_wb.vhd=VHDL Source Code
 .\src\top\sp605_lx45t_wishbone.vhd=VHDL Source Code
-.\test.log=Text File
 .\src\wishbone\block_test_check\block_check_wb_pkg.vhd=VHDL Source Code
 .\src\wishbone\block_test_check\block_check_wb_burst_slave.v=Verilog Source Code
 .\src\wishbone\block_test_check\block_check_wb_config_slave.vhd=VHDL Source Code
@@ -637,3 +659,4 @@ wishbone\testbecnh\dev_wb_cross\sim\zz_do/setup_sim.do=-1
 .\src\wishbone\testbecnh\dev_wb_cross\sim\wb_tb_simple_ram_slave.v=Verilog Source Code
 .\src\wishbone\testbecnh\dev_wb_cross\sim\zz_do\delete.do=Macro
 .\src\wishbone\testbecnh\dev_wb_cross\sim\zz_do\setup_sim.do=Macro
+
