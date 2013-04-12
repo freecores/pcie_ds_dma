@@ -17,6 +17,9 @@
 --  Version 1.1		19.06.2012
 --					Исправлено формирование cpl_byte_count 
 --
+--					12.04.2013
+--					Fixed cpl_byte_count
+--
 -------------------------------------------------------------------------------
 
 library ieee;
@@ -458,7 +461,7 @@ tlp_dw0 <= "0" & rx_tx_engine.request_reg_rd & "0010100" &  rx_tx_engine.request
 tlp_dw1 <= completer_id & cpl_status & '0' & cpl_byte_count;
 tlp_dw2 <= rx_tx_engine.request_id & rx_tx_engine.request_tag & '0' & rx_tx_engine.lower_adr & "00";
 
-cpl_byte_count <= "0000" & "0000" & "0" & rx_tx_engine.request_reg_rd & "00";  
+--cpl_byte_count <= "0000" & "0000" & "0" & rx_tx_engine.request_reg_rd & "00";  
 cpl_byte_count <= "0000" & "0000" & "0" & rx_tx_engine.byte_count;
 
 reg_data <= reg_access_back.data after 1 ns when rising_edge( clk ) and reg_access_back.data_we='1';
