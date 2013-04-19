@@ -127,7 +127,7 @@ impl_opt(dont_run_bitgen)=1
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=stend_sp605_wishbone|stend_sp605_wishbone|0 
+HierarchyInformation=stend_sp605_wishbone|stend_sp605_wishbone|0
 ShowHide=ShowTopLevel
 Selected=
 
@@ -136,19 +136,19 @@ Global=
 
 [Folders]
 Name3=Makefiles
-Directory3=e:\prog\ds_dma_project\trunk\projects\sp605_lx45t_wishbone\
+Directory3=e:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\
 Extension3=mak
 Name4=Memory
-Directory4=e:\prog\ds_dma_project\trunk\projects\sp605_lx45t_wishbone\src
+Directory4=e:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\src
 Extension4=mem;mif;hex
 Name5=Dll Libraries
-Directory5=e:\prog\ds_dma_project\trunk\projects\sp605_lx45t_wishbone\
+Directory5=e:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\
 Extension5=dll
 Name6=PDF
-Directory6=e:\prog\ds_dma_project\trunk\projects\sp605_lx45t_wishbone\
+Directory6=e:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\
 Extension6=pdf
 Name7=HTML
-Directory7=e:\prog\ds_dma_project\trunk\projects\sp605_lx45t_wishbone\
+Directory7=e:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\
 Extension7=
 
 [Groups]

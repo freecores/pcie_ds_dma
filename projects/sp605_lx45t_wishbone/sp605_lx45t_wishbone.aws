@@ -2,10 +2,14 @@
 Version=9.1
 [Designs]
 sp605_lx45t_wishbone=sp605_lx45t_wishbone.adf
+ambpex5_sx50t_wishbone=.\..\ambpex5_sx50t_wishbone\ambpex5_sx50t_wishbone.adf
+ambpex5_v20_sx50t_core=.\..\ambpex5_v20_sx50t_core\ambpex5_v20_sx50t_core.adf
 [Settings]
-Active=sp605_lx45t_wishbone
+Active=ambpex5_sx50t_wishbone
 [Expand]
 sp605_lx45t_wishbone=1
+ambpex5_sx50t_wishbone=1
+ambpex5_v20_sx50t_core=0
 [Browser]
 sort=order
 mode=none

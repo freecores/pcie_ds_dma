@@ -1,4 +1,4 @@
-timestamp=1365719381673
+timestamp=1365787495048
 
 [$root]
 A/$root=22|""|0|1*12128454
@@ -422,12 +422,12 @@ R=./src/pcie_src/pcie_core64_m1/pcie_ctrl/core64_rx_engine_m4.vhd|28
 Version=9.1.2353.4205  (Windows)|00000004789cd34d494a0700030f015b
 
 [core64_tx_engine_m4]
-A/core64_tx_engine_m4=21|./src/pcie_src/pcie_core64_m1/pcie_ctrl/core64_tx_engine_m4.vhd|88|1*8811767
-BinI32/core64_tx_engine_m4=3*908254
+A/core64_tx_engine_m4=21|./src/pcie_src/pcie_core64_m1/pcie_ctrl/core64_tx_engine_m4.vhd|91|1*15332937
+BinI32/core64_tx_engine_m4=3*1734685
 I=0*430006
-I/core64_tx_engine_m4=0*661705
+I/core64_tx_engine_m4=0*2597329
 M=11|0|v98|1359756121000|./src/pcie_src/pcie_core64_m1/pcie_ctrl/core64_tx_engine_m4.vhd|0*429149*0xb05569856eb984e7035f879120bd48c13a9fad3d|0*429873*0xab32bc1a2daf049573e14469f634e0e6
-M/core64_tx_engine_m4=21|0|v98|1359756283924|./src/pcie_src/pcie_core64_m1/pcie_ctrl/core64_tx_engine_m4.vhd|0*430378*0x0d4244248c951823c9a9a79af340c1b1d804b48b|0*441886*0x9883a4debb77c3d3c4860cd1e2edf83c
+M/core64_tx_engine_m4=21|0|v98|1365787494894|./src/pcie_src/pcie_core64_m1/pcie_ctrl/core64_tx_engine_m4.vhd|0*2585747*0x07860b5a89f97ca31674785ce71247c8ad3be79a|0*2597173*0x9883a4debb77c3d3c4860cd1e2edf83c
 R=./src/pcie_src/pcie_core64_m1/pcie_ctrl/core64_tx_engine_m4.vhd|64
 Version=9.1.2353.4205  (Windows)|00000004789cd34d494a0700030f015b
 Version/core64_tx_engine_m4=9.1.2353.4205  (Windows)|00000004789cd34d494a0700030f015b
@@ -1182,7 +1182,7 @@ Version=9.1.2353.4205  (Windows)|00000004789cd34d494a0700030f015b
 
 [~A]
 LastVerilogToplevel=wb_conmax_top
-ModifyID=2810
+ModifyID=2816
 Version=73
 e:/prog/pcie_ds_dma/trunk/projects/sp605_lx45t_wishbone/src/pcie_src/components/rtl/core64_pb_wishbone_ctrl.v=0*2068200*2071838
 e:/prog/pcie_ds_dma/trunk/projects/sp605_lx45t_wishbone/src/pcie_src/pcie_sim/dsport/glbl.v=0*2074137*2075004
@@ -1191,9 +1191,9 @@ e:/prog/pcie_ds_dma/trunk/projects/sp605_lx45t_wishbone/src/wishbone/block_test_
 e:/prog/pcie_ds_dma/trunk/projects/sp605_lx45t_wishbone/src/wishbone/cross/wb_conmax_arb.v_wb_conmax_defines.v_wb_conmax_master_if.v_wb_conmax_msel.v_wb_conmax_pri_dec.v_wb_conmax_pri_enc.v_wb_conmax_rf.v_wb_conmax_slave_if.v_wb_conmax_top.v=0*2299417*2350436
 
 [~MFT]
-0=977|0sp605_lx45t_wishbone.mgf|2584969|295210
-1=547|1sp605_lx45t_wishbone.mgf|15316229|10507649
-3=497|3sp605_lx45t_wishbone.mgf|1732843|1246239
+0=983|0sp605_lx45t_wishbone.mgf|2597329|307388
+1=549|1sp605_lx45t_wishbone.mgf|15332937|10532072
+3=499|3sp605_lx45t_wishbone.mgf|1734685|1258097
 
 [~U]
 $root=12|0*2164646|
