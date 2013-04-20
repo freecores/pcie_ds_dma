@@ -1,0 +1,303 @@
+asim -noglitch -noglitchmsg +notimingchecks +no_tchk_msg -relax glbl -ieee_nowarn -O5 -L secureip -g test_id=2 +access +r +m+test_adm_read_8kb stend_ambpex5_wishbone stend_ambpex5_wishbone
+# ELBREAD: Elaboration process.
+# ELBREAD: Warning: Module 'pcie_top_wrapper' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Warning: Module 'pcie_clocking' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Warning: Module 'bram_common' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Warning: Module 'pcie_gt_wrapper' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Warning: Module 'pcie_gtx_wrapper' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Warning: Module 'cmm_decoder' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Warning: Module 'cmm_errman_cor' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Warning: Module 'cmm_errman_cnt_en' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Warning: Module 'cmm_errman_ftl' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Warning: Module 'cmm_errman_cpl' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Warning: Module 'cmm_errman_ram4x26' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Warning: Module 'cmm_errman_ram8x26' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Warning: Module 'cmm_intr' does not have a `timescale directive, but previous modules do.
+# ELBREAD: Elaboration time 2.5 [s].
+# asim: Stack memory: 32MB
+# asim: Retval memory: 32MB
+# KERNEL: Main thread initiated.
+# KERNEL: Kernel process initialization phase.
+# KERNEL: Time resolution set to 1ps.
+# ELAB2: Elaboration final pass...
+# KERNEL: PLI/VHPI kernel's engine initialization done.
+# PLI: Loading library 'C:\app\ahdl91\bin\systf.dll'
+# ELAB2: Create instances ...
+# ELAB2: Create instances complete.
+# SLP: Started
+# SLP: Elaboration phase ...
+# SLP: Warning: ARAMB36_INTERNAL.v (968): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (968): Indexes of part-select [39:32] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (968): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (972): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (972): Indexes of part-select [47:40] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (972): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (976): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (976): Indexes of part-select [55:48] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (976): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (980): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (980): Indexes of part-select [63:56] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (980): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1250): Indexes of part-select [39:32] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1251): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1256): Indexes of part-select [47:40] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1257): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1262): Indexes of part-select [55:48] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1263): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1268): Indexes of part-select [63:56] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1269): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1410): Indexes of part-select [39:32] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1411): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1416): Indexes of part-select [47:40] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1417): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1422): Indexes of part-select [55:48] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1423): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1428): Indexes of part-select [63:56] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1429): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1112): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1112): Indexes of part-select [39:32] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1112): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1113): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1113): Indexes of part-select [47:40] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1113): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1114): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1114): Indexes of part-select [55:48] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1114): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1115): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1115): Indexes of part-select [63:56] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1115): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (968): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (968): Indexes of part-select [39:32] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (968): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (972): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (972): Indexes of part-select [47:40] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (972): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (976): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (976): Indexes of part-select [55:48] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (976): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (980): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (980): Indexes of part-select [63:56] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (980): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (968): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (968): Indexes of part-select [39:32] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (968): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (972): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (972): Indexes of part-select [47:40] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (972): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (976): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (976): Indexes of part-select [55:48] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (976): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (980): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (980): Indexes of part-select [63:56] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (980): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1250): Indexes of part-select [39:32] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1251): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1256): Indexes of part-select [47:40] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1257): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1262): Indexes of part-select [55:48] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1263): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1268): Indexes of part-select [63:56] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1269): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1250): Indexes of part-select [39:32] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1251): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1256): Indexes of part-select [47:40] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1257): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1262): Indexes of part-select [55:48] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1263): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1268): Indexes of part-select [63:56] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1269): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1410): Indexes of part-select [39:32] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1411): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1416): Indexes of part-select [47:40] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1417): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1422): Indexes of part-select [55:48] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1423): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1428): Indexes of part-select [63:56] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1429): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1410): Indexes of part-select [39:32] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1411): Indexes of part-select [4:4] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1416): Indexes of part-select [47:40] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1417): Indexes of part-select [5:5] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1422): Indexes of part-select [55:48] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1423): Indexes of part-select [6:6] are out of range [3:0] of 'memp'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1428): Indexes of part-select [63:56] are out of range [31:0] of 'mem'.
+# SLP: Warning: ARAMB36_INTERNAL.v (1429): Indexes of part-select [7:7] are out of range [3:0] of 'memp'.
+# SLP: Warning: pcie_top.v (1450): Length of connection (32) does not match the length of port 'L0CFGDISABLESCRAMBLE' (1) on instance '/stend_ambpex5_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/ep/pcie_ep0/pcie_blk/pcie_ep'.
+# SLP: Warning: pcie_blk_plus_ll_rx.v (241): Length of connection (32) does not match the length of port 'td_ecrc_trim_i' (1) on instance '/stend_ambpex5_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/ep/pcie_ep0/pcie_blk_if/ll_bridge/rx_bridge/snk_inst'.
+# SLP: Warning: ctrl_pcie_x8.v (273): Length of connection (32) does not match the length of port 'gt_daddr' (56) on instance '/stend_ambpex5_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/ep/pcie_ep0'.
+# SLP: Warning: ctrl_pcie_x8.v (273): Length of connection (32) does not match the length of port 'gt_den' (8) on instance '/stend_ambpex5_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/ep/pcie_ep0'.
+# SLP: Warning: ctrl_pcie_x8.v (273): Length of connection (32) does not match the length of port 'gt_dwen' (8) on instance '/stend_ambpex5_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/ep/pcie_ep0'.
+# SLP: Warning: ctrl_pcie_x8.v (273): Length of connection (32) does not match the length of port 'gt_di' (128) on instance '/stend_ambpex5_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/ep/pcie_ep0'.
+# SLP: Elaboration phase ... done : 34.4 [s]
+# SLP: Generation phase ...
+# SLP: Generation phase ... done : 50.4 [s]
+# SLP: Finished : 84.8 [s]
+# SLP: 191138 (69.88%) primitives and 77590 (28.37%) other processes in SLP
+# SLP: 402221 (93.66%) signals in SLP and 27192 (6.33%) interface signals
+# ELAB2: Elaboration final pass complete - time: 96.0 [s].
+# KERNEL: SLP loading done - time: 1.0 [s].
+# KERNEL: SLP simulation initialization done - time: 1.0 [s].
+# KERNEL: Kernel process initialization done.
+# Allocation: Simulator allocated 245669 kB (elbread=47896 elab2=118682 kernel=79091 sdf=0)
+#  0:06, 21 апреля 2013 г.
+#  Simulation has been initialized
+#  Selected Top-Level: stend_ambpex5_wishbone (stend_ambpex5_wishbone) glbl
+run {350 us}
+# KERNEL: ===== Number of BRAMS for RETRYRAM =           1  =====
+# KERNEL: ===== Number of BRAMS for TL_TXRAM =           2  =====
+# KERNEL: ===== Number of BRAMS for TL_RXRAM =           2  =====
+# KERNEL: [ 1000 ns ] : Init start
+# EXECUTION:: WARNING: OPMODE Input Warning : The OPMODE 0UU00U0 with CARRYINSEL  00 to DSP48 instance is invalid.
+# EXECUTION:: Time: 5030100 ps,  Iteration: 12,  Instance: /stend_ambpex5_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/dsc/gen_dsp48/dsp,  Process: prcs_opmode_drc.
+# EXECUTION:: WARNING: OPMODE Input Warning : The OPMODE 0UU00UU with CARRYINSEL  00 to DSP48 instance is invalid.
+# EXECUTION:: Time: 5030100 ps,  Iteration: 12,  Instance: /stend_ambpex5_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/cmd/dma_adr/gen_dsp48/dsp1,  Process: prcs_opmode_drc.
+# EXECUTION:: WARNING: OPMODE Input Warning : The OPMODE 0UU00UU with CARRYINSEL  00 to DSP48 instance is invalid.
+# EXECUTION:: Time: 5030100 ps,  Iteration: 12,  Instance: /stend_ambpex5_wishbone/dut/WB_SOPC/PCIE_CORE64_WB/CORE/fifo/cmd/dma_adr/gen_dsp48/dsp0,  Process: prcs_opmode_drc.
+# KERNEL: [ 15923.246 ns ] : Transaction Reset is De-asserted
+# KERNEL:             23790000: Bad trailing TS characters (note)
+# KERNEL: [ 85187.246 ns ] : Transaction Link is Up
+# KERNEL: [ 85187.246 ns ] : PCI EXPRESS BAR MEMORY/IO MAPPING PROCESS BEGUN..
+# KERNEL:             BAR 0 = 0x10000000 RANGE = 0xFFE00000 MEM32 MAPPED
+# KERNEL:             BAR 1 = 0x20000000 RANGE = 0xFFE00000 MEM32 MAPPED
+# KERNEL:             BAR 2 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 3 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 4 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 5 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 6 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL: [ 85187.246 ns ] : Setting Core Configuration Space...
+# KERNEL: [ 133235.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 134883.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 135379.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 136531.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 137043.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 138179.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 138675.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 139827.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 140339.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 141475.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 142035.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 143123.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 143667.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 144771.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 145331.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 146419.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 146963.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 148627.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 167219.146 ns ] : BUS Master Enable 
+# KERNEL: [ 167219.146 ns ] : Reading Config space
+# KERNEL:   Addr: [0x001]
+# KERNEL:   Cfg Addr [0x001] -> Data [0x00100000]
+# KERNEL: [ 167379.146 ns ] : Writing Config space
+# KERNEL:   Addr: [0x001] -> Data [0x00000007]
+# KERNEL: [ 167539.146 ns ] : Reading Config space
+# KERNEL:   Addr: [0x001]
+# KERNEL:   Cfg Addr [0x001] -> Data [0x00100007]
+# KERNEL: [ 172667.146 ns ] : Init complete
+# KERNEL: [ 182995.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183059.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183123.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183187.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183251.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183315.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183379.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 183443.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 195315.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 195427.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 195491.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 195555.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 199411.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 199507.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 199571.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 199587.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 199667.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 199763.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 199939.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 200115.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 200291.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 200467.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 200643.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 200819.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 206099.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 206707.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 207283.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 207891.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 208467.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 209075.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 209651.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 210259.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 210867.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 211475.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 212051.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 212659.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 213235.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 213843.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 214419.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 215027.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 215603.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 215635.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 216243.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 216819.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 217427.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 218003.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 218675.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 219315.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 219923.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 220499.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 221107.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 221683.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 222291.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 222867.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 223475.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 224051.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 224083.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 224195.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 224755.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 225459.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 226067.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 226643.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 227315.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 227891.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 228499.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 229075.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 229683.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 230259.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 230867.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 231443.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 232051.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 232627.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 233235.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 233267.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 233907.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 234371.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 234579.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 235155.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 235763.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 236339.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 236947.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 237587.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 238195.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 238771.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 239379.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 239955.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 240563.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 241139.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 241747.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 242323.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 242931.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 243507.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 244147.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 244179.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 244291.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 244355.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 246611.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 247219.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 249427.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 250035.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 252243.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 252851.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 255091.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 255699.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: TEST finished successfully
+# KERNEL: stopped at time: 350 us
+endsim
+#  Simulation has been stopped

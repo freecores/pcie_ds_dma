@@ -66,8 +66,8 @@ module block_check_wb_burst_slave
                                     i_wbs_burst_cyc & i_wbs_burst_stb & i_wbs_burst_we  & // WB Transfer strobes
                                     iv_wbs_burst_sel==8'hFF                             & // WB_SEL point to 64bit transfer
                                     iv_wbs_burst_bte==2'b00                             ; // WB Burst Transfer type check (Linear Burst)
-    
-    /*assign  s_wb_transfer_master_hold   =   (iv_wbs_burst_addr==0)                              & // START from INIT ADDR
+  //FIX  
+    assign  s_wb_transfer_master_hold   =   (iv_wbs_burst_addr==0)                            & // START from INIT ADDR
                                             i_wbs_burst_cyc & !i_wbs_burst_stb & i_wbs_burst_we & // WB Transfer strobes (MASTER STALL case)
                                             iv_wbs_burst_sel==8'hFF                             & // WB_SEL point to 64bit transfer
                                             iv_wbs_burst_bte==2'b00                             ; // WB Burst Transfer type check (Linear Burst)*/
@@ -78,7 +78,8 @@ module block_check_wb_burst_slave
 //
 // 
 //
-always @ (posedge i_clk or posedge i_rst)
+//always @ (posedge i_clk or posedge i_rst)
+always @ (posedge i_clk)
 begin   :   TEST_CHECK_DATA_OUT
     //
     o_test_check_data_ena   <= s_wb_transfer_ok_0;

@@ -1,0 +1,4 @@
+Global AMBPEX5_WISHBONE TC log:
+test_dsc_incorrect PASSED
+test_read_4kB PASSED
+test_adm_read_8kb PASSED
