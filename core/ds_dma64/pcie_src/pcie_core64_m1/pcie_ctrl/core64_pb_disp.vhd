@@ -59,7 +59,9 @@ end package;
 
 
 library ieee;
-use ieee.std_logic_1164.all;
+use ieee.std_logic_1164.all;	 
+use ieee.std_logic_arith.all;
+use ieee.std_logic_unsigned.all;
 
 library unisim;
 use unisim.vcomponents.all;
@@ -132,6 +134,9 @@ signal	reg_data_we_clr_z2	: std_logic;
 
 signal	reg_complete		: std_logic;
 
+signal	timeout_cnt			: std_logic_vector( 12 downto 0 );
+signal	slave_timeout		: std_logic;
+
 attribute tig				: string;
 attribute tig	of 	master_adr				: signal is "";
 attribute tig	of 	dmar					: signal is "";
@@ -185,7 +190,8 @@ pr_state: process( aclk ) begin
 				fifo_allow_wr <= '0' after 1 ns;
 				reg_stb1 <= '0' after 1 ns;			
 				fifo_data_en <= '0' after 1 ns;
-				ext_fifo_disp_back.complete <= '0' after 1 ns;
+				ext_fifo_disp_back.complete <= '0' after 1 ns; 
+				timeout_cnt <= (others=>'0') after 1 ns;
 				
 				if( reg_req_wr_z='1' or reg_req_rd_z='1' ) then
 					stp <= sr1 after 1 ns;
@@ -214,9 +220,10 @@ pr_state: process( aclk ) begin
 --					else
 --						stp <= sr5 after 1 ns;
 --					end if;
---				end if;	   				 
+--				end if;	   			
+				timeout_cnt <= timeout_cnt + 1 after 1 ns;
 				reg_data_we_set <= pb_slave.stb1 after 1 ns;
-				if( pb_slave.complete='1' ) then
+				if( pb_slave.complete='1' or slave_timeout='1') then
 					stp <= sr5 after 1 ns;
 				end if;
 			
@@ -249,7 +256,8 @@ pr_state: process( aclk ) begin
 				master_stb0 <= '0' after 1 ns;  -- строб команды
 				fifo_allow_wr <= ext_fifo_disp.request_wr and pb_slave.ready after 1 ns;
 				fifo_data_en <= '1' after 1 ns;
-				if( pb_slave.complete='1' ) then
+				timeout_cnt <= timeout_cnt + 1 after 1 ns;
+				if( pb_slave.complete='1' or slave_timeout='1' ) then
 					ext_fifo_disp_back.complete <= '1' after 1 ns;
 					stp <= sf3 after 1 ns;
 				end if;
@@ -269,7 +277,9 @@ pr_state: process( aclk ) begin
 		end if;
 		
 	end if;
-end process;			   
+end process;			   	
+
+slave_timeout <= timeout_cnt(12) after 1 ns when rising_edge( clk );
 
 ext_fifo_disp_back.allow_wr <= fifo_allow_wr;
 

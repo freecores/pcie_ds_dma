@@ -219,7 +219,7 @@ port map
     
 );	  
 
-reset_p <= not reset;	  
+reset_p <= (not reset) or (not brd_mode(3));	  
 reset_p_z1 <= reset_p 	 after 1 ns when rising_edge( clk );
 reset_p_z2 <= reset_p_z1 after 1 ns when rising_edge( clk );
 

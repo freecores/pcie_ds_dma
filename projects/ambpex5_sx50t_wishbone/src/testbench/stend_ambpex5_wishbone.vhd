@@ -37,7 +37,7 @@ use std.textio;
 
 entity stend_ambpex5_wishbone is 
 	generic(
-		test_id			: in integer:=0;	-- идентификатор теста
+		test_id			: in integer:=3;	-- идентификатор теста
 		test_log		: in string:="src\testbench\log\file_id_"	-- имя файла отчёта
 	);
 end stend_ambpex5_wishbone;
@@ -185,7 +185,8 @@ begin
 	case( test_id ) is
 		when 0 => test_dsc_incorrect( cmd, ret );
     	when 1 => test_read_4kb( cmd, ret );      -- was original
-    	when 2 => test_adm_read_8kb( cmd, ret );
+    	when 2 => test_adm_read_8kb( cmd, ret );   
+		when 3 => test_read_reg( cmd, ret );
     	--when 3 => test_adm_read_16kb( cmd, ret );
     	--when 4 => test_adm_write_16kb( cmd, ret );
     	--when 5 => test_block_main( cmd, ret );	   

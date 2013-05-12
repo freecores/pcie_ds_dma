@@ -149,7 +149,7 @@ begin
 WB_CFG_SLAVE    :   block_check_wb_config_slave
 generic map
 (
-    BLOCK_ID   => x"0001", -- идентификатор модуля
+    BLOCK_ID   => x"001A", -- идентификатор модуля
     BLOCK_VER  => x"0100"  -- версия модуля
 )
 port map
