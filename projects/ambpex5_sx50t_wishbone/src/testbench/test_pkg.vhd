@@ -172,7 +172,7 @@ begin
 	write( str, string'("TEST_READ_REG" ));
 	writeline( log, str );		   
 	
-	block_write( cmd, ret, 0, 8, x"0000000F" );		-- BRD_MODE 
+	block_write( cmd, ret, 0, 8, x"0000000F" );		-- BRD_MODE, reset off 
 	wait for 100 ns;
 	
 	
@@ -230,6 +230,9 @@ begin
 		
 	write( str, string'("TEST_DSC_INCORRECT" ));
 	writeline( log, str );	
+	
+	block_write( cmd, ret, 0, 8, x"0000000F" );		-- BRD_MODE, reset off 
+	wait for 100 ns;
 	
 	---- Init block of descriptor ---
 	for ii in 0 to 127 loop
@@ -289,6 +292,10 @@ begin
 		
 	write( str, string'("TEST_READ_4KB" ));
 	writeline( log, str );	
+	
+	block_write( cmd, ret, 0, 8, x"0000000F" );		-- BRD_MODE, reset off 
+	wait for 100 ns;
+	
 	
 	---- Init block of descriptor ---
 	for ii in 0 to 127 loop
@@ -441,6 +448,9 @@ begin
 		
 	write( str, string'("TEST_ADM_READ_8KB" ));
 	writeline( log, str );	
+	
+	block_write( cmd, ret, 0, 8, x"0000000F" );		-- BRD_MODE, reset off 
+	wait for 100 ns;
 	
 	---- Init block of descriptor ---
 	for ii in 0 to 127 loop
@@ -954,6 +964,9 @@ begin
 		
 	write( str, string'("TEST_ADM_WRITE_16KB" ));
 	writeline( log, str );	
+	
+	block_write( cmd, ret, 0, 8, x"0000000F" );		-- BRD_MODE, reset off 
+	wait for 100 ns;
 	
 	---- Формирование блока дескрипторов ---
 	for ii in 0 to 256 loop

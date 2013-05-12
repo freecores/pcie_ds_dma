@@ -9,7 +9,7 @@ Active=ambpex5_sx50t_wishbone
 [Expand]
 sp605_lx45t_wishbone=0
 ambpex5_sx50t_wishbone=1
-ambpex5_v20_sx50t_core=1
+ambpex5_v20_sx50t_core=0
 [Browser]
 sort=order
 mode=none
