@@ -473,7 +473,7 @@ u32  pex_board::core_bar1_read( u32 offset )
 
 void pex_board::core_bar1_write( u32 offset, u32 val )
 {
-    bar1[offset] = val;
+    bar1[2*offset] = val;
 }
 
 //-----------------------------------------------------------------------------
@@ -682,16 +682,21 @@ u32  pex_board::core_free_memory(int DmaChan)
 
 u32  pex_board::core_start_dma(int DmaChan, int IsCycling)
 {
+
+fprintf(stderr, "%s(): DmaChan=%d IsCycling=%d \n", __FUNCTION__, DmaChan, IsCycling );
     if(m_Descr[DmaChan])
     {
         AMB_START_DMA_CHANNEL StartDescrip;
         StartDescrip.DmaChanNum = DmaChan;
         StartDescrip.IsCycling = IsCycling;
 
+        fprintf(stderr, "%s(): IOCTL_AMB_START_MEMIO  ", __FUNCTION__ );
+
         if (ioctl(fd,IOCTL_AMB_START_MEMIO,&StartDescrip) < 0) {
             fprintf(stderr, "%s(): Error start DMA\n", __FUNCTION__ );
             return -1;
         }
+        fprintf(stderr, " %s - OK \n", __FUNCTION__ );
     }
     return 0;
 }
@@ -801,12 +806,25 @@ u32 pex_board::core_set_local_addr(int DmaChan, u32 addr)
     DmaParam.DmaChanNum = DmaChan;
     DmaParam.Param = addr;
 
+fprintf(stderr, "%s(): DmaChan=%d addr=0x%.8X \n", __FUNCTION__, DmaChan, addr );
+
+
     if(m_Descr[DmaChan])
     {
         if (0 > ioctl(fd, IOCTL_AMB_SET_SRC_MEM, &DmaParam)) {
             fprintf(stderr, "%s(): Error set source for DMA\n", __FUNCTION__ );
             return -1;
         }
+
+
+       DmaParam.Param = m_Descr[DmaChan]->Direction;
+
+          if (0 > ioctl(fd, IOCTL_AMB_SET_DIR_MEM, &DmaParam)) {
+              fprintf(stderr, "%s(): Error set dir for DMA\n", __FUNCTION__ );
+              return -1;
+          }
+
+
     }
 
     return 0;

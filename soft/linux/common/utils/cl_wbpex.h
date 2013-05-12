@@ -4,9 +4,9 @@
 #define TF_CheckItem_CL_WBPEXH
 
 #include "utypes.h"
-//#include "brd.h"
-//#include "time.h"
-//#include "ctrlstrm.h"
+#include "board.h"
+#include "time.h"
+#include "ctrlstrm.h"
 
 //#include <string.h>
 
@@ -25,7 +25,7 @@ public:
     virtual void  cleanup( void );
 
 
-    int StreamInit( U32 strm, U32 cnt_buf, U32 size_one_buf_of_bytes, U32 wb_adr, U32 dir, U32 cycle, U32 system, U32 agree_mode );
+    int StreamInit( U32 strm, U32 cnt_buf, U32 size_one_buf_of_bytes, U32 loc_wb_adr, U32 dir, U32 cycle, U32 system, U32 agree_mode );
 
     void StreamDestroy( U32 strm );
 
@@ -68,7 +68,7 @@ private:
         U32 strm;
         U32 cnt_buf;
         U32 size_one_buf_of_bytes;
-        U32 trd;
+        U32 loc_wb_adr;
         U32 cycle;
         U32 system;
         U32 dir;
@@ -78,7 +78,7 @@ private:
         U32 agree_mode;
 
         //BRD_Handle  hStream;
-        //BRDstrm_Stub	*pStub;
+        BRDstrm_Stub	*pStub;
         U08 *pBlk[256];         //!< Массив указателей на блоки памяти
 
         StreamParam()

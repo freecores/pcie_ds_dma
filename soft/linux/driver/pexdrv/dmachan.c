@@ -875,7 +875,7 @@ void SetDmaLocalAddress(struct CDmaChannel *dma, u32 Address)
 
 int SetDmaDirection(struct CDmaChannel *dma, u32 DmaDirection)
 {
-    //printk("<0>%s()\n", __FUNCTION__);
+    printk("<0>%s()\n", __FUNCTION__);
     switch(DmaDirection)
     {
     case 1:

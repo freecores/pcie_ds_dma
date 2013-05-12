@@ -173,7 +173,7 @@ private :
 
     bool isFirstCallStep;
 
-    void PrepareAdm( void );
+    void PrepareWb( void );
 
     void PrepareAdmReg( char* fname );
 

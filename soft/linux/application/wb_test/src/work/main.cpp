@@ -59,12 +59,22 @@ int main(int argc, char *argv[])
 //#include "tf_teststrm.h"
 //#include "tf_teststrmout.h"
 //#include "useful.h"
+#include "wb_teststrm.h"
+#include "wb_teststrmout.h"
 
 CL_WBPEX    g_Board;
 
 U32 isTwoTest=0;
 
-void ShowPldInfo( CL_WBPEX *pBrd );
+static volatile int exit_flag = 0;
+
+void signa_handler(int signo)
+{
+    exit_flag = 1;
+}
+
+
+void ShowWishboneInfo( CL_WBPEX *pBrd );
 
 //
 //=== Console
@@ -77,8 +87,8 @@ int BRDC_main(int argc, BRDCHAR* argv[])
     // анализ командной строки
     setlocale( LC_ALL, "Russian" );
 
-    //TF_Test  *pTest=NULL;
-    //TF_Test  *pTest2=NULL;
+    TF_Test  *pTest=NULL;
+    TF_Test  *pTest2=NULL;
 
     BRDCHAR* fname = argv[1];
     BRDCHAR* fname2=NULL;
@@ -93,7 +103,7 @@ int BRDC_main(int argc, BRDCHAR* argv[])
 
 
     //printf( "Файл инициализации: %s\n", fname );
-  //  try
+    try
     {
         CL_WBPEX *pBrd = &g_Board;
 
@@ -101,7 +111,7 @@ int BRDC_main(int argc, BRDCHAR* argv[])
 
         if( 0==ret )
         {
-            BRDC_fprintf( stderr, _BRDC("Модуль AMBPEX открыт успешно\n") );
+            BRDC_fprintf( stderr, _BRDC("Board PEXDRV open succesfully\n") );
 
 
             /*
@@ -118,21 +128,21 @@ int BRDC_main(int argc, BRDCHAR* argv[])
 
         } else
         {
-            BRDC_fprintf( stderr, _BRDC("Ошибка при открытии модуля AMBPEX: ret=0x%.8X\n"), ret );
+            BRDC_fprintf( stderr, _BRDC("Error during open PEXDRV: ret=0x%.8X\n"), ret );
             //getch();
             exit(-1);
         }
 
-        printf( "\nShowPldInfo\n" );
-        ShowPldInfo( pBrd );
-    }
-}
+        //printf( "\nShowPldInfo\n" );
+        ShowWishboneInfo( pBrd );
+    //}
 
-#if 0
+
+//#if 0
         if( fname[0]=='o' )
-            pTest = new TF_TestStrmOut( fname, &g_AMBPEX );
+            pTest = new WB_TestStrmOut( fname, pBrd );
         else
-            pTest = new TF_TestStrm( fname, &g_AMBPEX );
+            pTest = new WB_TestStrm( fname, pBrd );
 
         Sleep( 10 );
 
@@ -140,9 +150,9 @@ int BRDC_main(int argc, BRDCHAR* argv[])
         {
             isTwoTest=1;
             if( fname2[0]=='o' )
-                pTest2 = new TF_TestStrmOut( fname2, &g_AMBPEX );
+                pTest2 = new WB_TestStrmOut( fname2, pBrd );
             else
-                pTest2 = new TF_TestStrm( fname2, &g_AMBPEX );
+                pTest2 = new WB_TestStrm( fname2, pBrd );
         }
 
         pTest->Prepare();
@@ -157,60 +167,46 @@ int BRDC_main(int argc, BRDCHAR* argv[])
 
         //int key;
         int isFirstCallStep=1;
+        int isStopped = 0;
         for( ; ; )
         {
-            if( kbhit() )
+
+
+            if( exit_flag )
             {
-                int key=getch();
-                if( key==0x1B )
-                {
-
-
+                if(!isStopped) {
                     pTest->Stop();
-                    if( pTest2 )
+                    if( pTest2 ) {
                         pTest2->Stop();
-                    BRDC_fprintf( stderr, _BRDC("\n\nОтмена\n") );
+                    }
+                    BRDC_fprintf( stderr, _BRDC("\n\nCancel\n") );
+                    isStopped = 1;
                 }
-
-                if( key=='i' )
-                {
-                    pBrd->RegPokeInd( 4, TRDIND_DELAY_CTRL, 0x12 );
-                    pBrd->RegPokeInd( 4, TRDIND_DELAY_CTRL, 0x10 );
-                    g_DelayCnt--; BRDC_fprintf( stderr, "\n\ng_DelayCnt = %d ", g_DelayCnt );
-                }
-
-                if( key=='o' )
-                {
-                    pBrd->RegPokeInd( 4, TRDIND_DELAY_CTRL, 0x13 );
-                    pBrd->RegPokeInd( 4, TRDIND_DELAY_CTRL, 0x11 );
-                    g_DelayCnt++; BRDC_fprintf( stderr, "\n\ng_DelayCnt = %d ", g_DelayCnt );
-                }
-
             }
-            ret=pTest->isComplete();
-            if( ret )
+
+            if( exit_flag )
             {
-                if( pTest2 )
-                {
-                    ret=pTest2->isComplete();
-                    if( ret )
-                        break;
-                } else
-                {
-                    break;
+                if(isStopped) {
+
+                    if( pTest->isComplete() ) {
+
+                        if( pTest2 ) {
+                            if( pTest2->isComplete() )
+                                break;
+                        } else {
+                            break;
+                        }
+                    }
                 }
-
             }
-
-
 
 
             //SetConsoleCursorPosition(hConsoleOut, rCursorPosition);
             if( isFirstCallStep || isTwoTest )
             {
 
-              BRDC_fprintf( stderr, _BRDC("%10s %10s %10s %10s %10s %10s %10s %10s\n"), _BRDC(""), _BRDC("BLOCK_WR"), _BRDC("BLOCK_RD"), _BRDC("BLOCK_OK"), _BRDC("BLOCK_ERR"), _BRDC("SPD_CURR"), _BRDC("SPD_AVR"), _BRDC("STATUS"));
-              BRDC_fprintf( stderr, _BRDC("\n"));
+              BRDC_fprintf( stdout, _BRDC("%10s %10s %10s %10s %10s %10s %10s %10s\n"), _BRDC(""), _BRDC("BLOCK_WR"), _BRDC("BLOCK_RD"), _BRDC("BLOCK_OK"), _BRDC("BLOCK_ERR"), _BRDC("SPD_CURR"), _BRDC("SPD_AVR"), _BRDC("STATUS"));
+              BRDC_fprintf( stdout, _BRDC("\n"));
             }
 
             if (isFirstCallStep)
@@ -259,11 +255,12 @@ int BRDC_main(int argc, BRDCHAR* argv[])
 
 //}
     return 0;
-#endif
+//#endif
+}
 
 
 
-void ShowPldInfo( CL_WBPEX *pBrd )
+void ShowWishboneInfo( CL_WBPEX *pBrd )
 {
 
 
@@ -273,7 +270,7 @@ void ShowPldInfo( CL_WBPEX *pBrd )
         U32 block_ver_major, block_ver_minor;
         const char *str;
 
-        BRDC_fprintf( stderr, _BRDC("Прошивка ПЛИС WB\r\n")  );
+        BRDC_fprintf( stderr, _BRDC("FPGA WB\r\n")  );
 
 
 /*
@@ -297,7 +294,7 @@ void ShowPldInfo( CL_WBPEX *pBrd )
         d=pBrd->RegPeekInd( 0, 0x114 );  BRDC_fprintf( stderr, "   Номер сборки прошивки ПЛИС: 0x%.4X\n", d );
 */
 
-        BRDC_fprintf( stderr, "\nИнформация о блоках управления:\n\n" );
+        BRDC_fprintf( stderr, "\nWB block info:\n\n" );
         for( ii=0; ii<2; ii++ ) {
 
             d= pBrd->wb_block_read( ii, 0 );
@@ -320,9 +317,11 @@ void ShowPldInfo( CL_WBPEX *pBrd )
 
             default: str="UNKNOW        "; break;
             }
+            //BRDC_fprintf( stderr, " %d  0x%.8X 0x%.8X \n", ii, d, d1 );
+	    
             BRDC_fprintf( stderr, " %d  0x%.4X %s ", ii, block_id, str );
             if( block_id>0 ) {
-                BRDC_fprintf( stderr, " MOD: %-2d VER: %d.%d ", block_id_mod, block_ver_major, block_ver_minor );
+                BRDC_fprintf( stderr, " MOD: %-2d VER: %d.%d \n", block_id_mod, block_ver_major, block_ver_minor );
             } else {
                 BRDC_fprintf( stderr, "\n" );
             }

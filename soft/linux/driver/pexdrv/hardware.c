@@ -565,6 +565,7 @@ int HwStartDmaTransfer(struct pex_device *brd, u32 NumberOfChannel)
         ModeExt.AsWhole = ReadOperationWordReg(brd, PEFIFOadr_FIFO_CTRL + FifoAddr);
         ModeExt.ByBits.SGModeEnbl = 1;
         ModeExt.ByBits.DemandMode = 1;
+        //ModeExt.ByBits.DemandMode = 0;
         ModeExt.ByBits.IntEnbl = 1;
         ModeExt.ByBits.Dir = DmaDirection;
         WriteOperationWordReg(brd, PEFIFOadr_FIFO_CTRL + FifoAddr, ModeExt.AsWhole);
@@ -578,7 +579,7 @@ int HwStartDmaTransfer(struct pex_device *brd, u32 NumberOfChannel)
 
     adm_num = GetAdmNum(brd->m_DmaChannel[NumberOfChannel]);
     tetr_num = GetTetrNum(brd->m_DmaChannel[NumberOfChannel]);
-    Status = DmaEnable(brd, adm_num, tetr_num);
+    //Status = DmaEnable(brd, adm_num, tetr_num);
 
     return Status;
 }

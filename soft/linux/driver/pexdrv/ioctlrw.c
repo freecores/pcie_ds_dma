@@ -291,9 +291,9 @@ int ioctl_set_mem(struct pex_device *brd, unsigned long arg)
     TetrNumber = pKernMemDscr->LocalAddr & 0xff;
     Address = AdmNumber*ADM_SIZE + TetrNumber*TETRAD_SIZE + TRDadr_DATA*REG_SIZE;
 
-    SetDmaLocalAddress(dma, Address);
-    SetAdmTetr(dma, AdmNumber, TetrNumber);
-    error = SetDmaMode(brd, i, AdmNumber, TetrNumber);
+    //SetDmaLocalAddress(dma, Address);
+    //SetAdmTetr(dma, AdmNumber, TetrNumber);
+    //error = SetDmaMode(brd, i, AdmNumber, TetrNumber);
 
     dbg_msg(dbg_trace, "%s(): 4\n", __FUNCTION__);
 
@@ -367,6 +367,7 @@ int ioctl_start_mem(struct pex_device *brd, size_t arg)
     AMB_START_DMA_CHANNEL StartDscr;
     PAMB_START_DMA_CHANNEL pStartDscr = &StartDscr;
 
+    printk("<0>ioctl_start_mem: Entered.\n");
     down(&brd->m_BoardSem);
 
     if( copy_from_user((void *)&StartDscr, (void *)arg, sizeof(AMB_START_DMA_CHANNEL))) {
@@ -391,6 +392,7 @@ int ioctl_start_mem(struct pex_device *brd, size_t arg)
     Status = HwStartDmaTransfer(brd, pStartDscr->DmaChanNum);
 
     up(&brd->m_BoardSem);
+    printk("<0>ioctl_start_mem: exit Status=0x%.8X \n", Status );
 
     return Status;
 }
@@ -508,7 +510,7 @@ int ioctl_set_dir_mem(struct pex_device *brd, size_t arg)
     AMB_SET_DMA_CHANNEL MemDscr;
     PAMB_SET_DMA_CHANNEL pMemDscr = &MemDscr;
 
-    //printk("<0>IoctlSetDirMem: Entered.\n");
+    printk("<0>IoctlSetDirMem: Entered.\n");
     down(&brd->m_BoardSem);
 
     // get the user buffer
@@ -545,6 +547,7 @@ int ioctl_set_src_mem(struct pex_device *brd, size_t arg)
     AMB_SET_DMA_CHANNEL MemDscr;
     PAMB_SET_DMA_CHANNEL pMemDscr = &MemDscr;
 
+    printk("<0>IoctlSetSrcMem: Entered.\n");
     down(&brd->m_BoardSem);
 
     // get the user buffer
@@ -562,12 +565,17 @@ int ioctl_set_src_mem(struct pex_device *brd, size_t arg)
     }
 
     i = pMemDscr->DmaChanNum;
-    AdmNumber = pMemDscr->Param >> 16;
-    TetrNumber = pMemDscr->Param & 0xff;
-    Address = AdmNumber * ADM_SIZE + TetrNumber * TETRAD_SIZE + TRDadr_DATA * REG_SIZE;
+    //AdmNumber = pMemDscr->Param >> 16;
+    //TetrNumber = pMemDscr->Param & 0xff;
+    //Address = AdmNumber * ADM_SIZE + TetrNumber * TETRAD_SIZE + TRDadr_DATA * REG_SIZE;
+
+    AdmNumber=0;
+    TetrNumber=0;
+    Address = pMemDscr->Param;
     SetDmaLocalAddress(brd->m_DmaChannel[i], Address);
     SetAdmTetr(brd->m_DmaChannel[i], AdmNumber, TetrNumber);
-    Status = SetDmaMode(brd, i, AdmNumber, TetrNumber);
+    //Status = SetDmaMode(brd, i, AdmNumber, TetrNumber);
+    Status=0;
 
     up(&brd->m_BoardSem);
 

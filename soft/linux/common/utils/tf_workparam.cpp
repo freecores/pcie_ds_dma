@@ -134,7 +134,7 @@ U32 TF_WorkParam::GetParamFromStr( char* str )
                         if( ps!=NULL )
                             free( ps );
                         ps = (char*)malloc( 128 );
-                        *(cfg->ptr)=(U32)ps;
+                        //*(cfg->ptr)=(U32)ps;
                         sprintf( ps, "%s", val );
 
                     }
@@ -171,7 +171,7 @@ U32 TF_WorkParam::PutParamToMemory( char* ptr, U32 max_size )
     int total=0;
     U32 ii;
     STR_CFG *cfg;
-
+/*
     *((U32*)ptr)=max_item;
     total=4;
 
@@ -209,6 +209,7 @@ U32 TF_WorkParam::PutParamToMemory( char* ptr, U32 max_size )
             total+=len;
         }
     }
+*/    
     return total;
 }
 
@@ -221,14 +222,14 @@ void TF_WorkParam::GetParamFromMemory( char* ptr )
     n=*((U32*)ptr);
     U32 ii;
     int total=4;
-
+/*
     for( ii=0; ii<n; ii++ )
     {
         src=ptr+total;
         len=GetParamFromStr( src );
         total+=len;
     }
-
+*/
 }
 
 

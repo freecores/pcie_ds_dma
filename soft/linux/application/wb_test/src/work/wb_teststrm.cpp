@@ -64,14 +64,14 @@ void WB_TestStrm::Prepare( void )
 {
 
 
-    PrepareAdm();
+    PrepareWb();
 
     rd0.trd=trdNo;
     rd0.Strm=strmNo;
-    pBrd->StreamInit( rd0.Strm, CntBuffer, SizeBuferOfBytes, rd0.trd, 1, isCycle, isSystem, isAgreeMode );
+   // pBrd->StreamInit( rd0.Strm, CntBuffer, SizeBuferOfBytes, rd0.trd, 1, isCycle, isSystem, isAgreeMode );
 
     bufIsvi = new U32[SizeBlockOfWords*2];
-    //pBrd->StreamInit( strm, CntBuffer, SizeBuferOfBytes, rd0.trd, 1, 0, 0 );
+    pBrd->StreamInit( rd0.Strm, CntBuffer, SizeBuferOfBytes, U32(0x3000),U32(1), 0, 1, U32(0) );
 }
 
 void WB_TestStrm::Start( void )
@@ -135,7 +135,9 @@ void WB_TestStrm::Step( void )
     //BRDC_fprintf( stderr, "%10s %10d %10d %10d %10d\n", "FIFO_1 :", tr1.BlockWr, rd1.BlockRd, rd1.BlockOk, rd1.BlockError );
 
     U32 status = 0; //pBrd->RegPeekDir( rd0.trd, 0 ) & 0xFFFF;
-    BRDC_fprintf( stderr, "%6s %3d %10d %10d %10d %10d  %9.1f %10.1f     0x%.4X  %d %4d %4f\r", "TRD :", rd0.trd, rd0.BlockWr, rd0.BlockRd, rd0.BlockOk, rd0.BlockError, rd0.VelocityCurrent, rd0.VelocityAvarage, status, IsviStatus, IsviCnt, rd0.fftTime_us );
+    rd0.BlockWr=pBrd->wb_block_read( 1, 0x11 );
+
+    BRDC_fprintf( stdout, "%6s %3d %10d %10d %10d %10d  %9.1f %10.1f     0x%.4X  %d %4d %4f\r", "TRD :", rd0.trd, rd0.BlockWr, rd0.BlockRd, rd0.BlockOk, rd0.BlockError, rd0.VelocityCurrent, rd0.VelocityAvarage, status, IsviStatus, IsviCnt, rd0.fftTime_us );
 
 
 
@@ -289,6 +291,24 @@ U32 WB_TestStrm::Execute( void )
 
     pBrd->RegPokeInd( 4, 0, 0x2038 );
 */
+    pBrd->StreamStart( rd0.Strm );
+
+    U32 val;
+    val=pBrd->wb_block_read( 1, 0 );
+    BRDC_fprintf( stderr, "ID=0x%.4X \n", val );
+
+    val=pBrd->wb_block_read( 1, 1 );
+    BRDC_fprintf( stderr, "VER=0x%.4X \n", val );
+
+    val=pBrd->wb_block_read( 1, 8 );
+    BRDC_fprintf( stderr, "GEN_CTRL=0x%.4X \n", val );
+
+    pBrd->wb_block_write( 1, 9, 5 );
+    pBrd->wb_block_write( 1, 8, 0x6A0 );
+
+    val=pBrd->wb_block_read( 1, 8 );
+    BRDC_fprintf( stderr, "GEN_CTRL=0x%.4X \n", val );
+
     rd0.time_last=rd0.time_start=0 ;//GetTickCount();
 
 
@@ -334,6 +354,7 @@ void WB_TestStrm::ReceiveData(  ParamExchange *pr )
     for( kk=0; kk<16; kk++ )
     {
         ret=pBrd->StreamGetBuf( pr->Strm, &ptr );
+        //ret=0;
         if( ret )
         { // Проверка буфера стрима
 
@@ -395,40 +416,22 @@ void WB_TestStrm::ReceiveData(  ParamExchange *pr )
 }
 
 
-void WB_TestStrm::PrepareAdm( void )
+void WB_TestStrm::PrepareWb( void )
 {
-/*
-    U32 trd=trdNo;
-    U32 id, id_mod, ver;
-    BRDC_fprintf( stderr, "\nПодготовка тетрады\n" );
 
+    BRDC_fprintf( stderr, "\nPrepare TEST_GENERATE\n" );
 
-    id = pBrd->RegPeekInd( trd, 0x100 );
-    id_mod = pBrd->RegPeekInd( trd, 0x101 );
-    ver = pBrd->RegPeekInd( trd, 0x102 );
-
-    //pBrd->RegPokeInd( trd, 0, 0x2038 );
-
-    BRDC_fprintf( stderr, "\nТетрада %d  ID: 0x%.2X MOD: %d  VER: %d.%d \n\n",
-            trd, id, id_mod, (ver>>8) & 0xFF, ver&0xFF );
-
-
-    //if( fnameDDS )
-    //	PrepareDDS();
-
-
-    if( isMainTest )
-        PrepareMain();
 
 
     BlockMode = DataType <<8;
     BlockMode |= DataFix <<7;
 
-    if( isTestCtrl )
-        PrepareTestCtrl();
+    //if( isTestCtrl )
+    {
+        pBrd->wb_block_write( 1, 9, 1 );
+        pBrd->wb_block_write( 1, 9, BlockMode );
+    }
 
-    if( isAdmReg )
-        PrepareAdmReg( fnameAdmReg );
 
 
     IsviStatus=0;
@@ -440,7 +443,6 @@ void WB_TestStrm::PrepareAdm( void )
         isIsvi=1;
     }
 
-*/
 }
 
 
