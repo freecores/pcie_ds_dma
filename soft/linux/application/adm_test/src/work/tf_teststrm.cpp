@@ -213,8 +213,8 @@ void TF_TestStrm::SetDefault( void )
     int ii=0;
 
     array_cfg[ii++]=STR_CFG(  0, "CntBuffer",		"16", (U32*)&CntBuffer, "Stream buffers number" );
-    array_cfg[ii++]=STR_CFG(  0, "CntBlockInBuffer",	"512",  (U32*)&CntBlockInBuffer, "Blocks in buffer" );
-    array_cfg[ii++]=STR_CFG(  0, "SizeBlockOfWords",	"2048",  (U32*)&SizeBlockOfWords, "Block size (in words)" );
+    array_cfg[ii++]=STR_CFG(  0, "CntBlockInBuffer",	"1",  (U32*)&CntBlockInBuffer, "Blocks in buffer" );
+    array_cfg[ii++]=STR_CFG(  0, "SizeBlockOfWords",	"262144",  (U32*)&SizeBlockOfWords, "Block size (in words)" );
     array_cfg[ii++]=STR_CFG(  0, "isCycle",		"1",  (U32*)&isCycle, "1 - Stream working in cycle mode" );
     array_cfg[ii++]=STR_CFG(  0, "isSystem",		"1",  (U32*)&isSystem, "1 - system memory allocation" );
     array_cfg[ii++]=STR_CFG(  0, "isAgreeMode",		"0",  (U32*)&isAgreeMode, "1 - adjust mode" );
