@@ -11,6 +11,7 @@
 #include "utypes.h"
 #include "tf_teststrm.h"
 #include "cl_ambpex.h"
+#include "sys/time.h"
 
 #define BUFSIZEPKG 62
 
@@ -30,9 +31,14 @@
 
 //-----------------------------------------------------------------------------
 
-int GetTickCount(void)
+long GetTickCount(void)
 {
-    return time( NULL);
+ //   return time( NULL);
+    struct timeval tv;
+    struct timezone tz;
+    gettimeofday(&tv, &tz);
+    long ret=tv.tv_sec*1000 + tv.tv_usec/1000;
+    return ret;
 }
 
 //-----------------------------------------------------------------------------
@@ -138,10 +144,18 @@ void TF_TestStrm::Step( void )
     U32 status = pBrd->RegPeekDir( rd0.trd, 0 ) & 0xFFFF;
 
     U32 cnt_rd=rd0.BlockRd;
-    if( isRestart )
-        cnt_rd = cntRestart;
 
-    BRDC_fprintf( stderr, "%6s %3d %10d %10d %10d %10d  %9.1f %10.1f     0x%.4X  %d %4d\r", "TRD :", rd0.trd, rd0.BlockWr, cnt_rd, rd0.BlockOk, rd0.BlockError, rd0.VelocityCurrent, rd0.VelocityAvarage, status, IsviStatus, IsviCnt );
+    long currentTime = GetTickCount();
+    int min, sec_all, sec;
+    sec_all= currentTime-rd0.time_start;
+    sec_all/=1000;
+    sec=sec_all%60;
+    min=sec_all/60;
+
+
+
+
+    BRDC_fprintf( stderr, "%6s %3d %10d %10d %10d %10d  %9.1f %10.1f     0x%.4X       %u:%.2u \r", "TRD :", rd0.trd, rd0.BlockWr, cnt_rd, rd0.BlockOk, rd0.BlockError, rd0.VelocityCurrent, rd0.VelocityAvarage, status, min, sec );
 
     if( isSystemMonitor )
     {
@@ -173,8 +187,35 @@ int TF_TestStrm::isComplete( void )
 void TF_TestStrm::GetResult( void )
 {
     BRDC_fprintf( stderr, "\n\nResult of receiving data from trd %d \n", trdNo );
-    if(rd0.BlockRd!=0 && rd0.BlockError!=0)
-        printf("%s\n", rd0.testBuf.report_word_error());
+
+    BRDC_fprintf( stderr, "\n Recieved blocks :   %d \n",  rd0.BlockRd );
+    BRDC_fprintf( stderr,   " Correct blocks  :   %d \n",  rd0.BlockOk );
+    BRDC_fprintf( stderr,   " Incorrect blocks:   %d \n",  rd0.BlockError );
+    BRDC_fprintf( stderr,   " Total errors    :   %d \n\n", rd0.TotalError );
+    BRDC_fprintf( stderr,   " Speed           :   %.1f [Mbytes/s] \n", rd0.VelocityAvarage );
+
+    long currentTime = GetTickCount();
+    int min, sec_all, sec;
+    sec_all= currentTime-rd0.time_start;
+    sec_all/=1000;
+    sec=sec_all%60;
+    min=sec_all/60;
+
+    BRDC_fprintf( stderr,   " Time of test    :   %d min %.2d sec\n\n", min, sec );
+
+
+    if(rd0.BlockRd!=0 && rd0.BlockError==0)
+    {
+        BRDC_fprintf( stderr,"All data is correct. No error\n" );
+    } else if( rd0.BlockRd==0 )
+    {
+        BRDC_fprintf( stderr,"Error - data is not received \n" );
+
+    } else
+    {
+        BRDC_fprintf( stderr,"List of error:\n" );
+        BRDC_fprintf( stderr,"%s\n", rd0.testBuf.report_word_error());
+    }
 
     BRDC_fprintf( stderr, "\n\n" );
 }
@@ -306,10 +347,10 @@ U32 TF_TestStrm::Execute( void )
         PrepareAdmReg( fnameAdmReg2 );
     }
 
-    pBrd->RegPokeInd( 4, 0, 0x2038 );
 
     rd0.time_last=rd0.time_start=GetTickCount();
 
+    isDmaStart=1;
 
     for( ; ; )
     {
@@ -385,16 +426,16 @@ void TF_TestStrm::ReceiveData(  ParamExchange *pr )
         }
     }
 
-    U32 currentTime = GetTickCount();
-    if( (currentTime - pr->time_last)>10 )
+    long currentTime = GetTickCount();
+    if( (currentTime - pr->time_last)>4000 )
     {
         float t1 = currentTime - pr->time_last;
         float t2 = currentTime - pr->time_start;
-        float v = 1.0*(pr->BlockRd-pr->BlockLast)*SizeBlockOfBytes/t1;
+        float v = 1000.0*(pr->BlockRd-pr->BlockLast)*SizeBlockOfBytes/t1;
         v/=1024*1024;
         pr->VelocityCurrent=v;
 
-        v = 1.0*(pr->BlockRd)*SizeBlockOfBytes/t2;
+        v = 1000.0*(pr->BlockRd)*SizeBlockOfBytes/t2;
         v/=1024*1024;
         pr->VelocityAvarage=v;
         pr->time_last = currentTime;
@@ -402,6 +443,7 @@ void TF_TestStrm::ReceiveData(  ParamExchange *pr )
         pr->freeCycleZ=pr->freeCycle;
         pr->freeCycle=0;
     }
+    //Sleep(1);
 }
 
 //-----------------------------------------------------------------------------
@@ -629,7 +671,7 @@ U32 TF_TestStrm::ExecuteIsvi( void )
 //! Подготовка TEST_CTRL
 void TF_TestStrm::PrepareTestCtrl( void )
 {
-    BRDC_fprintf( stderr, "\nПодготовка тетрады TEST_CTRL\n" );
+    BRDC_fprintf( stderr, "\nPrepare trd TEST_CTRL\n" );
 
     BlockMode = DataType <<8;
     BlockMode |= DataFix <<7;
@@ -658,10 +700,10 @@ void TF_TestStrm::PrepareTestCtrl( void )
 
     if( block_mode & 0x80 )
     {
-        BRDC_fprintf( stderr, "Используется сокращённая тестовая последовательность\r\n" );
+        BRDC_fprintf( stderr, "Use a short test sequence\r\n" );
     } else
     {
-        BRDC_fprintf( stderr, "Используется полная тестовая последовательность\r\n" );
+        BRDC_fprintf( stderr, "Use a full test sequence\r\n" );
     }
 
 
@@ -670,21 +712,21 @@ void TF_TestStrm::PrepareTestCtrl( void )
         pBrd->RegPokeInd( TRD_CTRL, REG_GEN_CNT1, Cnt1 );
         pBrd->RegPokeInd( TRD_CTRL, REG_GEN_CNT2, Cnt2 );
         float sp=1907.348632812 * (Cnt1-1)/(Cnt1+Cnt2-2);
-        BRDC_fprintf( stderr, "Установлено ограничение скорости формирования потока:  %6.1f МБайт/с \r\n"
+        BRDC_fprintf( stderr, "Set limit of speed:  %6.1f Mbytes/s \r\n"
                       "REG_CNT1=%d  REGH_CNT2=%d   \r\n", sp, Cnt1, Cnt2 );
         if( block_mode&0x1000 )
         {
-            BRDC_fprintf( stderr, "Установлен режим без ожидания готовности FIFO\r\n\r\n" );
+            BRDC_fprintf( stderr, "Set mode without wait of FIFO ready\r\n\r\n" );
         } else
         {
-            BRDC_fprintf( stderr, "Установлено ожидание готовности FIFO \r\n\r\n"        );
+            BRDC_fprintf( stderr, "Set mode with wait of FIFO ready \r\n\r\n"        );
         }
     }  else
     {
         pBrd->RegPokeInd( TRD_CTRL, REG_GEN_CNT1, 0 );
         pBrd->RegPokeInd( TRD_CTRL, REG_GEN_CNT2, 0 );
-        BRDC_fprintf( stderr, "Установлено формирование потока на максимальной скорости: 1907 МБайт/с \r\n"
-                      "Установлено ожидание готовности FIFO \r\n\r\n"        );
+        BRDC_fprintf( stderr, "Set max speed of data transfer: 1907 Mbytes/s \r\n"
+                      "Set mode with wait of FIFO ready \r\n\r\n"        );
     }
 }
 

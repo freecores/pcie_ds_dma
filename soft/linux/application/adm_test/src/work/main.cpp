@@ -151,27 +151,32 @@ int BRDC_main(int argc, BRDCHAR* argv[])
                 }
             }
 
-            if( isFirstCallStep || isTwoTest )
+            if( (isFirstCallStep && pTest->isDmaStart) || isTwoTest )
             {
 
-                BRDC_fprintf( stderr, _BRDC("%10s %10s %10s %10s %10s %10s %10s %10s\n"), _BRDC(""), _BRDC("BLOCK_WR"), _BRDC("BLOCK_RD"), _BRDC("BLOCK_OK"), _BRDC("BLOCK_ERR"), _BRDC("SPD_CURR"), _BRDC("SPD_AVR"), _BRDC("STATUS"));
+                BRDC_fprintf( stderr, _BRDC("\n%10s %10s %10s %10s %10s %10s %10s %10s %10s\n"), _BRDC(""), _BRDC("BLOCK_WR"), _BRDC("BLOCK_RD"), _BRDC("BLOCK_OK"), _BRDC("BLOCK_ERR"), _BRDC("SPD_CURR"), _BRDC("SPD_AVR"), _BRDC("STATUS"), _BRDC("TIME"));
                 BRDC_fprintf( stderr, _BRDC("\n"));
+		
+                if (isFirstCallStep)
+                {
+                    isFirstCallStep=false;
+                }
+		
             }
 
-            if (isFirstCallStep)
+
+            if( false==isFirstCallStep )
             {
-                isFirstCallStep=false;
+                pTest->Step();
+                if( isTwoTest )
+                    BRDC_fprintf( stderr, "\n" );
+                if( pTest2 )
+                    pTest2->Step();
+                if( isTwoTest )
+                    BRDC_fprintf( stderr, "\n" );
             }
 
-            pTest->Step();
-            if( isTwoTest )
-                BRDC_fprintf( stderr, "\n" );
-            if( pTest2 )
-                pTest2->Step();
-            if( isTwoTest )
-                BRDC_fprintf( stderr, "\n\n" );
-
-            Sleep( 1400 );
+            Sleep( 400 );
 
             fflush( stdout );
         }

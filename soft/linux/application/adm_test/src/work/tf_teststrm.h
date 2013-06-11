@@ -28,8 +28,8 @@ class TF_TestStrm : public TF_WorkParam, public TF_Test
         float	fftTime_us;
         TF_TestBufM2 testBuf;
 
-        U32 time_start;
-        U32 time_last;
+        long time_start;
+        long time_last;
         U32 BlockLast;
         U32 freeCycle;
         U32 freeCycleZ;

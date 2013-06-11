@@ -25,6 +25,7 @@
 #define TRDIND_SPD_ADDR					0x205
 #define TRDIND_SPD_DATA					0x206
 
+int GetTickCount(void);
 
 TF_TestStrmOut::TF_TestStrmOut( BRDCHAR* fname, CL_AMBPEX *fotr )
 {
@@ -98,8 +99,16 @@ void TF_TestStrmOut::Step( void )
     if( isTest )
         TestCtrlReadStatus( &tr0 );
 
+    long currentTime = GetTickCount();
+    int min, sec_all, sec;
+    sec_all= currentTime-tr0.time_start;
+    sec_all/=1000;
+    sec=sec_all%60;
+    min=sec_all/60;
+
+
     U32 status = pBrd->RegPeekDir( tr0.trd, 0 ) & 0xFFFF;
-    BRDC_fprintf( stderr, "%6s %3d %10d %10d %10d %10d  %9.1f %10.1f     0x%.4X  \r", "TRD :", tr0.trd, tr0.BlockWr, tr0.BlockRd, tr0.BlockOk, tr0.BlockError, tr0.VelocityCurrent, tr0.VelocityAvarage, status );
+    BRDC_fprintf( stderr, "%6s %3d %10d %10d %10d %10d  %9.1f %10.1f     0x%.4X       %u:%.2u  \r", "TRD :", tr0.trd, tr0.BlockWr, tr0.BlockRd, tr0.BlockOk, tr0.BlockError, tr0.VelocityCurrent, tr0.VelocityAvarage, status, min, sec );
 }
 
 int TF_TestStrmOut::isComplete( void )
@@ -116,7 +125,7 @@ void TF_TestStrmOut::GetResult( void )
 
     if( isTest )
     {
-        BRDC_fprintf( stderr, "\n\nResult of transmitted data via tetrad %d \n", trdNo );
+        BRDC_fprintf( stderr, "\n\nResult of transmitted data via trd %d \n", trdNo );
         TestCtrlResult( &tr0 );
     }
     BRDC_fprintf( stderr, "\n\n" );
@@ -224,23 +233,23 @@ U32 TF_TestStrmOut::Execute( void )
 
 
 
-    pBrd->RegPokeInd( tr0.trd, 0, 0x2030 );
+    pBrd->RegPokeInd( tr0.trd, 0, 0x2000 );
 
 
     pBrd->StreamStart( tr0.Strm );
 
-
+    Sleep( 100 );
 
 
     tr0.BlockLast=tr0.BlockStart=tr0.BlockWr;
 
     pBrd->RegPokeInd( tr0.trd, 0, 0x2038 );
 
-    Sleep( 100 );
+    isDmaStart=1;
 
 
 
-    tr0.time_last=tr0.time_start=0;//GetTickCount();
+    tr0.time_last=tr0.time_start=GetTickCount();
 
 
     for( ; ; )
@@ -314,7 +323,7 @@ void TF_TestStrmOut::SendData(  ParamExchange *pr )
     }
     //Sleep( 0 );
 
-/*
+
     U32 currentTime = GetTickCount();
     if( (currentTime - pr->time_last)>4000 )
     {
@@ -334,7 +343,7 @@ void TF_TestStrmOut::SendData(  ParamExchange *pr )
 	
     }
     //Sleep(1);
-*/
+
 
 }
 
@@ -450,10 +459,21 @@ void TF_TestStrmOut::TestCtrlResult( ParamExchange *pr )
     pr->BlockError=block_error;
     pr->TotalError=total_error;
 
-    BRDC_fprintf( stderr, "\n Recieved blocks : %d \n",  block_rd );
-    BRDC_fprintf( stderr, " Valid blocks: %d \n", block_ok );
-    BRDC_fprintf( stderr, " Invalid blocks: %d \n", block_error );
-    BRDC_fprintf( stderr, " Total errors:      %d \n\n", total_error );
+    BRDC_fprintf( stderr, "\n Recieved blocks :   %d \n",  block_rd );
+    BRDC_fprintf( stderr,   " Correct blocks  :   %d \n", block_ok );
+    BRDC_fprintf( stderr,   " Incorrect blocks:   %d \n", block_error );
+    BRDC_fprintf( stderr,   " Total errors    :   %d \n\n", total_error );
+    BRDC_fprintf( stderr,   " Speed           :   %.1f [Mbytes/s] \n", pr->VelocityAvarage );
+
+    U32 currentTime = GetTickCount();
+    int min, sec_all, sec;
+    sec_all= currentTime-pr->time_start;
+    sec_all/=1000;
+    sec=sec_all%60;
+    min=sec_all/60;
+
+    BRDC_fprintf( stderr,   " Time of test    :   %d min %.2d sec\n\n", min, sec );
+
 
     if( total_error>0 )
     {
