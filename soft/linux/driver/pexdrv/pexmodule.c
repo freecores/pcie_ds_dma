@@ -382,7 +382,8 @@ static irqreturn_t pex_device_isr( int irq, void *pContext )
             //err_msg(err_trace, "%s(%d)\n", __FUNCTION__, atomic_read(&pDevice->m_TotalIRQ));
 
             flag = NextDmaTransfer(pDevice->m_DmaChannel[NumberOfChannel]);
-            if(!flag)
+            //if(!flag)
+            if( 0 )
             {
                 DMA_CTRL_EXT CtrlExt;
                 CtrlExt.AsWhole = 0;
@@ -443,48 +444,7 @@ static const struct pci_device_id pex_device_id[] = {
         .subvendor =    PCI_ANY_ID,
         .subdevice =    PCI_ANY_ID,
 },
-{
-        .vendor =       INSYS_VENDOR_ID,
-        .device =       AMBPEX8_DEVID,
-        .subvendor =    PCI_ANY_ID,
-        .subdevice =    PCI_ANY_ID,
-},
-{
-        .vendor =       INSYS_VENDOR_ID,
-        .device =       ADP201X1AMB_DEVID,
-        .subvendor =    PCI_ANY_ID,
-        .subdevice =    PCI_ANY_ID,
-},
-{
-        .vendor =       INSYS_VENDOR_ID,
-        .device =       ADP201X1DSP_DEVID,
-        .subvendor =    PCI_ANY_ID,
-        .subdevice =    PCI_ANY_ID,
-},
-{
-        .vendor =       INSYS_VENDOR_ID,
-        .device =       AMBPEXARM_DEVID,
-        .subvendor =    PCI_ANY_ID,
-        .subdevice =    PCI_ANY_ID,
-},
-{
-        .vendor =       INSYS_VENDOR_ID,
-        .device =       AMBFMC106P_DEVID,
-        .subvendor =    PCI_ANY_ID,
-        .subdevice =    PCI_ANY_ID,
-},
-{
-        .vendor =       INSYS_VENDOR_ID,
-        .device =       AMBFMC114V_DEVID,
-        .subvendor =    PCI_ANY_ID,
-        .subdevice =    PCI_ANY_ID,
-},
-{
-        .vendor =       INSYS_VENDOR_ID,
-        .device =       AMBKU_SSCOS_DEVID,
-        .subvendor =    PCI_ANY_ID,
-        .subdevice =    PCI_ANY_ID,
-},
+
 { },
 };
 

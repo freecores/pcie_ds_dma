@@ -16,6 +16,8 @@
 #include "ambpexregs.h"
 #include "memory.h"
 
+
+int g_isAdm=0;
 //--------------------------------------------------------------------
 
 int set_device_name(struct pex_device *brd, u16 dev_id, int index)
@@ -25,13 +27,7 @@ int set_device_name(struct pex_device *brd, u16 dev_id, int index)
 
     switch(dev_id) {
     case AMBPEX5_DEVID: snprintf(brd->m_name, 128, "%s%d", "AMBPEX5", index); break;
-    case AMBPEX8_DEVID: snprintf(brd->m_name, 128, "%s%d", "AMBPEX8", index); break;
-    case ADP201X1AMB_DEVID: snprintf(brd->m_name, 128, "%s%d", "ADP201X1AMB", index); break;
-    case ADP201X1DSP_DEVID: snprintf(brd->m_name, 128, "%s%d", "ADP201X1DSP", index); break;
-    case AMBPEXARM_DEVID: snprintf(brd->m_name, 128, "%s%d", "D2XT005", index); break;
-    case AMBFMC106P_DEVID: snprintf(brd->m_name, 128, "%s%d", "AMBFMC106P", index); break;
-    case AMBFMC114V_DEVID: snprintf(brd->m_name, 128, "%s%d", "AMBFMC114V", index); break;
-    case AMBKU_SSCOS_DEVID: snprintf(brd->m_name, 128, "%s%d", "AMBKU_SSCOS", index); break;
+
     default:
         snprintf(brd->m_name, sizeof(brd->m_name), "%s%d", "Unknown", index); break;
     }
@@ -83,15 +79,7 @@ int InitializeBoard(struct pex_device *brd)
 
     dbg_msg(dbg_trace, "%s(): DeviceID = 0x%X, DeviceRev = 0x%X.\n", __FUNCTION__, deviceID, deviceRev);
 
-    if((AMBPEX8_DEVID != deviceID) &&
-            (ADP201X1AMB_DEVID != deviceID) &&
-            (AMBPEX5_DEVID != deviceID) &&
-            (AMBPEXARM_DEVID != deviceID) &&
-            (AMBFMC114V_DEVID != deviceID)) {
 
-        dbg_msg(dbg_trace, "%s(): Unsupported device id: 0x%X.\n", __FUNCTION__, deviceID);
-        return -ENODEV;
-    }
 
     temp = ReadOperationWordReg(brd, PEMAINadr_PLD_VER);
 
@@ -138,6 +126,7 @@ int InitializeBoard(struct pex_device *brd)
     }
 
     dbg_msg(dbg_trace, "%s(): m_DmaChanMask = 0x%X\n", __FUNCTION__, brd->m_DmaChanMask);
+
 
     // подготовим к работе ПЛИС ADM
     dbg_msg(dbg_trace, "%s(): Prepare ADM PLD.\n", __FUNCTION__);
@@ -457,11 +446,11 @@ int SetDrqFlag(struct pex_device *brd, u32 AdmNumber, u32 TetrNumber, u32 DrqFla
 int DmaEnable(struct pex_device *brd, u32 AdmNumber, u32 TetrNumber)
 {
     int Status = 0;
-    u32 Value = 0;
-    Status = ReadRegData(brd, AdmNumber, TetrNumber, 0, &Value);
-    if(Status != 0) return Status;
-    Value |= 0x8; // DRQ enable
-    Status = WriteRegData(brd, AdmNumber, TetrNumber, 0, Value);
+    //u32 Value = 0;
+    //Status = ReadRegData(brd, AdmNumber, TetrNumber, 0, &Value);
+    //if(Status != 0) return Status;
+    //Value |= 0x8; // DRQ enable
+    //Status = WriteRegData(brd, AdmNumber, TetrNumber, 0, Value);
     //err_msg(err_trace, "%s: MODE0 = 0x%X.\n", __FUNCTION__, Value);
     return Status;
 }
@@ -471,11 +460,11 @@ int DmaEnable(struct pex_device *brd, u32 AdmNumber, u32 TetrNumber)
 int DmaDisable(struct pex_device *brd, u32 AdmNumber, u32 TetrNumber)
 {
     int Status = 0;
-    u32 Value = 0;
-    Status = ReadRegData(brd, AdmNumber, TetrNumber, 0, &Value);
-    if(Status != 0) return Status;
-    Value &= 0xfff7; // DRQ disable
-    Status = WriteRegData(brd, AdmNumber, TetrNumber, 0, Value);
+    //u32 Value = 0;
+    //Status = ReadRegData(brd, AdmNumber, TetrNumber, 0, &Value);
+    //if(Status != 0) return Status;
+    //Value &= 0xfff7; // DRQ disable
+    //Status = WriteRegData(brd, AdmNumber, TetrNumber, 0, Value);
     return Status;
 }
 
@@ -615,7 +604,7 @@ int HwCompleteDmaTransfer(struct pex_device *brd, u32 NumberOfChannel)
     brd->m_DmaIrqEnbl = enbl;
 
     tetr_num = GetTetrNum(brd->m_DmaChannel[NumberOfChannel]);
-    Status = DmaDisable(brd, 0, tetr_num);
+    //Status = DmaDisable(brd, 0, tetr_num);
     CompleteDmaTransfer(brd->m_DmaChannel[NumberOfChannel]);
 
     return Status;

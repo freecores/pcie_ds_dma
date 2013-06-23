@@ -1,4 +1,5 @@
 
+#define __VERBOSE__
 
 #include <stdio.h>
 #include <fcntl.h>
@@ -68,10 +69,10 @@ void WB_TestStrm::Prepare( void )
 
     rd0.trd=trdNo;
     rd0.Strm=strmNo;
-   // pBrd->StreamInit( rd0.Strm, CntBuffer, SizeBuferOfBytes, rd0.trd, 1, isCycle, isSystem, isAgreeMode );
+    pBrd->StreamInit( rd0.Strm, CntBuffer, SizeBuferOfBytes, rd0.trd, 1, isCycle, isSystem, isAgreeMode );
 
     bufIsvi = new U32[SizeBlockOfWords*2];
-    pBrd->StreamInit( rd0.Strm, CntBuffer, SizeBuferOfBytes, U32(0x3000),U32(1), 0, 1, U32(0) );
+   // pBrd->StreamInit( rd0.Strm, CntBuffer, SizeBuferOfBytes, U32(0x3000),U32(1), 0, 1, U32(0) );
 }
 
 void WB_TestStrm::Start( void )
@@ -134,10 +135,13 @@ void WB_TestStrm::Step( void )
     //BRDC_fprintf( stderr, "%10s %10d %10d %10d %10d\n", "FIFO_0 :", tr0.BlockWr, rd0.BlockRd, rd0.BlockOk, rd0.BlockError );
     //BRDC_fprintf( stderr, "%10s %10d %10d %10d %10d\n", "FIFO_1 :", tr1.BlockWr, rd1.BlockRd, rd1.BlockOk, rd1.BlockError );
 
-    U32 status = 0; //pBrd->RegPeekDir( rd0.trd, 0 ) & 0xFFFF;
-    rd0.BlockWr=pBrd->wb_block_read( 1, 0x11 );
+    U32 status = pBrd->wb_block_read( 1, 0x10 );
+    rd0.BlockWr = pBrd->wb_block_read( 1, 0x11 );
+    U32 sig = pBrd->wb_block_read( 1, 0x12 );
+      //pBrd->RegPeekDir( rd0.trd, 0 ) & 0xFFFF;
+    //rd0.BlockWr=pBrd->wb_block_read( 1, 0x11 );
 
-    BRDC_fprintf( stdout, "%6s %3d %10d %10d %10d %10d  %9.1f %10.1f     0x%.4X  %d %4d %4f\r", "TRD :", rd0.trd, rd0.BlockWr, rd0.BlockRd, rd0.BlockOk, rd0.BlockError, rd0.VelocityCurrent, rd0.VelocityAvarage, status, IsviStatus, IsviCnt, rd0.fftTime_us );
+    BRDC_fprintf( stdout, "%6s %3d %10d %10d %10d %10d  %9.1f %10.1f     0x%.4X  0x%.8X %4d %4f\r", "TRD :", rd0.trd, rd0.BlockWr, rd0.BlockRd, rd0.BlockOk, rd0.BlockError, rd0.VelocityCurrent, rd0.VelocityAvarage, status, sig, IsviCnt, rd0.fftTime_us );
 
 
 
@@ -291,6 +295,8 @@ U32 WB_TestStrm::Execute( void )
 
     pBrd->RegPokeInd( 4, 0, 0x2038 );
 */
+    pBrd->wb_block_write( 1, 8, 1 );
+
     pBrd->StreamStart( rd0.Strm );
 
     U32 val;
@@ -303,7 +309,8 @@ U32 WB_TestStrm::Execute( void )
     val=pBrd->wb_block_read( 1, 8 );
     BRDC_fprintf( stderr, "GEN_CTRL=0x%.4X \n", val );
 
-    pBrd->wb_block_write( 1, 9, 5 );
+    pBrd->wb_block_write( 1, 8, 0 );
+    pBrd->wb_block_write( 1, 9, 1 );
     pBrd->wb_block_write( 1, 8, 0x6A0 );
 
     val=pBrd->wb_block_read( 1, 8 );

@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <signal.h>
 
 #include "cl_wbpex.h"
 //#include "tf_test.h"
@@ -86,6 +87,7 @@ int BRDC_main(int argc, BRDCHAR* argv[])
 {
     // анализ командной строки
     setlocale( LC_ALL, "Russian" );
+    signal(SIGINT, signa_handler);
 
     TF_Test  *pTest=NULL;
     TF_Test  *pTest2=NULL;

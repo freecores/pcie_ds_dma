@@ -77,7 +77,7 @@ int CL_WBPEX::StreamInit( U32 strm, U32 cnt_buf, U32 size_one_buf_of_bytes, U32 
     if( strm>1 )
         return 1;
 
-    DEBUG_PRINT("CL_AMBPEX::%s()\n", __FUNCTION__);
+    DEBUG_PRINT("CL_AMBPEX::%s( cycle=%d)\n", __FUNCTION__, cycle );
 
     StreamParam *pStrm= m_streamParam+strm;
     if( pStrm->status!=0 )
