@@ -55,6 +55,7 @@ constant REG_TEST_GEN_CTRL		: integer:=8;
 constant REG_TEST_GEN_SIZE		: integer:=9;
 constant REG_TEST_GEN_CNT1		: integer:=16#0A#;
 constant REG_TEST_GEN_CNT2		: integer:=16#0B#;
+constant REG_TEST_GEN_STATUS	: integer:=16#10#;
 constant REG_TEST_GEN_BL_WR		: integer:=16#11#;
 --
 -- Define SoPC ADDR (must be EQU to: ...\src\top\sp605_lx45t_wishbone_sopc_wb.vhd)

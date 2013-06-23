@@ -442,7 +442,10 @@ variable	data			: std_logic_vector( 31 downto 0 );
 variable	str				: line;			   
 
 variable	error			: integer:=0;
-variable	dma_complete	: integer;
+variable	dma_complete	: integer;	   	
+
+variable	status			: std_logic_vector( 31 downto 0 );
+variable	reg_block_wr	: std_logic_vector( 31 downto 0 );
 
 begin
 		
@@ -473,12 +476,12 @@ begin
 	
 	
 	---- Программирование канала DMA ----
-	block_write( cmd, ret, 4, 8, x"00000027" );		-- DMA_MODE 
-	block_write( cmd, ret, 4, 9, x"00000010" );		-- DMA_CTRL - RESET FIFO 
+	block_write( cmd, ret, 5, 8, x"00000027" );		-- DMA_MODE 
+	block_write( cmd, ret, 5, 9, x"00000010" );		-- DMA_CTRL - RESET FIFO 
 	
-	block_write( cmd, ret, 4, 20, x"00100000" );	-- PCI_ADRL 
-	block_write( cmd, ret, 4, 21, x"00100000" );	-- PCI_ADRH  
-	block_write( cmd, ret, 4, 23, TEST_GEN_WB_BURST_SLAVE );	-- LOCAL_ADR 
+	block_write( cmd, ret, 5, 20, x"00100000" );	-- PCI_ADRL 
+	block_write( cmd, ret, 5, 21, x"00100000" );	-- PCI_ADRH  
+	block_write( cmd, ret, 5, 23, TEST_GEN_WB_BURST_SLAVE );	-- LOCAL_ADR 
 	
 	
 	wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"00000001" ); -- reset
@@ -490,13 +493,19 @@ begin
 	
 	wb_block_gen_write( cmd, ret, REG_TEST_GEN_SIZE, x"00000001" ); -- size of block = 4 kByte
 
-	block_write( cmd, ret, 4, 9, x"00000001" );		-- DMA_CTRL - START 
+	block_write( cmd, ret, 5, 9, x"00000001" );		-- DMA_CTRL - START 
+	
+	wb_block_gen_read( cmd, ret, REG_TEST_GEN_STATUS, status ); 		-- read status
+	write( str, string'("WB_GEN_STATUS: " )); hwrite( str, status( 31 downto 0 ) ); writeline( log, str );	
+	wb_block_gen_read( cmd, ret, REG_TEST_GEN_BL_WR,  reg_block_wr ); 	-- read block_wr
+	write( str, string'("WB_GEN_BL_WR:  " )); hwrite( str, reg_block_wr( 31 downto 0 ) ); writeline( log, str );	
+	
 	
 	wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"000006A0" ); -- start test sequence	
 	
 	wait for 20 us;
 	
-	block_read( cmd, ret, 4, 16, data );			-- STATUS 
+	block_read( cmd, ret, 5, 16, data );			-- STATUS 
 	
 	write( str, string'("STATUS: " )); hwrite( str, data( 15 downto 0 ) );
 	if( data( 8 )='1' ) then
@@ -514,13 +523,13 @@ begin
 		dma_complete := 0;
 		for ii in 0 to 100 loop
 			
-		block_read( cmd, ret, 4, 16, data );			-- STATUS 
+		block_read( cmd, ret, 5, 16, data );			-- STATUS 
 		write( str, string'("STATUS: " )); hwrite( str, data( 15 downto 0 ) );
 			if( data(5)='1' ) then
 				write( str, string'(" - DMA finished " ));
 				dma_complete := 1;	
 				
-				block_write( cmd, ret, 4, 16#11#, x"00000010" );		-- FLAG_CLR - reset EOT 
+				block_write( cmd, ret, 5, 16#11#, x"00000010" );		-- FLAG_CLR - reset EOT 
 				
 			end if;
 			writeline( log, str );			
@@ -541,11 +550,17 @@ begin
 			error:=error+1;
 		end if;
 
-	end if; 
+	end if; 	   
+	
+	wb_block_gen_read( cmd, ret, REG_TEST_GEN_STATUS, status ); 		-- read status
+	write( str, string'("WB_GEN_STATUS: " )); hwrite( str, status( 31 downto 0 ) ); writeline( log, str );	
+	wb_block_gen_read( cmd, ret, REG_TEST_GEN_BL_WR,  reg_block_wr ); 	-- read block_wr
+	write( str, string'("WB_GEN_BL_WR:  " )); hwrite( str, reg_block_wr( 31 downto 0 ) ); writeline( log, str );	
+	
 	
 	for ii in 0 to 3 loop
 			
-		block_read( cmd, ret, 4, 16, data );			-- STATUS 
+		block_read( cmd, ret, 5, 16, data );			-- STATUS 
 		write( str, string'("STATUS: " )); hwrite( str, data( 15 downto 0 ) );
 		writeline( log, str );			
 		wait for 500 ns;
@@ -553,7 +568,7 @@ begin
 	end loop;
 	
 	
-	block_write( cmd, ret, 4, 9, x"00000000" );		-- DMA_CTRL - STOP  	
+	block_write( cmd, ret, 5, 9, x"00000000" );		-- DMA_CTRL - STOP  	
 	
 	write( str, string'(" Block 0 - read: " ));
 	writeline( log, str );		

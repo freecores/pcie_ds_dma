@@ -141,7 +141,10 @@ signal  sv_test_gen_fifo_data       :   std_logic_vector(63 downto 0);
 signal  s_test_gen_fifo_rd          :   std_logic;
 signal  s_test_gen_fifo_full        :   std_logic;
 signal  s_test_gen_fifo_empty       :   std_logic;
-signal  s_test_gen_fifo_prog_full   :   std_logic;
+signal  s_test_gen_fifo_prog_full   :   std_logic;	
+signal	iv_test_gen_status			:   std_logic_vector( 31 downto 0 ); 
+signal	rstp						:   std_logic;
+signal	dmar						:   std_logic;
 ----------------------------------------------------------------------------------
 begin
 ----------------------------------------------------------------------------------
@@ -182,7 +185,8 @@ port map
     ov_test_gen_cnt1    => sv_test_gen_cnt1,
     ov_test_gen_cnt2    => sv_test_gen_cnt2,
     --
-    -- STATUS Input
+    -- STATUS Input						  
+	iv_test_gen_status  => iv_test_gen_status,
     iv_test_gen_bl_wr   => sv_test_gen_bl_wr
 );
 ----------------------------------------------------------------------------------
@@ -222,7 +226,7 @@ PORT MAP
     --
     -- SYS_CON
     clk => i_clk,
-    rst => i_rst,
+    rst => rstp,
     --
     -- DATA_IN 
     din     => sv_di_data,
@@ -280,14 +284,38 @@ s_di_flag_paf   <= not s_test_gen_fifo_prog_full;
 -- define TEST_GEN.di_start like TEST_GEN.sv_test_gen_ctrl[1] ( 1-> RSVD ) 
 s_di_start      <= sv_test_gen_ctrl(5);
 -- define TEST_GEN.di_fifo_rst - it is RST_n signal 
-s_di_fifo_rst   <= not i_rst;
+s_di_fifo_rst   <= not rstp;
+
+rstp <= i_rst or sv_test_gen_ctrl(0) after 1 ns when rising_edge( i_clk );
+
+iv_test_gen_status(0) <= '1';
+iv_test_gen_status(1) <= '0';
+iv_test_gen_status(2) <= s_test_gen_fifo_empty;
+iv_test_gen_status(3) <= s_test_gen_fifo_prog_full;
+iv_test_gen_status(4) <= s_test_gen_fifo_full;
+iv_test_gen_status(5) <= '0';
+iv_test_gen_status(6) <= '0';
+iv_test_gen_status(7) <= '0';
+iv_test_gen_status(8) <= sv_test_gen_ctrl(5);
+iv_test_gen_status(9) <= dmar;
+iv_test_gen_status(10) <= rstp;
+iv_test_gen_status(11) <= '0';
+iv_test_gen_status(12) <= '0';
+iv_test_gen_status(13) <= '0';
+iv_test_gen_status(14) <= '0';
+iv_test_gen_status(15) <= '0';
+
+iv_test_gen_status( 31 downto 16 ) <= (others=>'0');
+
+
 
 ----------------------------------------------------------------------------------
 --
 -- MODULE OUTPUTs routing:
 --
--- DMAR WB IRQ deal
-o_wbs_irq_dmar  <= s_test_gen_fifo_prog_full;   -- (DS: 512 слов заполнили - взевели dmar)
+-- DMAR WB IRQ deal				   
+dmar <= s_test_gen_fifo_prog_full or sv_test_gen_ctrl(14);   -- (DS: 512 слов заполнили - взевели dmar)
+o_wbs_irq_dmar  <= dmar;
 -- WB IRQ deal
 o_wbs_irq_0     <= '0';                         -- No EVENTs for now
 ----------------------------------------------------------------------------------

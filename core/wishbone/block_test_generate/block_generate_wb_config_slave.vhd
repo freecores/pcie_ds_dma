@@ -36,8 +36,10 @@
 --                  ADDR=x70 - RSVD (COMMAND REGs)
 --                  ADDR=x78 - RSVD (COMMAND REGs)
 --                  3) STS REGs, etc:
---                  ADDR=x80 - TEST_GEN_BL_WR
---                  ADDR=x88 - RSVD (STS REGs, etc)
+--                  ADDR=x80 - TEST_GEN_STATUS
+--					ADDR=x88 - TEST_GEN_BL_WR
+--					ADDR=x90 - 0xAAAAAAAA
+--                  ADDR=x98 - RSVD (STS REGs, etc)
 --                  ....
 --                  ADDR=xFF - RSVD (STS REGs, etc)
 --                  
@@ -89,7 +91,8 @@ port
     ov_test_gen_cnt1    :   out std_logic_vector( 15 downto 0 );
     ov_test_gen_cnt2    :   out std_logic_vector( 15 downto 0 );
     --
-    -- STATUS Input
+    -- STATUS Input		   
+	iv_test_gen_status	: 	in  std_logic_vector( 31 downto 0 );
     iv_test_gen_bl_wr   :   in  std_logic_vector( 31 downto 0 )
 );
 end component block_generate_wb_config_slave;
@@ -139,7 +142,8 @@ port
     ov_test_gen_cnt1    :   out std_logic_vector( 15 downto 0 );
     ov_test_gen_cnt2    :   out std_logic_vector( 15 downto 0 );
     --
-    -- STATUS Input
+    -- STATUS Input									  
+	iv_test_gen_status	: 	in  std_logic_vector( 31 downto 0 );
     iv_test_gen_bl_wr   :   in  std_logic_vector( 31 downto 0 )
 );
 end block_generate_wb_config_slave;
@@ -225,21 +229,37 @@ end process WB_WRITE;
 --
 -- WB Read process
 --
-WB_READ     :   process (i_clk, i_rst)
-    begin
-        if (i_rst='1') then             -- RST
-            ov_wbs_cfg_data <= (others => '0');
-        elsif (rising_edge(i_clk)) then -- WRK
-            if (s_wbs_active_rd='1') then
-                case(iv_wbs_cfg_addr(7 downto 0)) is
-                    -- STS MM region
-                    when x"80"  => ov_wbs_cfg_data(31 downto 0) <= iv_test_gen_bl_wr;
-                    -- BL_RAM MM region
-                    when others => ov_wbs_cfg_data(15 downto 0) <= sv_bl_ram_data_out;
-                end case;
-            end if;
-        end if;
-end process WB_READ;
+--WB_READ     :   process (i_clk, i_rst)
+--    begin
+--        if (i_rst='1') then             -- RST
+--            ov_wbs_cfg_data <= (others => '0');
+--        elsif (rising_edge(i_clk)) then -- WRK
+--            if (s_wbs_active_rd='1') then
+--                case(iv_wbs_cfg_addr(7 downto 0)) is
+--                    -- STS MM region
+--                    when x"80"  => ov_wbs_cfg_data(31 downto 0) <= iv_test_gen_status;
+--                    when x"88"  => ov_wbs_cfg_data(31 downto 0) <= iv_test_gen_bl_wr;
+--					when x"90" | x"98" | x"A0" | x"A" | x"86" | x"87" | x"88"
+--					when x"89" | x"8A" | x"8B" | x"8C" | x"8D" | x"8E" | x"8F"
+--                    -- BL_RAM MM region
+--                    when others => ov_wbs_cfg_data(15 downto 0) <= sv_bl_ram_data_out;
+--                end case;
+--            end if;
+--        end if;
+--end process WB_READ;
+
+WB_READ: process( iv_test_gen_status, iv_test_gen_bl_wr, iv_wbs_cfg_addr  ) begin
+	if(  iv_wbs_cfg_addr(7)='0' ) then
+		ov_wbs_cfg_data <= x"000000000000" & sv_bl_ram_data_out;
+	else
+		case( iv_wbs_cfg_addr( 6 downto 3 ) ) is
+			when "0000" => ov_wbs_cfg_data <= x"00000000" & iv_test_gen_status;
+			when "0001" => ov_wbs_cfg_data <= x"00000000" & iv_test_gen_bl_wr;
+			when "0010" => ov_wbs_cfg_data <= x"00000000" & x"AAAAAAAA";
+			when others => ov_wbs_cfg_data <= (others=>'0');
+		end case;
+	end if;
+end process;	
 ----------------------------------------------------------------------------------
 --
 -- WB ACK process
