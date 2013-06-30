@@ -85,6 +85,9 @@ use work.pcie_core64_m1_pkg.all;
 use work.core64_pb_wishbone_pkg.all;
 use work.block_pe_main_pkg.all;
 
+library unisim;
+use unisim.vcomponents.all;
+
 entity pcie_core64_wishbone_m8 is
 generic 
 (
@@ -166,6 +169,10 @@ signal  dcm_rst_out   	: std_logic;
 signal	reset_p			: std_logic;
 signal	reset_p_z1		: std_logic;
 signal	reset_p_z2		: std_logic;
+
+signal	clk125x			: std_logic:='0';
+signal	clk125			: std_logic;
+
 -------------------------------------------------------------------------------
 begin
 -------------------------------------------------------------------------------
@@ -201,7 +208,7 @@ port map
     dcm_rstp        => dcm_rst_out,   -- S6 PCIE x1 module INV trn_reset_n_c
     
     ---- BAR1 (PB bus) ----
-    aclk            => clk,  -- !!! same clock as clk_out
+    aclk            => clk125,  
     aclk_lock       => '1',             -- 
     pb_master       => pb_master,       --
     pb_slave        => pb_slave,        -- 
@@ -219,9 +226,12 @@ port map
     
 );	  
 
+clk125x <= not clk125x after 0.5 ns when rising_edge( clk );
+xclk125: bufg port map( clk125, clk125x );
+
 reset_p <= (not reset) or (not brd_mode(3));	  
-reset_p_z1 <= reset_p 	 after 1 ns when rising_edge( clk );
-reset_p_z2 <= reset_p_z1 after 1 ns when rising_edge( clk );
+reset_p_z1 <= reset_p 	 after 1 ns when rising_edge( clk125 );
+reset_p_z2 <= reset_p_z1 after 1 ns when rising_edge( clk125 );
 
 -- Deal with CORE BP Input data:
 bp_data <= bp0_data when bp_sel="00" else (others=>'0');
@@ -262,7 +272,7 @@ PW_WB   :   core64_pb_wishbone
 port map
 (
     reset           => reset_p_z2,  	--! 1 - сброс
-    clk             => clk,  			--! тактовая частота локальной шины 
+    clk             => clk125,  			--! тактовая частота локальной шины 
     
     ---- BAR1 ----
     pb_master       => pb_master,       --! запрос 
@@ -290,12 +300,12 @@ port map
 --
 -- Module Output route:
 --
-o_wb_clk    <= clk;  -- route from PW_WB wrk clock
+o_wb_clk    <= clk125;  -- route from PW_WB wrk clock
 --						  
-pr_o_wb_rst: process( reset_p, clk ) begin
+pr_o_wb_rst: process( reset_p, clk125 ) begin
 	if( reset_p='1' ) then
 		o_wb_rst <= '1' after 1 ns;
-	elsif( rising_edge( clk ) ) then
+	elsif( rising_edge( clk125 ) ) then
 		o_wb_rst <= reset_p_z2 after 1 ns;
 	end if;
 end process;
