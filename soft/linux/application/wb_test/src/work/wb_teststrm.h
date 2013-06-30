@@ -27,8 +27,8 @@ class WB_TestStrm : public TF_WorkParam, public TF_Test
         float	fftTime_us;
         TF_TestBufM2 testBuf;
 
-        U32 time_start;
-        U32 time_last;
+        long time_start;
+        long time_last;
         U32 BlockLast;
         U32 freeCycle;
         U32 freeCycleZ;
@@ -57,13 +57,10 @@ class WB_TestStrm : public TF_WorkParam, public TF_Test
     };
 
     UINT ThreadId;
-    UINT ThreadIdIsvi;
 
     pthread_t hThread;
     pthread_attr_t  attrThread_;
 
-    pthread_t hThreadIsvi;
-    pthread_attr_t  attrThreadIsvi_;
 
     CL_WBPEX  *pBrd;
 
@@ -83,7 +80,6 @@ public:
     virtual void Step( void );
 
     U32 Execute( void );
-    U32 ExecuteIsvi( void );
 
 
     //! Установка параметров по умолчанию
@@ -97,10 +93,6 @@ public:
 
 
     U32 Terminate;
-    U32 BlockRd;
-    U32 BlockOk;
-    U32 BlockError;
-    U32 TotalError;
 
     U32 CntBuffer;			// Число буферов стрима
     U32 CntBlockInBuffer;	// Число блоков в буфере
@@ -112,14 +104,9 @@ public:
     U32 isSystem;			// 1 - системная память
     U32 isAgreeMode;		// 1 - согласованный режим
 
-    U32	trdNo;		// номер тетрады
     U32 strmNo;		// номер стрима
     U32 isTest;		// 1 - проверка псевдослучайной последовательности, 2 - проверка тестовой последовательности
-    U32 isMainTest; // 1 - включение режима тестирования в тетараде MAIN
 
-    U32   lowRange;
-    U32   topRange;
-    U32   fftSize;
 
     U32 isFifoRdy;	// 1 - генератор тестовой последовательности анализирует флаг готовности FIFO
     U32 Cnt1;		// Число тактов записи в FIFO, 0 - постоянная запись в FIFO
@@ -129,44 +116,15 @@ public:
 
     U32	BlockMode;	// режим проверки
 
-    U32 isTestCtrl;	// 1 - подготовка тетрады TEST_CTRL
-
-    char*	fnameAdcParam;	// Имя файла параметров для режима АЦП
-    char*	fnameDdcParam;	// Имя файла параметров для режима DDC
-    char*	fnameIsvi;		// Имя файла данных ISVI
-
-    char*	fnameAdmReg;	// Имя файла регистров
-    U32		isAdmReg;		// 1 - разрешение записи регистров из файла fnameAdmReg
-
-    char*	fnameAdmReg2;	// Имя файла регистров (выполняется после старта стрима)
-    U32		isAdmReg2;		// 1 - разрешение записи регистров из файла fnameAdmReg2
-
-    U32		isIsvi;			// 1 - вывод в ISVI
-    U32*	bufIsvi;		// Буфер данных ISVI
-    char	IsviHeaderStr[1024]; // суффикс ISVI
-    U32		IsviHeaderLen;
-    U32		IsviHeaderMode;			// режим формирования суффикса ISVI, 0 - нет, 1 - DDC, 2 - ADC
-    U32		IsviStatus;			// состояние вывода в ISVI
-    U32		IsviCnt;			// число выведенных кадров в ISVI
-
-    void IsviStep( U32* ptr );
-    void WriteFlagSinc(int flg, int isNewParam);
-    int  ReadFlagSinc(void);
-    void WriteDataFile( U32 *pBuf, U32 sizew );
 
     U32 lc_status;
-    float cpuFreq;
 
     ParamExchange	rd0;
 
 
 
-    //void SendPkg( ParamExchange *pr );
-    //void ReceivePkg( ParamExchange *pr );
-    //void SendData( ParamExchange *pr );
     void ReceiveData(  ParamExchange *pr );
 
-    U32	 TestSeq;	// Региср управления режимом формирования тестовой последовательности
 
 
 private :
@@ -175,17 +133,8 @@ private :
 
     void PrepareWb( void );
 
-    void PrepareAdmReg( char* fname );
 
 
-    //! Подготовка MAIN
-    void PrepareMain( void );
-
-    //! Подготовка TEST_CTRL
-    void PrepareTestCtrl( void );
-
-    //! Запуск TestCtrl
-    void StartTestCtrl( void );
 
 
 };

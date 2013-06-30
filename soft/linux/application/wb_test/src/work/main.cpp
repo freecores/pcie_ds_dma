@@ -104,7 +104,6 @@ int BRDC_main(int argc, BRDCHAR* argv[])
     }
 
 
-    //printf( "Файл инициализации: %s\n", fname );
     try
     {
         CL_WBPEX *pBrd = &g_Board;
@@ -116,17 +115,6 @@ int BRDC_main(int argc, BRDCHAR* argv[])
             BRDC_fprintf( stderr, _BRDC("Board PEXDRV open succesfully\n") );
 
 
-            /*
-            for( trd=0; trd<8; trd++ )
-                pBrd->RegPokeInd( trd, 0, 1 );
-
-            for( trd=0; trd<8; trd++ )
-                for( int ii=1; ii<32; ii++ )
-                    pBrd->RegPokeInd( trd, ii, 0 );
-
-            for( trd=0; trd<8; trd++ )
-                pBrd->RegPokeInd( trd, 0, 0 );
-            */
 
         } else
         {
@@ -135,12 +123,9 @@ int BRDC_main(int argc, BRDCHAR* argv[])
             exit(-1);
         }
 
-        //printf( "\nShowPldInfo\n" );
         ShowWishboneInfo( pBrd );
-    //}
 
 
-//#if 0
         if( fname[0]=='o' )
             pTest = new WB_TestStrmOut( fname, pBrd );
         else
@@ -207,7 +192,7 @@ int BRDC_main(int argc, BRDCHAR* argv[])
             if( isFirstCallStep || isTwoTest )
             {
 
-              BRDC_fprintf( stdout, _BRDC("%10s %10s %10s %10s %10s %10s %10s %10s\n"), _BRDC(""), _BRDC("BLOCK_WR"), _BRDC("BLOCK_RD"), _BRDC("BLOCK_OK"), _BRDC("BLOCK_ERR"), _BRDC("SPD_CURR"), _BRDC("SPD_AVR"), _BRDC("STATUS"));
+              BRDC_fprintf( stdout, _BRDC("%10s %10s %10s %10s %10s %10s %10s %10s  %-10s  %-6s\n"), _BRDC(""), _BRDC("BLOCK_WR"), _BRDC("BLOCK_RD"), _BRDC("BLOCK_OK"), _BRDC("BLOCK_ERR"), _BRDC("SPD_CURR"), _BRDC("SPD_AVR"), _BRDC("STATUS"), _BRDC("SIG"), _BRDC("TIME"));
               BRDC_fprintf( stdout, _BRDC("\n"));
             }
 
