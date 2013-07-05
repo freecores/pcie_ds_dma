@@ -4,15 +4,9 @@
 
 //-----------------------------------------------------------------------------
 
-#define INSYS_VENDOR_ID         0x4953
+#define INSYS_VENDOR_ID     0x4953
 #define AMBPEX8_DEVID		0x5503
-#define ADP201X1AMB_DEVID	0x5504
-#define ADP201X1DSP_DEVID	0x5505
 #define AMBPEX5_DEVID		0x5507
-#define AMBPEXARM_DEVID		0x5702
-#define AMBFMC106P_DEVID	0x550A
-#define AMBFMC114V_DEVID	0x550C
-#define AMBKU_SSCOS_DEVID	0x5703
 
 //-----------------------------------------------------------------------------
 
