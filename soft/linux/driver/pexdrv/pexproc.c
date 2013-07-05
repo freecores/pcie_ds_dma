@@ -33,13 +33,12 @@ void pex_remove_proc( char *name )
 
 int pex_show_capabilities( char *buf, struct pex_device *brd )
 {
-    int i = 0, res = -1;
+    int i = 0;
+    int res = 0;
     char *p = buf;
-    u8 cap;
-    u8 cap_id;
+    u8 cap = 0;
+    u32 cap_id = 0;
 
-    p += sprintf(p,"\n" );
-    p += sprintf(p,"  Device capabilities\n" );
     p += sprintf(p,"\n" );
 
     res = pci_read_config_byte(brd->m_pci, 0x34, &cap);
@@ -47,47 +46,49 @@ int pex_show_capabilities( char *buf, struct pex_device *brd )
         p += sprintf(p, "  Error read capabilities pointer\n");
         goto err_exit;
     }
-    
-    res = pci_read_config_byte(brd->m_pci, cap, &cap_id);
-    if(res < 0) {
-        p += sprintf(p, "  Error read capabilities id\n");
-        goto err_exit;
-    }
-    
-    if(cap_id != 0x10) { //not PCI Express capabilities
 
-	res = pci_read_config_byte(brd->m_pci, cap+1, &cap);
-	if(res < 0) {
+    p += sprintf(p, "  Capability pointer: 0x%x\n", cap);
+
+    while(1) {
+
+        res = pci_read_config_dword(brd->m_pci, cap, &cap_id);
+        if(res < 0) {
             p += sprintf(p, "  Error read capabilities id\n");
             goto err_exit;
         }
-    }
-    
-    res = pci_read_config_byte(brd->m_pci, cap, &cap_id);
-    if(res < 0) {
-        p += sprintf(p, "  Error read capabilities id\n");
-        goto err_exit;
-    } else {
-        p += sprintf(p, "  CAP_ID = 0x%X\n", cap_id);
+
+        p += sprintf(p, "  Capability ID: 0x%x\n", cap_id);
+
+        if((cap_id & 0xff) == 0x10) {
+            break;
+        }
+
+        cap = ((cap_id >> 8) & 0xff);
+        if(!cap)
+            break;
     }
 
-    if(cap_id != 0x10) {
+    if((cap_id & 0xff) != 0x10) {
         p += sprintf(p, "  Can't find PCI Express capabilities\n");
         goto err_exit;
     }
 
+    p += sprintf(p,"\n" );
+    p += sprintf(p, "  PCI Express Capability Register Set\n");
+    p += sprintf(p,"\n" );
+
     for(i=0; i<9; i++) {
-	u32 reg = 0;
-	int j = cap + 4*i;
-	res = pci_read_config_dword(brd->m_pci, j, &reg);
-	if(res < 0) {
+        u32 reg = 0;
+        int j = cap + 4*i;
+        res = pci_read_config_dword(brd->m_pci, j, &reg);
+        if(res < 0) {
             p += sprintf(p, "  Error read capabilities sructure: offset %x\n", j);
             goto err_exit;
         }
-        p += sprintf(p, "  %x: = 0x%X\n", j, reg);
+        p += sprintf(p, "  0x%x:  0x%X\n", j, reg);
     }
 
-    err_exit:
+err_exit:
 
     return (p-buf);
 }
