@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <unistd.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
 
