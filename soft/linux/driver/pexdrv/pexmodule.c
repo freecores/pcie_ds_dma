@@ -9,8 +9,6 @@
 #include <linux/pci.h>
 #include <linux/proc_fs.h>
 #include <linux/interrupt.h>
-#include <asm/system.h>
-#include <asm/io.h>
 #include <asm/io.h>
 
 #include <asm/uaccess.h>
@@ -452,7 +450,7 @@ MODULE_DEVICE_TABLE(pci, pex_device_id);
 
 //-----------------------------------------------------------------------------
 
-static int  __devinit pex_device_probe(struct pci_dev *dev, const struct pci_device_id *id)
+static int pex_device_probe(struct pci_dev *dev, const struct pci_device_id *id)
 {
     int error = 0;
     int i = 0;
@@ -611,7 +609,7 @@ do_out:
 
 //-----------------------------------------------------------------------------
 
-static void __devexit pex_device_remove(struct pci_dev *dev)
+static void pex_device_remove(struct pci_dev *dev)
 {
     struct list_head *pos, *n;
     struct pex_device *brd = NULL;
