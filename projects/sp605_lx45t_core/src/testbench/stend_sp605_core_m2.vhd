@@ -183,8 +183,8 @@ variable	data	: std_logic_vector( 31 downto 0 );
 variable 	str 	: LINE;		-- pointer to string
 begin
 	
-	--test_init( "src\log\test.log" );
-	test_init( "test.log" );
+	test_init( "src\log\test.log" );
+	--test_init( "test.log" );
 	
 	wait for 180 us;	
 	
