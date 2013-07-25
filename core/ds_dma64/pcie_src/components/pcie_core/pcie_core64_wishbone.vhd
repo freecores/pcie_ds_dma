@@ -167,9 +167,12 @@ signal	bp0_data		: std_logic_vector( 31 downto 0 );
 -------------------------------------------------------------------------------
 --
 -- Declare Global SYS_CON stuff:
-signal  s_core_clk_out  :   std_logic;
-signal  s_reset_out     :   std_logic;
-signal  s_dcm_rst_out   :   std_logic;
+signal  clk  			: std_logic;
+signal  reset     		: std_logic;
+signal  dcm_rst		   	: std_logic;	
+signal	reset_p			: std_logic;
+signal	reset_p_z1		: std_logic;
+signal	reset_p_z2		: std_logic;
 -------------------------------------------------------------------------------
 begin
 -------------------------------------------------------------------------------
@@ -200,12 +203,12 @@ port map
     pcie_link_up    => pcie_link_up,
     
     ---- Локальная шина ----
-    clk_out         => s_core_clk_out,  -- S6 PCIE x1 module clock output
-    reset_out       => s_reset_out,     -- 
-    dcm_rstp        => s_dcm_rst_out,   -- S6 PCIE x1 module INV trn_reset_n_c
+    clk_out         => clk,  		-- S6 PCIE x1 module clock output
+    reset_out       => reset,     	-- 
+    dcm_rstp        => dcm_rst,   	-- S6 PCIE x1 module INV trn_reset_n_c
     
     ---- BAR1 (PB bus) ----
-    aclk            => s_core_clk_out,  -- !!! same clock as clk_out
+    aclk            => clk,  -- !!! same clock as clk_out
     aclk_lock       => '1',             -- 
     pb_master       => pb_master,       --
     pb_slave        => pb_slave,        -- 
@@ -239,8 +242,8 @@ generic map
 port map
 (
     ---- Global ----
-    reset_hr1       => s_reset_out,     -- 0 - сброс
-    clk             => s_core_clk_out,  -- Тактовая частота PCIE x1 S6
+    reset_hr1       => reset,     -- 0 - сброс
+    clk             => clk,  -- Тактовая частота PCIE x1 S6
     pb_reset        => pb_reset,        -- 0 - сброс ведомой ПЛИС
     
     ---- HOST ----
@@ -252,7 +255,13 @@ port map
     ---- Управление ----
     brd_mode        => brd_mode                 -- регистр BRD_MODE
     
-);
+);		 
+
+
+reset_p <= (not reset) or (not brd_mode(3));	  
+reset_p_z1 <= reset_p 	 after 1 ns when rising_edge( clk );
+reset_p_z2 <= reset_p_z1 after 1 ns when rising_edge( clk );
+
 -------------------------------------------------------------------------------
 --
 -- Instantiate PB BUS <-> WB BUS translator module:
@@ -260,8 +269,8 @@ port map
 PW_WB   :   core64_pb_wishbone 
 port map
 (
-    reset           => s_dcm_rst_out,   --! 1 - сброс
-    clk             => s_core_clk_out,  --! тактовая частота локальной шины 
+    reset           => reset_p_z2,   	--! 1 - сброс
+    clk             => clk,  			--! тактовая частота локальной шины 
     
     ---- BAR1 ----
     pb_master       => pb_master,       --! запрос 
@@ -289,8 +298,17 @@ port map
 --
 -- Module Output route:
 --
-o_wb_clk    <= s_core_clk_out;  -- route from PW_WB wrk clock
+o_wb_clk    <= clk;  -- route from PW_WB wrk clock
 --
-o_wb_rst    <= s_dcm_rst_out;   -- convert to POSITIVE LOGIC
+
+pr_o_wb_rst: process( reset_p, clk ) begin
+	if( reset_p='1' ) then
+		o_wb_rst <= '1' after 1 ns;
+	elsif( rising_edge( clk ) ) then
+		o_wb_rst <= reset_p_z2 after 1 ns;
+	end if;
+end process;
+
+
 -------------------------------------------------------------------------------
 end pcie_core64_wishbone;

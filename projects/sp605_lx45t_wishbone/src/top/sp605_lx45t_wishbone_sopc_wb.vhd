@@ -268,7 +268,7 @@ port map
     
 );
 --  Construct DMAR WB IR Input:
-sv_wbm_dmar_irq_pcie_core64_wb <= s_wbs_irq_dmar_test_check & s_wbs_irq_dmar_test_gen; -- Bit#1 - TEST_CHECK, Bit#0 - TEST_GEN
+sv_wbm_dmar_irq_pcie_core64_wb <= s_wbs_irq_dmar_test_gen & s_wbs_irq_dmar_test_check; -- Bit#1 - TEST_GEN, Bit#0 - TEST_CHECK
 -------------------------------------------------------------------------------
 --
 -- Instantiate TEST_CHECK (provide check of input data):

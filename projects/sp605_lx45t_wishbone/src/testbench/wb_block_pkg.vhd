@@ -55,6 +55,7 @@ constant REG_TEST_GEN_CTRL		: integer:=8;
 constant REG_TEST_GEN_SIZE		: integer:=9;
 constant REG_TEST_GEN_CNT1		: integer:=16#0A#;
 constant REG_TEST_GEN_CNT2		: integer:=16#0B#;
+constant REG_TEST_GEN_STATUS	: integer:=16#10#;
 constant REG_TEST_GEN_BL_WR		: integer:=16#11#;
 --
 -- Define SoPC ADDR (must be EQU to: ...\src\top\sp605_lx45t_wishbone_sopc_wb.vhd)
@@ -63,7 +64,22 @@ constant TEST_CHECK_WB_CFG_SLAVE   : std_logic_vector( 31 downto 0) := x"2000000
 constant TEST_CHECK_WB_BURST_SLAVE : std_logic_vector( 31 downto 0) := x"20001000"; -- check data: write-only
 constant TEST_GEN_WB_CFG_SLAVE     : std_logic_vector( 31 downto 0) := x"20002000";
 constant TEST_GEN_WB_BURST_SLAVE   : std_logic_vector( 31 downto 0) := x"20003000"; -- generate data: read-only
-
+	
+---- Write to wishbone ----		
+procedure wb_write (
+		signal  cmd:	out bh_cmd; -- команда 
+		signal  ret:	in  bh_ret; -- ответ 
+		adr:			in integer; -- номер регистра
+		data:			in std_logic_vector( 31 downto 0 ) -- данные
+		);
+	
+---- Read from wishbone ----		
+procedure wb_read (
+		signal  cmd:	out bh_cmd; -- команда для ADSP
+		signal  ret:	in  bh_ret; -- ответ ADSP
+		adr:			in integer; -- номер регистра
+		data:			out std_logic_vector( 31 downto 0 ) -- данные
+		);	
 		
 ---- Запись в регистр блока TEST_CHECK.WB_CFG_SLAVE  ----		
 procedure wb_block_check_write (
@@ -107,6 +123,28 @@ end package	wb_block_pkg;
 ---------------------------------------------------------------------------------------------------
 package body wb_block_pkg is
 	
+	
+---- Write to wishbone ----		
+procedure wb_write (
+		signal  cmd:	out bh_cmd; -- команда 
+		signal  ret:	in  bh_ret; -- ответ 
+		adr:			in integer; -- номер регистра
+		data:			in std_logic_vector( 31 downto 0 ) -- данные
+		) is 
+begin										
+	data_write( cmd, ret, TEST_CHECK_WB_CFG_SLAVE+conv_std_logic_vector(adr, 32), data ); 
+end;		
+	
+---- Read from wishbone ----		
+procedure wb_read (
+		signal  cmd:	out bh_cmd; -- команда для ADSP
+		signal  ret:	in  bh_ret; -- ответ ADSP
+		adr:			in integer; -- номер регистра
+		data:			out std_logic_vector( 31 downto 0 ) -- данные
+		) is 
+begin										
+	data_read( cmd, ret, TEST_CHECK_WB_CFG_SLAVE+conv_std_logic_vector(adr, 32), data ); 
+end;		
 
 ---- Запись в регистр блока TEST_CHECK.WB_CFG_SLAVE  ----		
 procedure wb_block_check_write (

@@ -32,71 +32,76 @@ package test_pkg is
 	
 --! Initialising
 procedure test_init(
-		fname: in string 	--! имя файла отчёта
+		fname: in string 	--! file name for report
 	);
 	
 --! Finished
 procedure test_close;						
 	
-	
+
+--! Read registers
+procedure test_read_reg (
+		signal  cmd:	out bh_cmd; --! command
+		signal  ret:	in  bh_ret  --! answer
+		);
 	
 --! Start DMA with incorrect descriptor
 procedure test_dsc_incorrect (
-		signal  cmd:	out bh_cmd; --! команда
-		signal  ret:	in  bh_ret  --! ответ
+		signal  cmd:	out bh_cmd; --! command
+		signal  ret:	in  bh_ret  --! answer
 		);
 
 --! Start DMA for one block 4 kB
 procedure test_read_4kb (
-		signal  cmd:	out bh_cmd; --! команда
-		signal  ret:	in  bh_ret  --! ответ
+		signal  cmd:	out bh_cmd; --! command
+		signal  ret:	in  bh_ret  --! answer
 		);
 
 				
 --! Read block_test_check 8 kB
 procedure test_adm_read_8kb (
-		signal  cmd:	out bh_cmd; --! команда
-		signal  ret:	in  bh_ret  --! ответ
+		signal  cmd:	out bh_cmd; --! command
+		signal  ret:	in  bh_ret  --! answer
 		);
 
 ----! Проверка обращений к блоку MAIN 
 --procedure test_block_main (
---		signal  cmd:	out bh_cmd; --! команда
---		signal  ret:	in  bh_ret  --! ответ
+--		signal  cmd:	out bh_cmd; --! command
+--		signal  ret:	in  bh_ret  --! answer
 --		);
 --		
 ----! Чтение 16 кБ с использованием двух блоков дескрипторов
 --procedure test_adm_read_16kb (
---		signal  cmd:	out bh_cmd; --! команда
---		signal  ret:	in  bh_ret  --! ответ
+--		signal  cmd:	out bh_cmd; --! command
+--		signal  ret:	in  bh_ret  --! answer
 --		);
 --		
 --! Запись 16 кБ с использованием двух блоков дескрипторов
 procedure test_adm_write_16kb (
-		signal  cmd:	out bh_cmd; --! команда
-		signal  ret:	in  bh_ret  --! ответ
+		signal  cmd:	out bh_cmd; --! command
+		signal  ret:	in  bh_ret  --! answer
 		);		
 ---------------------------------------------------------------------------------------------------
 --
 -- 
 --
 procedure test_num_1(
-                            signal  cmd:    out bh_cmd; --! команда
-                            signal  ret:    in  bh_ret  --! ответ
+                            signal  cmd:    out bh_cmd; --! command
+                            signal  ret:    in  bh_ret  --! answer
                     );
 procedure test_num_2(
-                            signal  cmd:    out bh_cmd; --! команда
-                            signal  ret:    in  bh_ret  --! ответ
+                            signal  cmd:    out bh_cmd; --! command
+                            signal  ret:    in  bh_ret  --! answer
                     );
 -- ==> TEST_CHECK.WB_CFG_SLAVE
 procedure test_wb_1(
-                            signal  cmd:    out bh_cmd; --! команда
-                            signal  ret:    in  bh_ret  --! ответ
+                            signal  cmd:    out bh_cmd; --! command
+                            signal  ret:    in  bh_ret  --! answer
                     );
 -- ==> TEST_GEN.WB_CFG_SLAVE
 procedure test_wb_2(
-                            signal  cmd:    out bh_cmd; --! команда
-                            signal  ret:    in  bh_ret  --! ответ
+                            signal  cmd:    out bh_cmd; --! command
+                            signal  ret:    in  bh_ret  --! answer
                     );
 end package	test_pkg;
 ---------------------------------------------------------------------------------------------------
@@ -151,11 +156,70 @@ package body test_pkg is
 	end test_close;	
 	
 	
+--! Read registers
+procedure test_read_reg (
+		signal  cmd:	out bh_cmd; --! command
+		signal  ret:	in  bh_ret  --! answer
+		)
+is
+
+variable	adr		: std_logic_vector( 31 downto 0 );
+variable	data1	: std_logic_vector( 31 downto 0 );
+variable	data2	: std_logic_vector( 31 downto 0 );
+variable	str		: line;
+begin
+		
+	write( str, string'("TEST_READ_REG" ));
+	writeline( log, str );		   
+	
+	block_write( cmd, ret, 0, 8, x"0000000F" );		-- BRD_MODE, reset off 
+	wait for 100 ns;
+	
+	
+	--block_read( cmd, ret, 4, 23, x"0000A400" );	-- LOCAL_ADR 
+	wb_block_gen_read( cmd, ret, 	REG_BLOCK_ID, data1 ); -- read block id
+	wb_block_check_read( cmd, ret, 	REG_BLOCK_ID, data2 ); -- read block id
+	
+	write( str, string'("BLOCK 0 ID: " )); hwrite( str, data1( 15 downto 0 ) );
+	writeline( log, str );	
+	
+	write( str, string'("BLOCK 1 ID: " )); hwrite( str, data2( 15 downto 0 ) );
+	writeline( log, str );	
+	
+	wb_read( cmd, ret, 16#1000#, data1 );
+	
+	wb_read( cmd, ret, 16#3000#, data1 );
+
+	write( str, string'("0x1000: " )); hwrite( str, data1( 15 downto 0 ) );
+	writeline( log, str );	
+	
+	write( str, string'("0x3000: " )); hwrite( str, data2( 15 downto 0 ) );
+	writeline( log, str );	
+	
+	block_write( cmd, ret, 0, 8, x"00000000" );		-- BRD_MODE 
+	wait for 100 ns;
+	block_write( cmd, ret, 0, 8, x"0000000F" );		-- BRD_MODE 
+	wait for 100 ns;
+
+	wb_block_gen_read( cmd, ret, 	REG_BLOCK_ID, data1 ); -- read block id
+	wb_block_check_read( cmd, ret, 	REG_BLOCK_ID, data2 ); -- read block id
+	
+	write( str, string'("BLOCK 0 ID: " )); hwrite( str, data1( 15 downto 0 ) );
+	writeline( log, str );	
+	
+	write( str, string'("BLOCK 1 ID: " )); hwrite( str, data2( 15 downto 0 ) );
+	writeline( log, str );	
+	
+end test_read_reg;
+	
+		
+		
+	
 	
 --! Start DMA with incorrect descriptor
 procedure test_dsc_incorrect (
-		signal  cmd:	out bh_cmd; --! команда
-		signal  ret:	in  bh_ret  --! ответ
+		signal  cmd:	out bh_cmd; --! command
+		signal  ret:	in  bh_ret  --! answer
 		) 
 is
 
@@ -166,6 +230,9 @@ begin
 		
 	write( str, string'("TEST_DSC_INCORRECT" ));
 	writeline( log, str );	
+	
+	block_write( cmd, ret, 0, 8, x"0000000F" );		-- BRD_MODE, reset off 
+	wait for 100 ns;
 	
 	---- Init block of descriptor ---
 	for ii in 0 to 127 loop
@@ -209,8 +276,8 @@ end test_dsc_incorrect;
 
 --! Start DMA for one block 4 kB
 procedure test_read_4kb (
-		signal  cmd:	out bh_cmd; --! команда
-		signal  ret:	in  bh_ret  --! ответ
+		signal  cmd:	out bh_cmd; --! command
+		signal  ret:	in  bh_ret  --! answer
 		)
 is
 
@@ -225,6 +292,10 @@ begin
 		
 	write( str, string'("TEST_READ_4KB" ));
 	writeline( log, str );	
+	
+	block_write( cmd, ret, 0, 8, x"0000000F" );		-- BRD_MODE, reset off 
+	wait for 100 ns;
+	
 	
 	---- Init block of descriptor ---
 	for ii in 0 to 127 loop
@@ -361,8 +432,8 @@ end test_read_4kb;
 
 --! Read block_test_check 8 kB
 procedure test_adm_read_8kb (
-		signal  cmd:	out bh_cmd; --! команда
-		signal  ret:	in  bh_ret  --! ответ
+		signal  cmd:	out bh_cmd; --! command
+		signal  ret:	in  bh_ret  --! answer
 		)
 is
 
@@ -371,12 +442,18 @@ variable	data			: std_logic_vector( 31 downto 0 );
 variable	str				: line;			   
 
 variable	error			: integer:=0;
-variable	dma_complete	: integer;
+variable	dma_complete	: integer;	   	
+
+variable	status			: std_logic_vector( 31 downto 0 );
+variable	reg_block_wr	: std_logic_vector( 31 downto 0 );
 
 begin
 		
 	write( str, string'("TEST_ADM_READ_8KB" ));
 	writeline( log, str );	
+	
+	block_write( cmd, ret, 0, 8, x"0000000F" );		-- BRD_MODE, reset off 
+	wait for 100 ns;
 	
 	---- Init block of descriptor ---
 	for ii in 0 to 127 loop
@@ -399,12 +476,12 @@ begin
 	
 	
 	---- Программирование канала DMA ----
-	block_write( cmd, ret, 4, 8, x"00000027" );		-- DMA_MODE 
-	block_write( cmd, ret, 4, 9, x"00000010" );		-- DMA_CTRL - RESET FIFO 
+	block_write( cmd, ret, 5, 8, x"00000027" );		-- DMA_MODE 
+	block_write( cmd, ret, 5, 9, x"00000010" );		-- DMA_CTRL - RESET FIFO 
 	
-	block_write( cmd, ret, 4, 20, x"00100000" );	-- PCI_ADRL 
-	block_write( cmd, ret, 4, 21, x"00100000" );	-- PCI_ADRH  
-	block_write( cmd, ret, 4, 23, TEST_GEN_WB_BURST_SLAVE );	-- LOCAL_ADR 
+	block_write( cmd, ret, 5, 20, x"00100000" );	-- PCI_ADRL 
+	block_write( cmd, ret, 5, 21, x"00100000" );	-- PCI_ADRH  
+	block_write( cmd, ret, 5, 23, TEST_GEN_WB_BURST_SLAVE );	-- LOCAL_ADR 
 	
 	
 	wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"00000001" ); -- reset
@@ -416,13 +493,19 @@ begin
 	
 	wb_block_gen_write( cmd, ret, REG_TEST_GEN_SIZE, x"00000001" ); -- size of block = 4 kByte
 
-	block_write( cmd, ret, 4, 9, x"00000001" );		-- DMA_CTRL - START 
+	block_write( cmd, ret, 5, 9, x"00000001" );		-- DMA_CTRL - START 
+	
+	wb_block_gen_read( cmd, ret, REG_TEST_GEN_STATUS, status ); 		-- read status
+	write( str, string'("WB_GEN_STATUS: " )); hwrite( str, status( 31 downto 0 ) ); writeline( log, str );	
+	wb_block_gen_read( cmd, ret, REG_TEST_GEN_BL_WR,  reg_block_wr ); 	-- read block_wr
+	write( str, string'("WB_GEN_BL_WR:  " )); hwrite( str, reg_block_wr( 31 downto 0 ) ); writeline( log, str );	
+	
 	
 	wb_block_gen_write( cmd, ret, REG_TEST_GEN_CTRL, x"000006A0" ); -- start test sequence	
 	
 	wait for 20 us;
 	
-	block_read( cmd, ret, 4, 16, data );			-- STATUS 
+	block_read( cmd, ret, 5, 16, data );			-- STATUS 
 	
 	write( str, string'("STATUS: " )); hwrite( str, data( 15 downto 0 ) );
 	if( data( 8 )='1' ) then
@@ -440,13 +523,13 @@ begin
 		dma_complete := 0;
 		for ii in 0 to 100 loop
 			
-		block_read( cmd, ret, 4, 16, data );			-- STATUS 
+		block_read( cmd, ret, 5, 16, data );			-- STATUS 
 		write( str, string'("STATUS: " )); hwrite( str, data( 15 downto 0 ) );
 			if( data(5)='1' ) then
 				write( str, string'(" - DMA finished " ));
 				dma_complete := 1;	
 				
-				block_write( cmd, ret, 4, 16#11#, x"00000010" );		-- FLAG_CLR - reset EOT 
+				block_write( cmd, ret, 5, 16#11#, x"00000010" );		-- FLAG_CLR - reset EOT 
 				
 			end if;
 			writeline( log, str );			
@@ -467,11 +550,17 @@ begin
 			error:=error+1;
 		end if;
 
-	end if; 
+	end if; 	   
+	
+	wb_block_gen_read( cmd, ret, REG_TEST_GEN_STATUS, status ); 		-- read status
+	write( str, string'("WB_GEN_STATUS: " )); hwrite( str, status( 31 downto 0 ) ); writeline( log, str );	
+	wb_block_gen_read( cmd, ret, REG_TEST_GEN_BL_WR,  reg_block_wr ); 	-- read block_wr
+	write( str, string'("WB_GEN_BL_WR:  " )); hwrite( str, reg_block_wr( 31 downto 0 ) ); writeline( log, str );	
+	
 	
 	for ii in 0 to 3 loop
 			
-		block_read( cmd, ret, 4, 16, data );			-- STATUS 
+		block_read( cmd, ret, 5, 16, data );			-- STATUS 
 		write( str, string'("STATUS: " )); hwrite( str, data( 15 downto 0 ) );
 		writeline( log, str );			
 		wait for 500 ns;
@@ -479,7 +568,7 @@ begin
 	end loop;
 	
 	
-	block_write( cmd, ret, 4, 9, x"00000000" );		-- DMA_CTRL - STOP  	
+	block_write( cmd, ret, 5, 9, x"00000000" );		-- DMA_CTRL - STOP  	
 	
 	write( str, string'(" Block 0 - read: " ));
 	writeline( log, str );		
@@ -533,8 +622,8 @@ end test_adm_read_8kb;
 --
 ----! Проверка обращений к блоку MAIN 
 --procedure test_block_main (
---		signal  cmd:	out bh_cmd; --! команда
---		signal  ret:	in  bh_ret  --! ответ
+--		signal  cmd:	out bh_cmd; --! command
+--		signal  ret:	in  bh_ret  --! answer
 --		)
 --is
 --
@@ -618,8 +707,8 @@ end test_adm_read_8kb;
 --
 ----! Чтение 16 кБ с использованием двух блоков дескрипторов
 --procedure test_adm_read_16kb (
---		signal  cmd:	out bh_cmd; --! команда
---		signal  ret:	in  bh_ret  --! ответ
+--		signal  cmd:	out bh_cmd; --! command
+--		signal  ret:	in  bh_ret  --! answer
 --		)
 --is
 --
@@ -869,8 +958,8 @@ end test_adm_read_8kb;
 --
 --! Запись 16 кБ с использованием двух блоков дескрипторов
 procedure test_adm_write_16kb (
-		signal  cmd:	out bh_cmd; --! команда
-		signal  ret:	in  bh_ret  --! ответ
+		signal  cmd:	out bh_cmd; --! command
+		signal  ret:	in  bh_ret  --! answer
 		)
 is
 
@@ -890,6 +979,9 @@ begin
 		
 	write( str, string'("TEST_ADM_WRITE_16KB" ));
 	writeline( log, str );	
+	
+	block_write( cmd, ret, 0, 8, x"0000000F" );		-- BRD_MODE, reset off 
+	wait for 100 ns;
 	
 	---- Формирование блока дескрипторов ---
 	for ii in 0 to 256 loop
@@ -1298,8 +1390,8 @@ end test_adm_write_16kb;
 -- My procedure for test Updated Design (test_read_4kb like refenernce)
 --
 procedure test_num_1 (
-                            signal  cmd:    out bh_cmd; --! команда
-                            signal  ret:    in  bh_ret  --! ответ
+                            signal  cmd:    out bh_cmd; --! command
+                            signal  ret:    in  bh_ret  --! answer
                         ) is
     
     variable    adr             : std_logic_vector( 31 downto 0 );
@@ -1435,8 +1527,8 @@ end test_num_1;
 --
 --
 procedure test_num_2 (
-                            signal  cmd:    out bh_cmd; --! команда
-                            signal  ret:    in  bh_ret  --! ответ
+                            signal  cmd:    out bh_cmd; --! command
+                            signal  ret:    in  bh_ret  --! answer
                         ) is
     
     variable    adr             : std_logic_vector( 31 downto 0 );
@@ -1586,8 +1678,8 @@ end test_num_2;
 --  ==> TEST_CHECK.WB_CFG_SLAVE
 --
 procedure test_wb_1 (
-                            signal  cmd:    out bh_cmd; --! команда
-                            signal  ret:    in  bh_ret  --! ответ
+                            signal  cmd:    out bh_cmd; --! command
+                            signal  ret:    in  bh_ret  --! answer
                     ) is
     
     variable    adr             : std_logic_vector( 31 downto 0 );
@@ -1749,8 +1841,8 @@ end test_wb_1;
 --  ==> TEST_GEN.WB_CFG_SLAVE
 --
 procedure test_wb_2 (
-                            signal  cmd:    out bh_cmd; --! команда
-                            signal  ret:    in  bh_ret  --! ответ
+                            signal  cmd:    out bh_cmd; --! command
+                            signal  ret:    in  bh_ret  --! answer
                     ) is
     
     variable    adr             : std_logic_vector( 31 downto 0 );

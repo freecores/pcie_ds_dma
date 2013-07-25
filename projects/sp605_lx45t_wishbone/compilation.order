@@ -94,3 +94,4 @@
 .\src\wishbone\cross\wb_conmax_top.v
 .\src\wishbone\cross\wb_conmax_top_pkg.vhd
 .\src\wishbone\coregen\ctrl_fifo1024x64_st_v1.vhd
+.\synthesis\sp605_lx45t_wishbone.vhd

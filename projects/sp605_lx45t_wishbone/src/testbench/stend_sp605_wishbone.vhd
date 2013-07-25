@@ -204,6 +204,7 @@ begin
 		when 0 => test_dsc_incorrect( cmd, ret );
     	when 1 => test_read_4kb( cmd, ret );      -- was original
     	when 2 => test_adm_read_8kb( cmd, ret );
+        when 3 => test_read_reg( cmd, ret );
     	--when 3 => test_adm_read_16kb( cmd, ret );
     	--when 4 => test_adm_write_16kb( cmd, ret );
     	--when 5 => test_block_main( cmd, ret );	   
