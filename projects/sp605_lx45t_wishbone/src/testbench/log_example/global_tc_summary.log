@@ -1,0 +1,5 @@
+Global SP605_LX45T_WISHBONE TC log:
+test_dsc_incorrect PASSED
+test_read_4kB PASSED
+test_adm_read_8kb PASSED
+test_read_reg PASSED

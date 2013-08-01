@@ -1,0 +1,117 @@
+asim -ieee_nowarn -O5 -g test_id=3 +access +r +m+test_read_reg stend_sp605_wishbone stend_sp605_wishbone
+# ELBREAD: Elaboration process.
+# ELBREAD: Elaboration time 1.9 [s].
+# asim: Stack memory: 32MB
+# asim: Retval memory: 32MB
+# KERNEL: Main thread initiated.
+# KERNEL: Kernel process initialization phase.
+# KERNEL: Time resolution set to 10fs.
+# ELAB2: Elaboration final pass...
+# ELAB2: Create instances ...
+# ELAB2: Create instances complete.
+# SLP: Started
+# SLP: Elaboration phase ...
+# SLP: Elaboration phase ... done : 23.0 [s]
+# SLP: Generation phase ...
+# SLP: Generation phase ... done : 30.1 [s]
+# SLP: Finished : 53.2 [s]
+# SLP: 108406 (60.59%) primitives and 64669 (36.15%) other processes in SLP
+# SLP: 285581 (94.99%) signals in SLP and 15068 (5.01%) interface signals
+# ELAB2: Elaboration final pass complete - time: 64.7 [s].
+# KERNEL: SLP loading done - time: 0.6 [s].
+# KERNEL: SLP simulation initialization done - time: 0.4 [s].
+# KERNEL: Kernel process initialization done.
+# Allocation: Simulator allocated 222071 kB (elbread=34310 elab2=88685 kernel=99075 sdf=0)
+#  23:47, 1 августа 2013 г.
+#  Simulation has been initialized
+#  Selected Top-Level: stend_sp605_wishbone (stend_sp605_wishbone)
+run {300 us}
+# KERNEL: [ 1000 ns ] : Init start
+# KERNEL: [ 15923.246 ns ] : Transaction Reset is De-asserted
+# KERNEL: [ 25603.246 ns ] : Transaction Link is Up
+# KERNEL: [ 25603.246 ns ] : PCI EXPRESS BAR MEMORY/IO MAPPING PROCESS BEGUN..
+# KERNEL:             BAR 0 = 0x10000000 RANGE = 0xFFE00000 MEM32 MAPPED
+# KERNEL:             BAR 1 = 0x20000000 RANGE = 0xFFE00000 MEM32 MAPPED
+# KERNEL:             BAR 2 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 3 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 4 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 5 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL:             BAR 6 = 0x00000000 RANGE = 0x00000000 DISABLED
+# KERNEL: [ 25603.246 ns ] : Setting Core Configuration Space...
+# KERNEL: [ 73651.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 75299.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 76595.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 76947.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 78227.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 78595.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 79891.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 80243.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 81523.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 81891.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 83187.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 83539.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 84819.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 85187.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 86483.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 86835.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 88115.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 89779.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 107635.146 ns ] : BUS Master Enable 
+# KERNEL: [ 107635.146 ns ] : Reading Config space
+# KERNEL:   Addr: [0x001]
+# KERNEL:   Cfg Addr [0x001] -> Data [0x00100000]
+# KERNEL: [ 107795.146 ns ] : Writing Config space
+# KERNEL:   Addr: [0x001] -> Data [0x00000007]
+# KERNEL: [ 107955.146 ns ] : Reading Config space
+# KERNEL:   Addr: [0x001]
+# KERNEL:   Cfg Addr [0x001] -> Data [0x00100007]
+# KERNEL: [ 113083.146 ns ] : Init complete
+# KERNEL: [ 180035.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 180179.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 187507.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 187619.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 195763.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 195875.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 196019.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 196163.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 204019.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: [ 204131.146 ns ] : PROC_PARSE_FRAME on Transmit
+# KERNEL: [ 212243.146 ns ] : PROC_PARSE_FRAME on Receive
+# KERNEL: TEST finished successfully
+# KERNEL: stopped at time: 300 us
+endsim
+#  Simulation has been stopped
+# Checking if synthesis needs to be updated...
+# Warning: File "e:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\src\pcie_src\components\pcie_core\pcie_core64_wishbone.vhd" has been modified after last synthesis run.
+# Running synthesis...
+# Warning: Synthesis: 0 errors, 2227 warning(s)
+# Design: Warning: Library SPARTAN6 required for the selected device family has not been installed.
+# Checking if synthesis needs to be updated...
+# Checking if implementation needs to be updated...
+# File "e:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\synthesis\sp605_lx45t_wishbone.ngc" has been modified after last implementation run.
+# Implementation has been started.
+# Error: File 'e:/prog/pcie_ds_dma/trunk/projects/sp605_lx45t_wishbone/implement/ver1/rev1/sp605_lx45t_wishbone.ngd' does not exist.
+# Implementation ver1->rev1: 3 error(s), 1694 warning(s).
+# Error: Implementation ended with error(s).
+# Warning: No simulation netlist was produced.
+open -txt "e:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\implement\ver1\rev1\sp605_lx45t_wishbone.bld"
+# Checking if synthesis needs to be updated...
+# Running synthesis...
+# Warning: Synthesis: 0 errors, 2350 warning(s)
+# Design: Warning: Library SPARTAN6 required for the selected device family has not been installed.
+# Checking if synthesis needs to be updated...
+# Checking if implementation needs to be updated...
+# File "e:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\synthesis\sp605_lx45t_wishbone.ngc" has been modified after last implementation run.
+# Implementation has been started.
+# Implementation ver1->rev1: 0 error(s), 1610 warning(s).
+# Warning: Implementation ended with warning(s).
+# Warning: No simulation netlist was produced.
+# Launching FPGAEditor e:/prog/pcie_ds_dma/trunk/projects/sp605_lx45t_wishbone/implement/xie3.ini
+# FPGAEditor has been launched.
+open -txt "e:\prog\pcie_ds_dma\trunk\projects\sp605_lx45t_wishbone\implement\ver1\rev1\sp605_lx45t_wishbone_postpar.twr"
+# Checking if synthesis needs to be updated...
+# Checking if implementation needs to be updated...
+# Implementation has been started.
+# Implementation ver1->rev1: 0 error(s), 1610 warning(s).
+# Warning: Implementation ended with warning(s).
+# Warning: No simulation netlist was produced.

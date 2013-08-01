@@ -42,7 +42,7 @@ use std.textio;
 
 entity stend_sp605_wishbone is 
 	generic(
-		test_id			: in integer:=0;	-- идентификатор теста
+		test_id			: in integer:=3;	-- идентификатор теста
 		test_log		: in string:="src\testbench\log\file_id_"	-- имя файла отчёта
 	);
 end stend_sp605_wishbone;

@@ -80,8 +80,9 @@ cd $dsn
 #
 onerror {resume}
 		
-run_test "test_dsc_incorrect"  0  "300 us"
-run_test "test_read_4kB"  	   1  "300 us"
-run_test "test_adm_read_8kb"   2  "350 us"
+run_test "test_dsc_incorrect"  0  "400 us"
+run_test "test_read_4kB"  	   1  "400 us"
+run_test "test_adm_read_8kb"   2  "450 us"
+run_test "test_read_reg"   	   3  "300 us"
 
 exit

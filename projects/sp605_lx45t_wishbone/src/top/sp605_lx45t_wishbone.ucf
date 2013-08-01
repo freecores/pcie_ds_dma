@@ -144,6 +144,8 @@ NET */ep/gt_refclk_out(0) TNM_NET = GT_REFCLK_OUT;
 TIMESPEC TS_GT_REFCLK_OUT = PERIOD GT_REFCLK_OUT 8ns HIGH 50 % ;
 
 
+NET "WB_SOPC/s_wb_clk" TNM_NET = WB_CLK;
+TIMESPEC TS_WB_CLK = PERIOD WB_CLK 30 ns;
 
 
 ###############################################################################

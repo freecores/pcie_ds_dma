@@ -166,7 +166,8 @@ is
 variable	adr		: std_logic_vector( 31 downto 0 );
 variable	data1	: std_logic_vector( 31 downto 0 );
 variable	data2	: std_logic_vector( 31 downto 0 );
-variable	str		: line;
+variable	str		: line;	  
+variable	error	: integer:=0;
 begin
 		
 	write( str, string'("TEST_READ_REG" ));
@@ -186,15 +187,15 @@ begin
 	write( str, string'("BLOCK 1 ID: " )); hwrite( str, data2( 15 downto 0 ) );
 	writeline( log, str );	
 	
-	wb_read( cmd, ret, 16#1000#, data1 );
-	
-	wb_read( cmd, ret, 16#3000#, data1 );
-
-	write( str, string'("0x1000: " )); hwrite( str, data1( 15 downto 0 ) );
-	writeline( log, str );	
-	
-	write( str, string'("0x3000: " )); hwrite( str, data2( 15 downto 0 ) );
-	writeline( log, str );	
+--	wb_read( cmd, ret, 16#1000#, data1 );
+--	
+--	wb_read( cmd, ret, 16#3000#, data1 );
+--
+--	write( str, string'("0x1000: " )); hwrite( str, data1( 15 downto 0 ) );
+--	writeline( log, str );	
+--	
+--	write( str, string'("0x3000: " )); hwrite( str, data2( 15 downto 0 ) );
+--	writeline( log, str );	
 	
 	block_write( cmd, ret, 0, 8, x"00000000" );		-- BRD_MODE 
 	wait for 100 ns;
@@ -205,10 +206,33 @@ begin
 	wb_block_check_read( cmd, ret, 	REG_BLOCK_ID, data2 ); -- read block id
 	
 	write( str, string'("BLOCK 0 ID: " )); hwrite( str, data1( 15 downto 0 ) );
+	
+	if( data1( 15 downto 0 )=x"001B" ) then
+		write( str, string'(" - Ok" ));	
+	else
+		write( str, string'(" - Error" ));
+		error := error + 1;
+	end if;
+	
 	writeline( log, str );	
 	
 	write( str, string'("BLOCK 1 ID: " )); hwrite( str, data2( 15 downto 0 ) );
+
+	if( data2( 15 downto 0 )=x"001A" ) then
+		write( str, string'(" - Ok" ));	
+	else
+		write( str, string'(" - Error" ));
+		error := error + 1;
+	end if;
 	writeline( log, str );	
+	
+	if( error=0 ) then
+		write( str, string'("Test read_reg - Ok" ));	
+		cnt_ok := cnt_ok + 1;
+	else
+		write( str, string'("Test read_reg - Error" ));
+		cnt_error := cnt_error + 1;
+	end if;		  
 	
 end test_read_reg;
 	

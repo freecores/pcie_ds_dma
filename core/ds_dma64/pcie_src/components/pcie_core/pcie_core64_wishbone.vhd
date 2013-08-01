@@ -5,7 +5,7 @@
 -- Company     : Instrumental Systems
 -- E-mail      : dsmv@insys.ru
 --
--- Version     : 1.0
+-- Version     : 1.4
 --
 -------------------------------------------------------------------------------
 --
@@ -90,7 +90,10 @@ use ieee.std_logic_1164.all;
 use work.core64_type_pkg.all;
 use work.pcie_core64_m6_pkg.all;
 use work.core64_pb_wishbone_pkg.all;
-use work.block_pe_main_pkg.all;
+use work.block_pe_main_pkg.all;		  
+
+library unisim;
+use unisim.vcomponents.all;
 
 entity pcie_core64_wishbone is
 generic 
@@ -172,7 +175,11 @@ signal  reset     		: std_logic;
 signal  dcm_rst		   	: std_logic;	
 signal	reset_p			: std_logic;
 signal	reset_p_z1		: std_logic;
-signal	reset_p_z2		: std_logic;
+signal	reset_p_z2		: std_logic;		   
+
+signal	clk62x			: std_logic:='0';
+signal	clk62			: std_logic;
+
 -------------------------------------------------------------------------------
 begin
 -------------------------------------------------------------------------------
@@ -208,7 +215,7 @@ port map
     dcm_rstp        => dcm_rst,   	-- S6 PCIE x1 module INV trn_reset_n_c
     
     ---- BAR1 (PB bus) ----
-    aclk            => clk,  -- !!! same clock as clk_out
+    aclk            => clk62,  		-- clock for local bus
     aclk_lock       => '1',             -- 
     pb_master       => pb_master,       --
     pb_slave        => pb_slave,        -- 
@@ -258,9 +265,12 @@ port map
 );		 
 
 
+clk62x <= not clk62x after 1 ns when rising_edge( clk );
+xclk62: bufg port map( clk62, clk62x );
+
 reset_p <= (not reset) or (not brd_mode(3));	  
-reset_p_z1 <= reset_p 	 after 1 ns when rising_edge( clk );
-reset_p_z2 <= reset_p_z1 after 1 ns when rising_edge( clk );
+reset_p_z1 <= reset_p 	 after 1 ns when rising_edge( clk62 );
+reset_p_z2 <= reset_p_z1 after 1 ns when rising_edge( clk62 );
 
 -------------------------------------------------------------------------------
 --
@@ -270,7 +280,7 @@ PW_WB   :   core64_pb_wishbone
 port map
 (
     reset           => reset_p_z2,   	--! 1 - сброс
-    clk             => clk,  			--! тактовая частота локальной шины 
+    clk             => clk62,  			--! тактовая частота локальной шины 
     
     ---- BAR1 ----
     pb_master       => pb_master,       --! запрос 
@@ -298,13 +308,13 @@ port map
 --
 -- Module Output route:
 --
-o_wb_clk    <= clk;  -- route from PW_WB wrk clock
+o_wb_clk    <= clk62;  -- route from PW_WB wrk clock
 --
 
-pr_o_wb_rst: process( reset_p, clk ) begin
+pr_o_wb_rst: process( reset_p, clk62 ) begin
 	if( reset_p='1' ) then
 		o_wb_rst <= '1' after 1 ns;
-	elsif( rising_edge( clk ) ) then
+	elsif( rising_edge( clk62 ) ) then
 		o_wb_rst <= reset_p_z2 after 1 ns;
 	end if;
 end process;

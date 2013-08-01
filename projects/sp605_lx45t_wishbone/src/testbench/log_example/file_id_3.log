@@ -1,0 +1,10 @@
+TEST_READ_REG
+BLOCK 0 ID: 001B
+BLOCK 1 ID: 001A
+BLOCK 0 ID: 001B - Ok
+BLOCK 1 ID: 001A - Ok
+ 
+
+check completed
+the number of successful tests:  1
+the number of false test: 0
