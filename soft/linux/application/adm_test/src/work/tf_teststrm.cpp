@@ -577,7 +577,7 @@ void TF_TestStrm::WriteDataFile( U32 *pBuf, U32 sizew )
         return;
     }
 
-    
+
     int res = write( fl, pBuf, sizew*4 );
     if(res < 0) {
         BRDC_fprintf( stderr, "Error write ISVI data\r\n" );

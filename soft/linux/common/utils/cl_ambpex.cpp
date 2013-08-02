@@ -131,13 +131,13 @@ int CL_AMBPEX::StreamInit( U32 strm, U32 cnt_buf, U32 size_one_buf_of_bytes, U32
     if( system ) {
 
         BRDC_fprintf( stderr, _BRDC("Allocation memory: \r\n")
-                      _BRDC(" Type of block:    system memory\r\n")
-                      _BRDC(" Block size: %lld MB\r\n"), size );
+                      _BRDC(" Type of buffer:    system memory\r\n")
+                      _BRDC(" Buffer size: %lld MB\r\n"), size );
     } else {
 
         BRDC_fprintf( stderr, _BRDC("Allocation memory: \r\n")
-                      _BRDC(" Type of block:    userspace memory\r\n")
-                      _BRDC(" Block size: %lld MB  (%dx%d MB)\r\n"), size, cnt_buf, size_one_buf_of_bytes/(1024*1024) );
+                      _BRDC(" Type of buffer:    userspace memory\r\n")
+                      _BRDC(" Buffer size: %lld MB  (%dx%d MB)\r\n"), size, cnt_buf, size_one_buf_of_bytes/(1024*1024) );
     }
 
     BRDctrl_StreamCBufAlloc sSCA = {
