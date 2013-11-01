@@ -39,9 +39,14 @@ int pex_show_capabilities( char *buf, struct pex_device *brd )
     u8 cap = 0;
     u32 cap_id = 0;
 
+    struct pci_dev *m_pci = to_pci_dev(brd->m_device);
+    if(!m_pci) {
+        goto err_exit;
+    }
+
     p += sprintf(p,"\n" );
 
-    res = pci_read_config_byte(brd->m_pci, 0x34, &cap);
+    res = pci_read_config_byte(m_pci, 0x34, &cap);
     if(res < 0) {
         p += sprintf(p, "  Error read capabilities pointer\n");
         goto err_exit;
@@ -51,7 +56,7 @@ int pex_show_capabilities( char *buf, struct pex_device *brd )
 
     while(1) {
 
-        res = pci_read_config_dword(brd->m_pci, cap, &cap_id);
+        res = pci_read_config_dword(m_pci, cap, &cap_id);
         if(res < 0) {
             p += sprintf(p, "  Error read capabilities id\n");
             goto err_exit;
@@ -80,7 +85,7 @@ int pex_show_capabilities( char *buf, struct pex_device *brd )
     for(i=0; i<9; i++) {
         u32 reg = 0;
         int j = cap + 4*i;
-        res = pci_read_config_dword(brd->m_pci, j, &reg);
+        res = pci_read_config_dword(m_pci, j, &reg);
         if(res < 0) {
             p += sprintf(p, "  Error read capabilities sructure: offset %x\n", j);
             goto err_exit;
@@ -92,8 +97,6 @@ err_exit:
 
     return (p-buf);
 }
-
-//--------------------------------------------------------------------
 
 int pex_proc_info(  char *buf, 
 		    char **start, 
