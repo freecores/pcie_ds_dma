@@ -39,8 +39,12 @@ int pex_show_capabilities( char *buf, struct pex_device *brd )
     u8 cap = 0;
     u32 cap_id = 0;
 
-    struct pci_dev *m_pci = to_pci_dev(brd->m_device);
+    struct pci_dev *m_pci = brd->m_pci;
     if(!m_pci) {
+        goto err_exit;
+    }
+
+    if(!buf) {
         goto err_exit;
     }
 
