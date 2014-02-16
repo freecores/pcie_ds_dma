@@ -5,7 +5,7 @@
 -- Company     : Instrumental Systems
 -- E-mail      : dsmv@insys.ru
 --
--- Version     : 1.0
+-- Version     : 1.1
 --
 -------------------------------------------------------------------------------
 --
@@ -14,6 +14,11 @@
 --
 --				  Âêëş÷àåò pcie_core64_m4, block_pe_main, core64_pb_transaction
 --				  Ğåàëèçóåò øèíó LC_BUS 
+--
+-------------------------------------------------------------------------------
+--
+--  Version 1.1  	17.02.2014
+--					Äîáàâëåíà ïîääåğæêà Artix 7 - pcie_core64_m10
 --
 -------------------------------------------------------------------------------
 --
@@ -30,7 +35,8 @@ package	pcie_core64_m5_pkg is
 
 --! êîíòğîëëåğ PCI-Express 
 component pcie_core64_m5 is
-	generic (
+	generic ( 
+		CORE_NAME		: in string:="pcie_core64_m4";
 		Device_ID		: in std_logic_vector( 15 downto 0 ):=x"0000"; -- èäåíòèôèêàòîğ ìîäóëÿ
 		Revision		: in std_logic_vector( 15 downto 0 ):=x"0000"; -- âåğñèÿ ìîäóëÿ
 		PLD_VER			: in std_logic_vector( 15 downto 0 ):=x"0000"; -- âåğñèÿ ÏËÈÑ
@@ -94,6 +100,7 @@ use work.block_pe_main_pkg.all;
 --! êîíòğîëëåğ PCI-Express 
 entity pcie_core64_m5 is
 	generic (				 
+		CORE_NAME		: in string:="pcie_core64_m4";
 		Device_ID		: in std_logic_vector( 15 downto 0 ):=x"0000"; -- èäåíòèôèêàòîğ ìîäóëÿ
 		Revision		: in std_logic_vector( 15 downto 0 ):=x"0000"; -- âåğñèÿ ìîäóëÿ
 		PLD_VER			: in std_logic_vector( 15 downto 0 ):=x"0000"; -- âåğñèÿ ÏËÈÑ
@@ -145,6 +152,61 @@ end pcie_core64_m5;
 
 architecture pcie_core64_m5 of pcie_core64_m5 is
 
+component pcie_core64_m10 is
+	generic (  
+		DEVICE_ID			: in std_logic_vector := x"5507";   	--! çíà÷åíèå ğåãèñòğà DeviceID 
+		refclk				: in integer:=100;				--! Çíà÷åíèå îïîğíîé òàêòîâîé ÷àñòîòû [ÌÃö]
+		is_simulation		: in integer:=0;				--! 0 - ñèíòåç, 1 - ìîäåëèğîâàíèå 
+		interrupt_number	: in std_logic_vector( 1 downto 0 ):="00"	-- íîìåğ INTx: 0 - INTA, 1 - INTB, 2 - INTC, 3 - INTD 
+		
+	);		  
+	
+	port (
+	
+		---- PCI-Express ----
+		txp				: out std_logic_vector( 3 downto 0 );
+		txn				: out std_logic_vector( 3 downto 0 );
+		
+		rxp				: in  std_logic_vector( 3 downto 0 );
+		rxn				: in  std_logic_vector( 3 downto 0 );
+		
+		mgt250			: in  std_logic; --! òàêòîâàÿ ÷àñòîòà 250 MHz èëè 100 ÌÃö îò PCI_Express
+		
+		perst			: in  std_logic;	--! 0 - ñáğîñ						   
+		
+		px				: out std_logic_vector( 7 downto 0 );	--! êîíòğîëüíûå òî÷êè 
+		
+		pcie_lstatus	: out std_logic_vector( 15 downto 0 ); -- ğåãèñòğ LSTATUS
+		pcie_link_up	: out std_logic;	-- 0 - çàâåğøåíà èíèöèàëèçàöèÿ PCI-Express
+		
+		
+		---- Ëîêàëüíàÿ øèíà ----			  
+		clk_out			: out std_logic;	--! òàêòîâàÿ ÷àñòîòà 250 MHz		  
+		reset_out		: out std_logic;	--! 0 - ñáğîñ
+		dcm_rstp		: out std_logic;	--! 1 - ñáğîñ DCM 266 ÌÃö
+
+		---- BAR0 - áëîêè óïğàâëåíèÿ ----
+		bp_host_data	: out std_logic_vector( 31 downto 0 );	--! øèíà äàííûõ - âûõîä 
+		bp_data			: in  std_logic_vector( 31 downto 0 );  --! øèíà äàííûõ - âõîä
+		bp_adr			: out std_logic_vector( 19 downto 0 );	--! àäğåñ ğåãèñòğà 
+		bp_we			: out std_logic_vector( 3 downto 0 ); 	--! 1 - çàïèñü â ğåãèñòğû 
+		bp_rd			: out std_logic_vector( 3 downto 0 );   --! 1 - ÷òåíèå èç ğåãèñòğîâ áëîêà 
+		bp_sel			: out std_logic_vector( 1 downto 0 );	--! íîìåğ áëîêà äëÿ ÷òåíèÿ 
+		bp_reg_we		: out std_logic;			--! 1 - çàïèñü â ğåãèñòğ ïî àäğåñàì   0x100000 - 0x1FFFFF 
+		bp_reg_rd		: out std_logic; 			--! 1 - ÷òåíèå èç ğåãèñòğà ïî àäğåñàì 0x100000 - 0x1FFFFF 
+		bp_irq			: in  std_logic;			--! 1 - çàïğîñ ïğåğûâàíèÿ 
+
+		---- BAR1 ----	
+		aclk			: in std_logic;				--! òàêòîâàÿ ÷àñòîòà ëîêàëüíîé øèíû - 266 ÌÃö
+		aclk_lock		: in std_logic;				--! 1 - çàõâàò ÷àñòîòû
+		pb_master		: out type_pb_master;		--! çàïğîñ 
+		pb_slave		: in  type_pb_slave			--! îòâåò  
+		
+				
+		
+	);
+end component;
+
 ---- BAR0 - áëîêè óïğàâëåíèÿ ----
 signal	bp_host_data	: std_logic_vector( 31 downto 0 );	--! øèíà äàííûõ - âûõîä 
 signal	bp_data			: std_logic_vector( 31 downto 0 );  --! øèíà äàííûõ - âõîä
@@ -169,6 +231,7 @@ signal	bp0_data		: std_logic_vector( 31 downto 0 );
 
 begin
 	
+gen_m4: if( CORE_NAME="pcie_core64_m4" ) generate
 	
 core: pcie_core64_m4 
 	generic map(
@@ -218,7 +281,65 @@ core: pcie_core64_m4
 		bp_irq			=> bp_irq
 						                
 		
-	);	
+	);		 
+	
+end generate;	
+
+	
+gen_m10: if( CORE_NAME="pcie_core64_m10" ) generate
+	
+core: pcie_core64_m10 
+	generic map(
+		DEVICE_ID			=> Device_ID,	   		--! çíà÷åíèå ğåãèñòğà DeviceID 
+		refclk				=> refclk,				--! Çíà÷åíèå îïîğíîé òàêòîâîé ÷àñòîòû [ÌÃö]
+		is_simulation		=> is_simulation		--! 0 - ñèíòåç, 1 - ìîäåëèğîâàíèå 
+	)		  
+	port map(
+	
+		---- PCI-Express ----
+		txp				  => txp,				
+		txn				  => txn,				
+						                  
+		rxp				  => rxp,				
+		rxn				  => rxn,				
+						                  
+		mgt250			  => mgt250,			
+						                  
+		perst			  => perst,			
+						                  
+		px				  => px,				
+						                  
+		pcie_lstatus	  => pcie_lstatus,	
+		pcie_link_up	  => pcie_link_up,	
+		
+		
+		---- Ëîêàëüíàÿ øèíà ----			  
+		clk_out			 => clk250,
+		reset_out		 => reset,
+		dcm_rstp		 => dcm_rstp, 
+
+		---- BAR1 ----
+		aclk			=> clk,
+		aclk_lock		=> clk_lock,
+		pb_master		=> pb_master,		
+		pb_slave		=> pb_slave,		
+
+						                 
+		---- BAR0 - áëîêè óïğàâëåíèÿ ----
+		bp_host_data	=> bp_host_data,	
+		bp_data			=> bp_data,			
+		bp_adr			=> bp_adr,			
+		bp_we			=> bp_we,			
+		bp_rd			=> bp_rd,
+		bp_sel			=> bp_sel,			
+		bp_reg_we		=> bp_reg_we,		
+		bp_reg_rd		=> bp_reg_rd,		
+		bp_irq			=> bp_irq
+						                
+		
+	);		 
+	
+end generate;
 
 reset_out <= reset;
 clk250_out   <= clk250;
