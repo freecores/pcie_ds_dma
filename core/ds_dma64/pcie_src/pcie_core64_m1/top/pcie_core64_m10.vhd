@@ -678,7 +678,7 @@ ep :  cl_a7pcie_x4
 	  cfg_pmcsr_pme_status            => open,
 	  cfg_pmcsr_powerstate            => open,
 	  
-	  PIPE_MMCM_RST_N				  =>  perst,
+	  PIPE_MMCM_RST_N				  =>  '1',
 	  sys_clk                         =>  mgt250,
 	  sys_rst_n                       =>  perst
 	

@@ -78,7 +78,8 @@ component pcie_core64_m5 is
 		lc_wr			: out std_logic;	--! 1 - запись
 		lc_rd			: out std_logic;	--! 1 - чтение, данные должны быть на шестой такт после rd 
 		lc_dma_req		: in  std_logic_vector( 1 downto 0 );	--! 1 - запрос DMA
-		lc_irq			: in  std_logic		--! 1 - запрос прерывани€ 
+		lc_irq			: in  std_logic;	--! 1 - запрос прерывани€ 
+		lc_rd_cfg		: in std_logic_vector( 3 downto 0 ):="0101"	--! настройка задержки захвата данных по сигналу lc_rd				
 		
 				
 		
@@ -93,7 +94,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 use work.core64_type_pkg.all;
-use work.pcie_core64_m4_pkg.all;
+--use work.pcie_core64_m4_pkg.all;
 use work.core64_pb_transaction_pkg.all;
 use work.block_pe_main_pkg.all;
 
@@ -142,7 +143,8 @@ entity pcie_core64_m5 is
 		lc_wr			: out std_logic;	--! 1 - запись
 		lc_rd			: out std_logic;	--! 1 - чтение, данные должны быть на четвЄртый такт после rd
 		lc_dma_req		: in  std_logic_vector( 1 downto 0 );	--! 1 - запрос DMA
-		lc_irq			: in  std_logic		--! 1 - запрос прерывани€ 
+		lc_irq			: in  std_logic;	--! 1 - запрос прерывани€ 
+		lc_rd_cfg		: in std_logic_vector( 3 downto 0 ):="0101"	--! настройка задержки захвата данных по сигналу lc_rd				
 		
 				
 		
@@ -151,6 +153,62 @@ end pcie_core64_m5;
 
 
 architecture pcie_core64_m5 of pcie_core64_m5 is
+
+--! контроллер PCI-Express 
+component pcie_core64_m4 is
+	generic (  
+		DEVICE_ID			: in bit_vector := X"5507";   	--! значение регистра DeviceID 
+		refclk				: in integer:=100;				--! «начение опорной тактовой частоты [ћ√ц]
+		is_simulation		: in integer:=0;				--! 0 - синтез, 1 - моделирование 
+		interrupt_number	: in std_logic_vector( 1 downto 0 ):="00"	-- номер INTx: 0 - INTA, 1 - INTB, 2 - INTC, 3 - INTD 
+		
+	);		  
+	
+	port (
+	
+		---- PCI-Express ----
+		txp				: out std_logic_vector( 3 downto 0 );
+		txn				: out std_logic_vector( 3 downto 0 );
+		
+		rxp				: in  std_logic_vector( 3 downto 0 );
+		rxn				: in  std_logic_vector( 3 downto 0 );
+		
+		mgt250			: in  std_logic; --! тактова€ частота 250 MHz или 100 ћ√ц от PCI_Express
+		
+		perst			: in  std_logic;	--! 0 - сброс						   
+		
+		px				: out std_logic_vector( 7 downto 0 );	--! контрольные точки 
+		
+		pcie_lstatus	: out std_logic_vector( 15 downto 0 ); -- регистр LSTATUS
+		pcie_link_up	: out std_logic;	-- 0 - завершена инициализаци€ PCI-Express
+		
+		
+		---- Ћокальна€ шина ----			  
+		clk_out			: out std_logic;	--! тактова€ частота 250 MHz		  
+		reset_out		: out std_logic;	--! 0 - сброс
+		dcm_rstp		: out std_logic;	--! 1 - сброс DCM 266 ћ√ц
+
+		---- BAR0 - блоки управлени€ ----
+		bp_host_data	: out std_logic_vector( 31 downto 0 );	--! шина данных - выход 
+		bp_data			: in  std_logic_vector( 31 downto 0 );  --! шина данных - вход
+		bp_adr			: out std_logic_vector( 19 downto 0 );	--! адрес регистра 
+		bp_we			: out std_logic_vector( 3 downto 0 ); 	--! 1 - запись в регистры 
+		bp_rd			: out std_logic_vector( 3 downto 0 );   --! 1 - чтение из регистров блока 
+		bp_sel			: out std_logic_vector( 1 downto 0 );	--! номер блока дл€ чтени€ 
+		bp_reg_we		: out std_logic;			--! 1 - запись в регистр по адресам   0x100000 - 0x1FFFFF 
+		bp_reg_rd		: out std_logic; 			--! 1 - чтение из регистра по адресам 0x100000 - 0x1FFFFF 
+		bp_irq			: in  std_logic;			--! 1 - запрос прерывани€ 
+
+		---- BAR1 ----	
+		aclk			: in std_logic;				--! тактова€ частота локальной шины - 266 ћ√ц
+		aclk_lock		: in std_logic;				--! 1 - захват частоты
+		pb_master		: out type_pb_master;		--! запрос 
+		pb_slave		: in  type_pb_slave			--! ответ  
+		
+				
+		
+	);
+end component;
 
 component pcie_core64_m10 is
 	generic (  
@@ -362,7 +420,8 @@ tz: core64_pb_transaction
 		lc_wr				=> lc_wr,			
 		lc_rd				=> lc_rd,			
 		lc_dma_req			=> lc_dma_req,		
-		lc_irq				=> lc_irq		
+		lc_irq				=> lc_irq,		
+		lc_rd_cfg			=> lc_rd_cfg	
 	);
 				
 	

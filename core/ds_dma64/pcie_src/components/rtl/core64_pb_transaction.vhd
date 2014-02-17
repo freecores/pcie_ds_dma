@@ -5,7 +5,7 @@
 -- Company     : Instrumental Systems
 -- E-mail      : dsmv@insys.ru
 --
--- Version     : 1.1
+-- Version     : 1.2
 --
 -------------------------------------------------------------------------------
 --
@@ -17,6 +17,11 @@
 --					2:  - 0 - одно слово, 1 - пакет 512 слов (4096 байт)
 --
 -------------------------------------------------------------------------------
+--
+--	Version 1.2  14.12.2011
+--				 Добавлен lc_rd_cfg
+--
+---------------------------------------------------------------------------------
 --
 --  Version 1.1  28.09.2011 Dmitry Smekhov
 --				 Добавлен сигнал pb_slave.complete 
@@ -46,7 +51,8 @@ component core64_pb_transaction is
 		lc_wr				: out std_logic;	--! 1 - запись
 		lc_rd				: out std_logic;	--! 1 - чтение, данные должны быть на шестой такт после rd 
 		lc_dma_req			: in  std_logic_vector( 1 downto 0 );	--! 1 - запрос DMA
-		lc_irq				: in  std_logic		--! 1 - запрос прерывания 
+		lc_irq				: in  std_logic;	--! 1 - запрос прерывания 
+		lc_rd_cfg			: in std_logic_vector( 3 downto 0 ):="0101"	--! настройка задержки захвата данных по сигналу lc_rd				
 				
 	
 	);
@@ -82,7 +88,8 @@ entity core64_pb_transaction is
 		lc_wr				: out std_logic;	--! 1 - запись
 		lc_rd				: out std_logic;	--! 1 - чтение, данные должны быть на шестой такт после rd 
 		lc_dma_req			: in  std_logic_vector( 1 downto 0 );	--! 1 - запрос DMA
-		lc_irq				: in  std_logic		--! 1 - запрос прерывания 
+		lc_irq				: in  std_logic;	--! 1 - запрос прерывания 
+		lc_rd_cfg			: in std_logic_vector( 3 downto 0 ):="0101"	--! настройка задержки захвата данных по сигналу lc_rd				
 				
 	
 	);
@@ -136,7 +143,8 @@ end process;
 		
 rd_start <= cnt_start and not cnt(9);
 
-xrdz:	srl16 port map( q=>rd_start_z, clk=>clk, d=>rd_start, a3=>'0', a2=>'1', a1=>'0', a0=>'1' );
+--xrdz:	srl16 port map( q=>rd_start_z, clk=>clk, d=>rd_start, a3=>'0', a2=>'1', a1=>'0', a0=>'1' );
+xrdz:	srl16 port map( q=>rd_start_z, clk=>clk, d=>rd_start, a3=>lc_rd_cfg(3), a2=>lc_rd_cfg(2), a1=>lc_rd_cfg(1), a0=>lc_rd_cfg(0) );
 
 pb_slave.stb0 <= pb_master.stb0 after 1 ns when rising_edge( clk );
 pb_slave.stb1 <= rd_start_z  after 1 ns when rising_edge( clk );
