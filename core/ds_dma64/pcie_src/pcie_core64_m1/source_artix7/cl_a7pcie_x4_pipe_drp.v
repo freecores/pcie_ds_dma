@@ -49,7 +49,7 @@
 //-----------------------------------------------------------------------------
 // Project    : Series-7 Integrated Block for PCI Express
 // File       : cl_a7pcie_x4_pipe_drp.v
-// Version    : 1.9
+// Version    : 1.10
 //------------------------------------------------------------------------------
 //  Filename     :  pipe_drp.v
 //  Description  :  PIPE DRP Module for 7 Series Transceiver
@@ -104,21 +104,21 @@ module cl_a7pcie_x4_pipe_drp #
 );
 
     //---------- Input Registers ---------------------------
-    reg                 gtxreset_reg1;
-    reg         [ 1:0]  rate_reg1;
-    reg                 x16x20_mode_reg1;
-    reg                 x16_reg1;
-    reg                 start_reg1;
-    reg         [15:0]  do_reg1;
-    reg                 rdy_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 gtxreset_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 1:0]  rate_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 x16x20_mode_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 x16_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 start_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [15:0]  do_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rdy_reg1;
     
-    reg                 gtxreset_reg2;
-    reg         [ 1:0]  rate_reg2;
-    reg                 x16x20_mode_reg2;
-    reg                 x16_reg2;
-    reg                 start_reg2;
-    reg         [15:0]  do_reg2;
-    reg                 rdy_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 gtxreset_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 1:0]  rate_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 x16x20_mode_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 x16_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 start_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [15:0]  do_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rdy_reg2;
     
     //---------- Internal Signals --------------------------
     reg         [ 1:0]  load_cnt =  2'd0;
@@ -129,7 +129,7 @@ module cl_a7pcie_x4_pipe_drp #
     
     //---------- Output Registers --------------------------
     reg                 done     =  1'd0;
-    reg         [ 2:0]  fsm      =  1;      
+    reg         [ 2:0]  fsm      =  0;      
                         
     //---------- DRP Address -------------------------------
     //  DRP access for *RXCDR_EIDLE includes 

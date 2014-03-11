@@ -49,7 +49,7 @@
 -------------------------------------------------------------------------------
 -- Project    : Series-7 Integrated Block for PCI Express
 -- File       : cl_a7pcie_x4_gt_rx_valid_filter_7x.vhd
--- Version    : 1.9
+-- Version    : 1.10
 ---- Description: GTX module for 7-series Integrated PCIe Block
 ----
 ----

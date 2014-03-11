@@ -49,7 +49,7 @@
 -------------------------------------------------------------------------------
 -- Project    : Series-7 Integrated Block for PCI Express
 -- File       : cl_a7pcie_x4_pcie_top.vhd
--- Version    : 1.9
+-- Version    : 1.10
 -- Description: Solution wrapper for Virtex7 Hard Block for PCI Express
 --
 --

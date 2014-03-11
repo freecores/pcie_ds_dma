@@ -49,7 +49,7 @@
 //-----------------------------------------------------------------------------
 // Project    : Series-7 Integrated Block for PCI Express
 // File       : cl_a7pcie_x4_qpll_reset.v
-// Version    : 1.9
+// Version    : 1.10
 //------------------------------------------------------------------------------
 //  Filename     :  qpll_reset.v
 //  Description  :  QPLL Reset Module for 7 Series Transceiver
@@ -97,21 +97,21 @@ module cl_a7pcie_x4_qpll_reset #
 );
 
     //---------- Input Register ----------------------------
-    reg                             mmcm_lock_reg1;
-    reg         [PCIE_LANE-1:0]     cplllock_reg1;
-    reg         [(PCIE_LANE-1)>>2:0]drp_done_reg1;
-    reg         [(PCIE_LANE-1)>>2:0]qplllock_reg1;
-    reg         [ 1:0]              rate_reg1;
-    reg         [PCIE_LANE-1:0]     qpllreset_in_reg1;
-    reg         [PCIE_LANE-1:0]     qpllpd_in_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                             mmcm_lock_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     cplllock_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [(PCIE_LANE-1)>>2:0]drp_done_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [(PCIE_LANE-1)>>2:0]qplllock_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 1:0]              rate_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     qpllreset_in_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     qpllpd_in_reg1;
 
-    reg                             mmcm_lock_reg2;
-    reg         [PCIE_LANE-1:0]     cplllock_reg2;  
-    reg         [(PCIE_LANE-1)>>2:0]drp_done_reg2;
-    reg         [(PCIE_LANE-1)>>2:0]qplllock_reg2;
-    reg         [ 1:0]              rate_reg2;
-    reg         [PCIE_LANE-1:0]     qpllreset_in_reg2;
-    reg         [PCIE_LANE-1:0]     qpllpd_in_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                             mmcm_lock_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     cplllock_reg2;  
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [(PCIE_LANE-1)>>2:0]drp_done_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [(PCIE_LANE-1)>>2:0]qplllock_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 1:0]              rate_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     qpllreset_in_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     qpllpd_in_reg2;
     
     //---------- Output Register  --------------------------
     reg                             ovrd              =  1'd0;
@@ -120,18 +120,18 @@ module cl_a7pcie_x4_qpll_reset #
     reg         [ 3:0]              fsm               =  2;                 
    
     //---------- FSM ---------------------------------------                                         
-    localparam                      FSM_IDLE          = 0; 
-    localparam                      FSM_WAIT_LOCK     = 1;
-    localparam                      FSM_MMCM_LOCK     = 2;   
-    localparam                      FSM_DRP_START_NOM = 3;
-    localparam                      FSM_DRP_DONE_NOM  = 4;
-    localparam                      FSM_QPLLLOCK      = 5;
-    localparam                      FSM_DRP_START_OPT = 6;                            
-    localparam                      FSM_DRP_DONE_OPT  = 7;
-    localparam                      FSM_QPLL_RESET    = 8;                                                         
-    localparam                      FSM_QPLLLOCK2     = 9;
-    localparam                      FSM_QPLL_PDRESET  = 10;
-    localparam                      FSM_QPLL_PD       = 11;                                         
+    localparam                      FSM_IDLE          = 1; 
+    localparam                      FSM_WAIT_LOCK     = 2;
+    localparam                      FSM_MMCM_LOCK     = 3;   
+    localparam                      FSM_DRP_START_NOM = 4;
+    localparam                      FSM_DRP_DONE_NOM  = 5;
+    localparam                      FSM_QPLLLOCK      = 6;
+    localparam                      FSM_DRP_START_OPT = 7;                            
+    localparam                      FSM_DRP_DONE_OPT  = 8;
+    localparam                      FSM_QPLL_RESET    = 9;                                                         
+    localparam                      FSM_QPLLLOCK2     = 10;
+    localparam                      FSM_QPLL_PDRESET  = 11;
+    localparam                      FSM_QPLL_PD       = 12;                                         
  
  
     

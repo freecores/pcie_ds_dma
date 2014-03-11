@@ -49,7 +49,7 @@
 -------------------------------------------------------------------------------
 -- Project    : Series-7 Integrated Block for PCI Express
 -- File       : cl_a7pcie_x4.vhd
--- Version    : 1.9
+-- Version    : 1.10
 --
 -- Description: Solution wrapper for Virtex7 Hard Block for PCI Express
 --
@@ -65,15 +65,16 @@ use ieee.numeric_std.all;
 
 entity cl_a7pcie_x4 is
   generic (
-    CFG_VEND_ID                                    : std_logic_vector := X"4953";
-    CFG_DEV_ID                                     : std_logic_vector := X"5507";
+    CFG_VEND_ID                                    : std_logic_vector := X"10EE";
+    CFG_DEV_ID                                     : std_logic_vector := X"7024";
     CFG_REV_ID                                     : std_logic_vector := X"00";
     CFG_SUBSYS_VEND_ID                             : std_logic_vector := X"10EE";
-    CFG_SUBSYS_ID                                  : std_logic_vector := X"0701";
+    CFG_SUBSYS_ID                                  : std_logic_vector := X"0007";
     ALLOW_X8_GEN2                                  : string     := "FALSE";
     PIPE_PIPELINE_STAGES                           : integer    := 1;
     AER_BASE_PTR                                   : bit_vector := X"000";
     AER_CAP_ECRC_CHECK_CAPABLE                     : string     := "FALSE";
+    AER_CAP_ECRC_GEN_CAPABLE                       : string     := "FALSE";
     AER_CAP_MULTIHEADER                            : string     := "FALSE";
     AER_CAP_NEXTPTR                                : bit_vector := X"000";
     AER_CAP_OPTIONAL_ERR_SUPPORT                   : bit_vector := X"000000";
@@ -89,7 +90,7 @@ entity cl_a7pcie_x4 is
 
     C_DATA_WIDTH                                   : integer    := 64;
     CARDBUS_CIS_POINTER                            : bit_vector := X"00000000";
-    CLASS_CODE                                     : bit_vector := X"FFFFFF";
+    CLASS_CODE                                     : bit_vector := X"058000";
     CMD_INTX_IMPLEMENTED                           : string     := "TRUE";
     CPL_TIMEOUT_DISABLE_SUPPORTED                  : string     := "FALSE";
     CPL_TIMEOUT_RANGES_SUPPORTED                   : bit_vector := X"2";
@@ -161,7 +162,7 @@ entity cl_a7pcie_x4 is
     PCIE_CAP_DEVICE_PORT_TYPE                      : bit_vector := X"0";
     PCIE_CAP_NEXTPTR                               : bit_vector := X"00";
 
-    PM_CAP_DSI                                     : string     := "TRUE";
+    PM_CAP_DSI                                     : string     := "FALSE";
     PM_CAP_D1SUPPORT                               : string     := "FALSE";
     PM_CAP_D2SUPPORT                               : string     := "FALSE";
     PM_CAP_NEXTPTR                                 : bit_vector := X"60";
@@ -297,6 +298,7 @@ entity cl_a7pcie_x4 is
 
     PL_AUTO_CONFIG                                 : integer    := 0;
     PL_FAST_TRAIN                                  : string     := "FALSE";
+
     PCIE_EXT_CLK                                   : string     := "TRUE";
 
     PM_BASE_PTR                                    : bit_vector := X"40";
@@ -398,7 +400,6 @@ entity cl_a7pcie_x4 is
 
     LINK_CAP_SURPRISE_DOWN_ERROR_CAPABLE           : string     := "FALSE";
 
-    AER_CAP_ECRC_GEN_CAPABLE                       : string     := "FALSE";
     AER_CAP_ID                                     : bit_vector := X"0001";
     AER_CAP_VERSION                                : bit_vector := X"1";
 
@@ -657,7 +658,7 @@ end cl_a7pcie_x4;
 
    attribute CORE_GENERATION_INFO : string;
    attribute CORE_GENERATION_INFO of pcie_7x : ARCHITECTURE is
-     "cl_a7pcie_x4,pcie_7x_v1_9,{LINK_CAP_MAX_LINK_SPEED=2,LINK_CAP_MAX_LINK_WIDTH=04,PCIE_CAP_DEVICE_PORT_TYPE=0000,DEV_CAP_MAX_PAYLOAD_SUPPORTED=1,USER_CLK_FREQ=3,REF_CLK_FREQ=0,MSI_CAP_ON=FALSE,MSI_CAP_MULTIMSGCAP=0,MSI_CAP_MULTIMSG_EXTENSION=0,MSIX_CAP_ON=FALSE,TL_TX_RAM_RADDR_LATENCY=0,TL_TX_RAM_RDATA_LATENCY=2,TL_RX_RAM_RADDR_LATENCY=0,TL_RX_RAM_RDATA_LATENCY=2,TL_RX_RAM_WRITE_LATENCY=0,VC0_TX_LASTPACKET=28,VC0_RX_RAM_LIMIT=3FF,VC0_TOTAL_CREDITS_PH=4,VC0_TOTAL_CREDITS_PD=32,VC0_TOTAL_CREDITS_NPH=4,VC0_TOTAL_CREDITS_NPD=8,VC0_TOTAL_CREDITS_CH=72,VC0_TOTAL_CREDITS_CD=370,VC0_CPL_INFINITE=TRUE,DEV_CAP_PHANTOM_FUNCTIONS_SUPPORT=0,DEV_CAP_EXT_TAG_SUPPORTED=FALSE,LINK_STATUS_SLOT_CLOCK_CONFIG=TRUE,ENABLE_RX_TD_ECRC_TRIM=TRUE,DISABLE_LANE_REVERSAL=TRUE,DISABLE_SCRAMBLING=FALSE,DSN_CAP_ON=TRUE,REVISION_ID=00,VC_CAP_ON=FALSE}";
+     "cl_a7pcie_x4,pcie_7x_v1_10,{LINK_CAP_MAX_LINK_SPEED=2,LINK_CAP_MAX_LINK_WIDTH=04,PCIE_CAP_DEVICE_PORT_TYPE=0000,DEV_CAP_MAX_PAYLOAD_SUPPORTED=1,USER_CLK_FREQ=3,REF_CLK_FREQ=0,MSI_CAP_ON=FALSE,MSI_CAP_MULTIMSGCAP=0,MSI_CAP_MULTIMSG_EXTENSION=0,MSIX_CAP_ON=FALSE,TL_TX_RAM_RADDR_LATENCY=0,TL_TX_RAM_RDATA_LATENCY=2,TL_RX_RAM_RADDR_LATENCY=0,TL_RX_RAM_RDATA_LATENCY=2,TL_RX_RAM_WRITE_LATENCY=0,VC0_TX_LASTPACKET=28,VC0_RX_RAM_LIMIT=3FF,VC0_TOTAL_CREDITS_PH=4,VC0_TOTAL_CREDITS_PD=32,VC0_TOTAL_CREDITS_NPH=4,VC0_TOTAL_CREDITS_NPD=8,VC0_TOTAL_CREDITS_CH=72,VC0_TOTAL_CREDITS_CD=370,VC0_CPL_INFINITE=TRUE,DEV_CAP_PHANTOM_FUNCTIONS_SUPPORT=0,DEV_CAP_EXT_TAG_SUPPORTED=FALSE,LINK_STATUS_SLOT_CLOCK_CONFIG=TRUE,ENABLE_RX_TD_ECRC_TRIM=TRUE,DISABLE_LANE_REVERSAL=TRUE,DISABLE_SCRAMBLING=FALSE,DSN_CAP_ON=TRUE,REVISION_ID=00,VC_CAP_ON=FALSE}";
     component cl_a7pcie_x4_pcie_top is
       generic (
         C_DATA_WIDTH                                   : INTEGER range 32 to 128 := 64;

@@ -162,9 +162,9 @@ begin
 
 	--test_read_4kb( cmd, ret );
 	--test_adm_read_8kb( cmd, ret );
-	test_adm_read_16kb( cmd, ret );
+	--test_adm_read_16kb( cmd, ret );
 	--test_adm_write_16kb( cmd, ret );
-	--test_block_main( cmd, ret );
+	test_block_main( cmd, ret );
 
 	test_close;
     --

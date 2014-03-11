@@ -49,7 +49,7 @@
 //-----------------------------------------------------------------------------
 // Project    : Series-7 Integrated Block for PCI Express
 // File       : cl_a7pcie_x4_gtp_pipe_reset.v
-// Version    : 1.9
+// Version    : 1.10
 //------------------------------------------------------------------------------
 //  Filename     :  gtp_pipe_reset.v
 //  Description  :  GTP PIPE Reset Module for 7 Series Transceiver
@@ -95,8 +95,8 @@ module cl_a7pcie_x4_gtp_pipe_reset #
     //---------- Output ------------------------------------
     output                          RST_CPLLRESET,
     output                          RST_CPLLPD,
-    output                          RST_DRP_START,
-    output                          RST_DRP_X16,
+    output reg                      RST_DRP_START,
+    output reg                      RST_DRP_X16,
     output                          RST_RXUSRCLK_RESET,
     output                          RST_DCLK_RESET,
     output                          RST_GTRESET,
@@ -108,25 +108,25 @@ module cl_a7pcie_x4_gtp_pipe_reset #
 );
 
     //---------- Input Register ----------------------------
-    reg         [PCIE_LANE-1:0]     drp_done_reg1;
-    reg         [PCIE_LANE-1:0]     rxpmaresetdone_reg1;
-    reg                             plllock_reg1;
-    reg         [PCIE_LANE-1:0]     rate_idle_reg1;
-    reg         [PCIE_LANE-1:0]     rxcdrlock_reg1;
-    reg                             mmcm_lock_reg1;
-    reg         [PCIE_LANE-1:0]     resetdone_reg1;
-    reg         [PCIE_LANE-1:0]     phystatus_reg1;
-    reg         [PCIE_LANE-1:0]     txsync_done_reg1;  
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     drp_done_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     rxpmaresetdone_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                             plllock_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     rate_idle_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     rxcdrlock_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                             mmcm_lock_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     resetdone_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     phystatus_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     txsync_done_reg1;  
     
-    reg         [PCIE_LANE-1:0]     drp_done_reg2;
-    reg         [PCIE_LANE-1:0]     rxpmaresetdone_reg2;
-    reg                             plllock_reg2;
-    reg         [PCIE_LANE-1:0]     rate_idle_reg2;
-    reg         [PCIE_LANE-1:0]     rxcdrlock_reg2;
-    reg                             mmcm_lock_reg2;
-    reg         [PCIE_LANE-1:0]     resetdone_reg2;
-    reg         [PCIE_LANE-1:0]     phystatus_reg2;
-    reg         [PCIE_LANE-1:0]     txsync_done_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     drp_done_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     rxpmaresetdone_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                             plllock_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     rate_idle_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     rxcdrlock_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                             mmcm_lock_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     resetdone_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     phystatus_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [PCIE_LANE-1:0]     txsync_done_reg2;
     
     //---------- Internal Signal ---------------------------
     reg         [ 5:0]              cfg_wait_cnt      =  6'd0;
@@ -140,24 +140,24 @@ module cl_a7pcie_x4_gtp_pipe_reset #
     reg                             dclk_rst_reg2     =  1'd0;
     reg                             gtreset           =  1'd0;
     reg                             userrdy           =  1'd0;
-    reg         [ 3:0]              fsm               =  2;                 
+    reg         [ 4:0]              fsm               =  5'h1;                 
    
     //---------- FSM ---------------------------------------                                         
-    localparam                      FSM_IDLE             = 0; 
-    localparam                      FSM_CFG_WAIT         = 1;
-    localparam                      FSM_PLLRESET         = 2; 
-    localparam                      FSM_DRP_X16_START    = 3;
-    localparam                      FSM_DRP_X16_DONE     = 4;   
-    localparam                      FSM_PLLLOCK          = 5;
-    localparam                      FSM_GTRESET          = 6;
-    localparam                      FSM_RXPMARESETDONE_1 = 7; 
-    localparam                      FSM_RXPMARESETDONE_2 = 8; 
-    localparam                      FSM_DRP_X20_START    = 9;
-    localparam                      FSM_DRP_X20_DONE     = 10;                    
-    localparam                      FSM_MMCM_LOCK        = 11;  
-    localparam                      FSM_RESETDONE        = 12;  
-    localparam                      FSM_TXSYNC_START     = 13;
-    localparam                      FSM_TXSYNC_DONE      = 14;                                 
+    localparam                      FSM_IDLE             = 5'h0; 
+    localparam                      FSM_CFG_WAIT         = 5'h1;
+    localparam                      FSM_PLLRESET         = 5'h2; 
+    localparam                      FSM_DRP_X16_START    = 5'h3;
+    localparam                      FSM_DRP_X16_DONE     = 5'h4;   
+    localparam                      FSM_PLLLOCK          = 5'h5;
+    localparam                      FSM_GTRESET          = 5'h6;
+    localparam                      FSM_RXPMARESETDONE_1 = 5'h7; 
+    localparam                      FSM_RXPMARESETDONE_2 = 5'h8; 
+    localparam                      FSM_DRP_X20_START    = 5'h9;
+    localparam                      FSM_DRP_X20_DONE     = 5'hA;                    
+    localparam                      FSM_MMCM_LOCK        = 5'hB;  
+    localparam                      FSM_RESETDONE        = 5'hC;  
+    localparam                      FSM_TXSYNC_START     = 5'hD;
+    localparam                      FSM_TXSYNC_DONE      = 5'hE;                                 
 
     
 
@@ -487,7 +487,7 @@ begin
     if (fsm == FSM_CFG_WAIT)
         begin
         dclk_rst_reg1 <= 1'd1;
-        dclk_rst_reg2 <= 1'd1;
+        dclk_rst_reg2 <= dclk_rst_reg1;
         end
     else
         begin
@@ -505,12 +505,31 @@ assign RST_CPLLPD         = pllpd;
 assign RST_RXUSRCLK_RESET = rxusrclk_rst_reg2;
 assign RST_DCLK_RESET     = dclk_rst_reg2;
 assign RST_GTRESET        = gtreset;  
-assign RST_DRP_START      = (fsm == FSM_DRP_X16_START) || (fsm == FSM_DRP_X20_START); 
-assign RST_DRP_X16        = (fsm == FSM_DRP_X16_START) || (fsm == FSM_DRP_X16_DONE);
 assign RST_USERRDY        = userrdy;
 assign RST_TXSYNC_START   = (fsm == FSM_TXSYNC_START);
 assign RST_IDLE           = (fsm == FSM_IDLE);
-assign RST_FSM            = ({1'b0,fsm});                   
+assign RST_FSM            = fsm;                   
+
+
+
+//--------------------------------------------------------------------------------------------------
+//  Register Output
+//--------------------------------------------------------------------------------------------------
+always @ (posedge RST_CLK)
+begin
+
+    if (!RST_RST_N) 
+        begin
+        RST_DRP_START <= 1'd0;
+        RST_DRP_X16   <= 1'd0;
+        end
+    else
+        begin
+        RST_DRP_START <= (fsm == FSM_DRP_X16_START) || (fsm == FSM_DRP_X20_START); 
+        RST_DRP_X16   <= (fsm == FSM_DRP_X16_START) || (fsm == FSM_DRP_X16_DONE);
+        end
+        
+end  
 
 
 

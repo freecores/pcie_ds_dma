@@ -49,11 +49,11 @@
 //-----------------------------------------------------------------------------
 // Project    : Series-7 Integrated Block for PCI Express
 // File       : cl_a7pcie_x4_pipe_wrapper.v
-// Version    : 1.9
+// Version    : 1.10
 //------------------------------------------------------------------------------
 //  Filename     :  pipe_wrapper.v
 //  Description  :  PIPE Wrapper for 7 Series Transceiver
-//  Version      :  20.1
+//  Version      :  20.2
 //------------------------------------------------------------------------------
 
 //---------- PIPE Wrapper Hierarchy --------------------------------------------
@@ -338,8 +338,8 @@ module cl_a7pcie_x4_pipe_wrapper #
 );
 
     //---------- Input Registers ---------------------------
-    reg                             reset_n_reg1;
-    reg                             reset_n_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                             reset_n_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                             reset_n_reg2;
 
     //---------- PIPE Clock Module Output ------------------ 
     wire                            clk_pclk;  
@@ -744,7 +744,7 @@ generate
             .RST_USERRDY                    (rst_userrdy),                      
             .RST_TXSYNC_START               (rst_txsync_start),                 
             .RST_IDLE                       (rst_idle),                         
-            .RST_FSM                        (rst_fsm)                           
+            .RST_FSM                        (rst_fsm[4:0])                           
                                                                                 
         );
        
@@ -808,7 +808,7 @@ generate
         assign qrst_qpllreset =  1'd0;
         assign qrst_qpllpd    =  1'd0;
         assign qrst_idle      =  1'd0;
-        assign qrst_fsm       =  1;
+        assign qrst_fsm       =  4'd1;
         end
      
 endgenerate

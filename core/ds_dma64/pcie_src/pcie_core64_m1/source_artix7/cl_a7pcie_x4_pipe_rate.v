@@ -49,7 +49,7 @@
 //-----------------------------------------------------------------------------
 // Project    : Series-7 Integrated Block for PCI Express
 // File       : cl_a7pcie_x4_pipe_rate.v
-// Version    : 1.9
+// Version    : 1.10
 //------------------------------------------------------------------------------
 //  Filename     :  pipe_rate.v
 //  Description  :  PIPE Rate Module for 7 Series Transceiver
@@ -125,37 +125,37 @@ module cl_a7pcie_x4_pipe_rate #
 );
 
     //---------- Input FF or Buffer ------------------------
-    reg                 rst_idle_reg1;
-    reg         [ 1:0]  rate_in_reg1;
-    reg                 cplllock_reg1;
-    reg                 qplllock_reg1;
-    reg                 mmcm_lock_reg1;
-    reg                 drp_done_reg1;
-    reg                 rxpmaresetdone_reg1;
-    reg                 txresetdone_reg1;
-    reg                 rxresetdone_reg1;
-    reg                 txratedone_reg1;
-    reg                 rxratedone_reg1;
-    reg                 phystatus_reg1;
-    reg                 resetovrd_done_reg1;
-    reg                 txsync_done_reg1;
-    reg                 rxsync_done_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rst_idle_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 1:0]  rate_in_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 cplllock_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 qplllock_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 mmcm_lock_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 drp_done_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rxpmaresetdone_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 txresetdone_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rxresetdone_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 txratedone_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rxratedone_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 phystatus_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 resetovrd_done_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 txsync_done_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rxsync_done_reg1;
     
-    reg                 rst_idle_reg2;
-    reg         [ 1:0]  rate_in_reg2;
-    reg                 cplllock_reg2;
-    reg                 qplllock_reg2;
-    reg                 mmcm_lock_reg2;
-    reg                 drp_done_reg2;
-    reg                 rxpmaresetdone_reg2;
-    reg                 txresetdone_reg2;
-    reg                 rxresetdone_reg2;
-    reg                 txratedone_reg2;
-    reg                 rxratedone_reg2;
-    reg                 phystatus_reg2;
-    reg                 resetovrd_done_reg2;
-    reg                 txsync_done_reg2;
-    reg                 rxsync_done_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rst_idle_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 1:0]  rate_in_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 cplllock_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 qplllock_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 mmcm_lock_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 drp_done_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rxpmaresetdone_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 txresetdone_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rxresetdone_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 txratedone_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rxratedone_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 phystatus_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 resetovrd_done_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 txsync_done_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rxsync_done_reg2;
     
     //---------- Internal Signals --------------------------
     wire                pll_lock;

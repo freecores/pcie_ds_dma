@@ -49,7 +49,7 @@
 //-----------------------------------------------------------------------------
 // Project    : Series-7 Integrated Block for PCI Express
 // File       : cl_a7pcie_x4_pipe_eq.v
-// Version    : 1.9
+// Version    : 1.10
 //------------------------------------------------------------------------------
 //  Filename     :  pipe_eq.v
 //  Description  :  PIPE Equalization Module for 7 Series Transceiver
@@ -109,32 +109,32 @@ module cl_a7pcie_x4_pipe_eq #
 );          
 
     //---------- Input Registers ---------------------------
-    reg                 gen3_reg1;
-    reg                 gen3_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 gen3_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 gen3_reg2;
     
-    reg         [ 1:0]  txeq_control_reg1;
-    reg         [ 3:0]  txeq_preset_reg1;
-    reg         [ 5:0]  txeq_deemph_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 1:0]  txeq_control_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 3:0]  txeq_preset_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 5:0]  txeq_deemph_reg1;
     
-    reg         [ 1:0]  txeq_control_reg2;
-    reg			    [ 3:0]  txeq_preset_reg2;
-    reg         [ 5:0]  txeq_deemph_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 1:0]  txeq_control_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg	      [ 3:0]  txeq_preset_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 5:0]  txeq_deemph_reg2;
     
-    reg         [ 1:0]  rxeq_control_reg1;
-    reg			    [ 2:0]  rxeq_preset_reg1;
-    reg         [ 5:0]  rxeq_lffs_reg1;
-    reg         [ 3:0]  rxeq_txpreset_reg1;
-    reg                 rxeq_user_en_reg1;
-    reg         [17:0]  rxeq_user_txcoeff_reg1;
-    reg                 rxeq_user_mode_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 1:0]  rxeq_control_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg	      [ 2:0]  rxeq_preset_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 5:0]  rxeq_lffs_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 3:0]  rxeq_txpreset_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rxeq_user_en_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [17:0]  rxeq_user_txcoeff_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rxeq_user_mode_reg1;
     
-    reg         [ 1:0]  rxeq_control_reg2;
-    reg			    [ 2:0]  rxeq_preset_reg2;
-    reg         [ 5:0]  rxeq_lffs_reg2;
-    reg         [ 3:0]  rxeq_txpreset_reg2;
-    reg                 rxeq_user_en_reg2;
-    reg         [17:0]  rxeq_user_txcoeff_reg2;
-    reg                 rxeq_user_mode_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 1:0]  rxeq_control_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg	      [ 2:0]  rxeq_preset_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 5:0]  rxeq_lffs_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 3:0]  rxeq_txpreset_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rxeq_user_en_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [17:0]  rxeq_user_txcoeff_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 rxeq_user_mode_reg2;
     
     //---------- Internal Signals --------------------------
     reg         [18:0]  txeq_preset          = 19'd0;          

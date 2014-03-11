@@ -49,7 +49,7 @@
 //-----------------------------------------------------------------------------
 // Project    : Series-7 Integrated Block for PCI Express
 // File       : cl_a7pcie_x4_rxeq_scan.v
-// Version    : 1.9
+// Version    : 1.10
 //------------------------------------------------------------------------------
 //  Filename     :  rxeq_scan.v
 //  Description  :  PIPE RX Equalization Eye Scan Module for 7 Series Transceiver
@@ -98,21 +98,21 @@ module cl_a7pcie_x4_rxeq_scan #
 );
 
     //---------- Input Register ----------------------------
-    reg         [ 2:0]  preset_reg1;
-    reg                 preset_valid_reg1;
-    reg         [ 3:0]  txpreset_reg1;
-    reg         [17:0]  txcoeff_reg1;
-    reg                 new_txcoeff_req_reg1;
-    reg         [ 5:0]  fs_reg1;
-    reg         [ 5:0]  lf_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 2:0]  preset_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 preset_valid_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 3:0]  txpreset_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [17:0]  txcoeff_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 new_txcoeff_req_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 5:0]  fs_reg1;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 5:0]  lf_reg1;
     
-    reg         [ 2:0]  preset_reg2;
-    reg                 preset_valid_reg2;
-    reg         [ 3:0]  txpreset_reg2;
-    reg         [17:0]  txcoeff_reg2;
-    reg                 new_txcoeff_req_reg2;
-    reg         [ 5:0]  fs_reg2;
-    reg         [ 5:0]  lf_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 2:0]  preset_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 preset_valid_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 3:0]  txpreset_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [17:0]  txcoeff_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg                 new_txcoeff_req_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 5:0]  fs_reg2;
+(* ASYNC_REG = "TRUE", SHIFT_EXTRACT = "NO" *)    reg         [ 5:0]  lf_reg2;
 
     //---------- Internal Signals --------------------------
     reg                 adapt_done_cnt = 1'd0;

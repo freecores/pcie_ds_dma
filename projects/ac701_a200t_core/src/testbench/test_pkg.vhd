@@ -505,6 +505,7 @@ begin
 	write( str, string'("TEST_BLOCK_MAIN" ));
 	writeline( log, str );	
 
+--	block_write( cmd, ret, 4, 16#08#, x"0000AA55" );				
 	block_read( cmd, ret, 4, 16#00#, data );			
 	write( str,  string'("มหฮส 4: " )); hwrite( str, data ); writeline( log, str );	
 
