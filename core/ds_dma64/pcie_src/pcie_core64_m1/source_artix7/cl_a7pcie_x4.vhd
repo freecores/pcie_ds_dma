@@ -49,7 +49,7 @@
 -------------------------------------------------------------------------------
 -- Project    : Series-7 Integrated Block for PCI Express
 -- File       : cl_a7pcie_x4.vhd
--- Version    : 1.10
+-- Version    : 1.11
 --
 -- Description: Solution wrapper for Virtex7 Hard Block for PCI Express
 --
@@ -98,7 +98,7 @@ entity cl_a7pcie_x4 is
     DEV_CAP_ENDPOINT_L0S_LATENCY                   : integer    := 0;
     DEV_CAP_ENDPOINT_L1_LATENCY                    : integer    := 7;
     DEV_CAP_EXT_TAG_SUPPORTED                      : string     := "FALSE";
-    DEV_CAP_MAX_PAYLOAD_SUPPORTED                  : integer    := 1;
+    DEV_CAP_MAX_PAYLOAD_SUPPORTED                  : integer    := 2;
     DEV_CAP_PHANTOM_FUNCTIONS_SUPPORT              : integer    := 0;
 
     DEV_CAP2_ARI_FORWARDING_SUPPORTED              : string     := "FALSE";
@@ -109,7 +109,7 @@ entity cl_a7pcie_x4 is
     DEV_CAP2_TPH_COMPLETER_SUPPORTED               : bit_vector := X"00";
     DEV_CONTROL_EXT_TAG_DEFAULT                    : string     := "FALSE";
 
-    DISABLE_LANE_REVERSAL                          : string     := "TRUE";
+    DISABLE_LANE_REVERSAL                          : string     := "FALSE";
     DISABLE_RX_POISONED_RESP                       : string     := "FALSE";
     DISABLE_SCRAMBLING                             : string     := "FALSE";
     DSN_BASE_PTR                                   : bit_vector := X"100";
@@ -117,7 +117,7 @@ entity cl_a7pcie_x4 is
     DSN_CAP_ON                                     : string     := "TRUE";
 
     ENABLE_MSG_ROUTE                               : bit_vector := "00000000000";
-    ENABLE_RX_TD_ECRC_TRIM                         : string     := "TRUE";
+    ENABLE_RX_TD_ECRC_TRIM                         : string     := "FALSE";
     EXPANSION_ROM                                  : bit_vector := X"00000000";
     EXT_CFG_CAP_PTR                                : bit_vector := X"3F";
     EXT_CFG_XP_CAP_PTR                             : bit_vector := X"3FF";
@@ -148,7 +148,7 @@ entity cl_a7pcie_x4 is
     LTSSM_MAX_LINK_WIDTH                           : bit_vector := X"04";
     MSI_CAP_MULTIMSGCAP                            : integer    := 0;
     MSI_CAP_MULTIMSG_EXTENSION                     : integer    := 0;
-    MSI_CAP_ON                                     : string     := "FALSE";
+    MSI_CAP_ON                                     : string     := "TRUE";
     MSI_CAP_PER_VECTOR_MASKING_CAPABLE             : string     := "FALSE";
     MSI_CAP_64_BIT_ADDR_CAPABLE                    : string     := "TRUE";
 
@@ -165,7 +165,7 @@ entity cl_a7pcie_x4 is
     PM_CAP_DSI                                     : string     := "FALSE";
     PM_CAP_D1SUPPORT                               : string     := "FALSE";
     PM_CAP_D2SUPPORT                               : string     := "FALSE";
-    PM_CAP_NEXTPTR                                 : bit_vector := X"60";
+    PM_CAP_NEXTPTR                                 : bit_vector := X"48";
     PM_CAP_PMESUPPORT                              : bit_vector := X"0F";
     PM_CSR_NOSOFTRST                               : string     := "TRUE";
 
@@ -238,14 +238,14 @@ entity cl_a7pcie_x4 is
     VC_CAP_REJECT_SNOOP_TRANSACTIONS               : string     := "FALSE";
 
     VC0_CPL_INFINITE                               : string     := "TRUE";
-    VC0_RX_RAM_LIMIT                               : bit_vector := X"3FF";
-    VC0_TOTAL_CREDITS_CD                           : integer    := 370;
-    VC0_TOTAL_CREDITS_CH                           : integer    := 72;
-    VC0_TOTAL_CREDITS_NPH                          : integer    := 4;
-    VC0_TOTAL_CREDITS_NPD                          : integer    := 8;
-    VC0_TOTAL_CREDITS_PD                           : integer    := 32;
-    VC0_TOTAL_CREDITS_PH                           : integer    := 4;
-    VC0_TX_LASTPACKET                              : integer    := 28;
+    VC0_RX_RAM_LIMIT                               : bit_vector := X"7FF";
+    VC0_TOTAL_CREDITS_CD                           : integer    := 461;
+    VC0_TOTAL_CREDITS_CH                           : integer    := 36;
+    VC0_TOTAL_CREDITS_NPH                          : integer    := 12;
+    VC0_TOTAL_CREDITS_NPD                          : integer    := 24;
+    VC0_TOTAL_CREDITS_PD                           : integer    := 437;
+    VC0_TOTAL_CREDITS_PH                           : integer    := 32;
+    VC0_TX_LASTPACKET                              : integer    := 29;
 
     VSEC_BASE_PTR                                  : bit_vector := X"000";
     VSEC_CAP_NEXTPTR                               : bit_vector := X"000";
@@ -658,7 +658,7 @@ end cl_a7pcie_x4;
 
    attribute CORE_GENERATION_INFO : string;
    attribute CORE_GENERATION_INFO of pcie_7x : ARCHITECTURE is
-     "cl_a7pcie_x4,pcie_7x_v1_10,{LINK_CAP_MAX_LINK_SPEED=2,LINK_CAP_MAX_LINK_WIDTH=04,PCIE_CAP_DEVICE_PORT_TYPE=0000,DEV_CAP_MAX_PAYLOAD_SUPPORTED=1,USER_CLK_FREQ=3,REF_CLK_FREQ=0,MSI_CAP_ON=FALSE,MSI_CAP_MULTIMSGCAP=0,MSI_CAP_MULTIMSG_EXTENSION=0,MSIX_CAP_ON=FALSE,TL_TX_RAM_RADDR_LATENCY=0,TL_TX_RAM_RDATA_LATENCY=2,TL_RX_RAM_RADDR_LATENCY=0,TL_RX_RAM_RDATA_LATENCY=2,TL_RX_RAM_WRITE_LATENCY=0,VC0_TX_LASTPACKET=28,VC0_RX_RAM_LIMIT=3FF,VC0_TOTAL_CREDITS_PH=4,VC0_TOTAL_CREDITS_PD=32,VC0_TOTAL_CREDITS_NPH=4,VC0_TOTAL_CREDITS_NPD=8,VC0_TOTAL_CREDITS_CH=72,VC0_TOTAL_CREDITS_CD=370,VC0_CPL_INFINITE=TRUE,DEV_CAP_PHANTOM_FUNCTIONS_SUPPORT=0,DEV_CAP_EXT_TAG_SUPPORTED=FALSE,LINK_STATUS_SLOT_CLOCK_CONFIG=TRUE,ENABLE_RX_TD_ECRC_TRIM=TRUE,DISABLE_LANE_REVERSAL=TRUE,DISABLE_SCRAMBLING=FALSE,DSN_CAP_ON=TRUE,REVISION_ID=00,VC_CAP_ON=FALSE}";
+     "cl_a7pcie_x4,pcie_7x_v1_11,{LINK_CAP_MAX_LINK_SPEED=2,LINK_CAP_MAX_LINK_WIDTH=04,PCIE_CAP_DEVICE_PORT_TYPE=0000,DEV_CAP_MAX_PAYLOAD_SUPPORTED=2,USER_CLK_FREQ=3,REF_CLK_FREQ=0,MSI_CAP_ON=TRUE,MSI_CAP_MULTIMSGCAP=0,MSI_CAP_MULTIMSG_EXTENSION=0,MSIX_CAP_ON=FALSE,TL_TX_RAM_RADDR_LATENCY=0,TL_TX_RAM_RDATA_LATENCY=2,TL_RX_RAM_RADDR_LATENCY=0,TL_RX_RAM_RDATA_LATENCY=2,TL_RX_RAM_WRITE_LATENCY=0,VC0_TX_LASTPACKET=29,VC0_RX_RAM_LIMIT=7FF,VC0_TOTAL_CREDITS_PH=32,VC0_TOTAL_CREDITS_PD=437,VC0_TOTAL_CREDITS_NPH=12,VC0_TOTAL_CREDITS_NPD=24,VC0_TOTAL_CREDITS_CH=36,VC0_TOTAL_CREDITS_CD=461,VC0_CPL_INFINITE=TRUE,DEV_CAP_PHANTOM_FUNCTIONS_SUPPORT=0,DEV_CAP_EXT_TAG_SUPPORTED=FALSE,LINK_STATUS_SLOT_CLOCK_CONFIG=TRUE,ENABLE_RX_TD_ECRC_TRIM=DISABLE_LANE_REVERSAL=FALSE,DISABLE_SCRAMBLING=FALSE,DSN_CAP_ON=TRUE,REVISION_ID=00,VC_CAP_ON=FALSE}";
     component cl_a7pcie_x4_pcie_top is
       generic (
         C_DATA_WIDTH                                   : INTEGER range 32 to 128 := 64;

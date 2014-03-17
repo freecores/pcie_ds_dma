@@ -49,7 +49,7 @@
 -------------------------------------------------------------------------------
 -- Project    : Series-7 Integrated Block for PCI Express
 -- File       : cl_a7pcie_x4_gt_top.vhd
--- Version    : 1.10
+-- Version    : 1.11
 ---- Description: GTX module for 7-series Integrated PCIe Block
 ----
 ----
@@ -505,45 +505,45 @@ architecture pcie_7x of cl_a7pcie_x4_gt_top is
   
   constant signal_z      : std_logic_vector((18*LINK_CAP_MAX_LINK_WIDTH_int-1) downto 0) := (others => '0'); 
 
-  signal gt_rx_phy_status_wire    : std_logic_vector(7 downto 0);
-  signal gt_rxchanisaligned_wire  : std_logic_vector(7 downto 0);
-  signal gt_rx_data_k_wire        : std_logic_vector(31 downto 0);
-  signal gt_rx_data_wire          : std_logic_vector(255 downto 0);
-  signal gt_rx_elec_idle_wire     : std_logic_vector(7 downto 0);
-  signal gt_rx_status_wire        : std_logic_vector(23 downto 0);
-  signal gt_rx_valid_wire         : std_logic_vector(7 downto 0);
-  signal gt_rx_polarity           : std_logic_vector(7 downto 0);
-  signal gt_power_down            : std_logic_vector(15 downto 0);
-  signal gt_tx_char_disp_mode     : std_logic_vector(7 downto 0);
-  signal gt_tx_data_k             : std_logic_vector(31 downto 0);
-  signal gt_tx_data               : std_logic_vector(255 downto 0);
-  signal gt_tx_detect_rx_loopback : std_logic;
-  signal gt_tx_elec_idle          : std_logic_vector(7 downto 0);
-  signal gt_rx_elec_idle_reset    : std_logic_vector(7 downto 0);
-  signal plllkdet                 : std_logic_vector((LINK_CAP_MAX_LINK_WIDTH_int-1) downto 0);
-  signal phystatus_rst            : std_logic_vector((LINK_CAP_MAX_LINK_WIDTH_int-1) downto 0);
-  signal clock_locked             : std_logic;
-  signal pipe_rate_concat         : std_logic_vector(1 downto 0);
+  signal gt_rx_phy_status_wire    : std_logic_vector(7 downto 0):= (others => '0');
+  signal gt_rxchanisaligned_wire  : std_logic_vector(7 downto 0):= (others => '0');
+  signal gt_rx_data_k_wire        : std_logic_vector(31 downto 0):= (others => '0');
+  signal gt_rx_data_wire          : std_logic_vector(255 downto 0):= (others => '0');
+  signal gt_rx_elec_idle_wire     : std_logic_vector(7 downto 0):= (others => '0');
+  signal gt_rx_status_wire        : std_logic_vector(23 downto 0):= (others => '0');
+  signal gt_rx_valid_wire         : std_logic_vector(7 downto 0):= (others => '0');
+  signal gt_rx_polarity           : std_logic_vector(7 downto 0):= (others => '0');
+  signal gt_power_down            : std_logic_vector(15 downto 0):= (others => '0');
+  signal gt_tx_char_disp_mode     : std_logic_vector(7 downto 0):= (others => '0');
+  signal gt_tx_data_k             : std_logic_vector(31 downto 0):= (others => '0');
+  signal gt_tx_data               : std_logic_vector(255 downto 0):= (others => '0');
+  signal gt_tx_detect_rx_loopback : std_logic:= '0';
+  signal gt_tx_elec_idle          : std_logic_vector(7 downto 0):= (others => '0');
+  signal gt_rx_elec_idle_reset    : std_logic_vector(7 downto 0):= (others => '0');
+  signal plllkdet                 : std_logic_vector((LINK_CAP_MAX_LINK_WIDTH_int-1) downto 0):= (others => '0');
+  signal phystatus_rst            : std_logic_vector((LINK_CAP_MAX_LINK_WIDTH_int-1) downto 0):= (others => '0');
+  signal clock_locked             : std_logic:= '0';
+  signal pipe_rate_concat         : std_logic_vector(1 downto 0):= (others => '0');
   
-  signal pipe_tx_deemph_concat    : std_logic_vector((1*LINK_CAP_MAX_LINK_WIDTH_int-1) downto 0);
-  signal all_phystatus_rst        : std_logic;
-  signal gt_rx_phy_status_wire_filter : std_logic_vector(  7 downto 0);
-  signal gt_rx_data_k_wire_filter     : std_logic_vector( 31 downto 0);
-  signal gt_rx_data_wire_filter       : std_logic_vector(255 downto 0);
-  signal gt_rx_elec_idle_wire_filter  : std_logic_vector(  7 downto 0);
-  signal gt_rx_status_wire_filter     : std_logic_vector( 23 downto 0);
-  signal gt_rx_valid_wire_filter      : std_logic_vector(  7 downto 0);
+  signal pipe_tx_deemph_concat    : std_logic_vector((1*LINK_CAP_MAX_LINK_WIDTH_int-1) downto 0):= (others => '0');
+  signal all_phystatus_rst        : std_logic:= '0';
+  signal gt_rx_phy_status_wire_filter : std_logic_vector(  7 downto 0):= (others => '0');
+  signal gt_rx_data_k_wire_filter     : std_logic_vector( 31 downto 0):= (others => '0');
+  signal gt_rx_data_wire_filter       : std_logic_vector(255 downto 0):= (others => '0');
+  signal gt_rx_elec_idle_wire_filter  : std_logic_vector(  7 downto 0):= (others => '0');
+  signal gt_rx_status_wire_filter     : std_logic_vector( 23 downto 0):= (others => '0');
+  signal gt_rx_valid_wire_filter      : std_logic_vector(  7 downto 0):= (others => '0');
 
-  signal pl_ltssm_state_q             : std_logic_vector(  5 downto 0);
+  signal pl_ltssm_state_q             : std_logic_vector(  5 downto 0):= (others => '0');
 
-  signal plm_in_l0                    : std_logic;
-  signal plm_in_rl                    : std_logic;
-  signal plm_in_dt                    : std_logic;
-  signal plm_in_rs                    : std_logic;
+  signal plm_in_l0                    : std_logic:= '0';
+  signal plm_in_rl                    : std_logic:= '0';
+  signal plm_in_dt                    : std_logic:= '0';
+  signal plm_in_rs                    : std_logic:= '0';
 
-  signal pipe_clk_int                 : std_logic;
-  signal phy_rdy_n_int                : std_logic;
-  signal reg_clock_locked             : std_logic;
+  signal pipe_clk_int                 : std_logic:= '0';
+  signal phy_rdy_n_int                : std_logic:= '0';
+  signal reg_clock_locked             : std_logic:= '0';
 
 
   begin

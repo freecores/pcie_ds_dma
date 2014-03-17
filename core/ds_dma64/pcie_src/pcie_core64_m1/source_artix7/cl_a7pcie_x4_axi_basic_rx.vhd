@@ -49,7 +49,7 @@
 -------------------------------------------------------------------------------
 -- Project    : Series-7 Integrated Block for PCI Express
 -- File       : cl_a7pcie_x4_axi_basic_rx.vhd
--- Version    : 1.10
+-- Version    : 1.11
 -- Description:
 --  TRN to AXI RX module. Instantiates pipeline and null generator RX
 --  submodules.
@@ -124,20 +124,20 @@ END cl_a7pcie_x4_axi_basic_rx;
 
 ARCHITECTURE TRANS OF cl_a7pcie_x4_axi_basic_rx IS
 
-   SIGNAL null_rx_tvalid         : STD_LOGIC;
-   SIGNAL null_rx_tlast          : STD_LOGIC;
-   SIGNAL null_rx_tkeep          : STD_LOGIC_VECTOR((C_DATA_WIDTH/8)-1  DOWNTO 0);
-   SIGNAL null_rdst_rdy          : STD_LOGIC;
-   SIGNAL null_is_eof            : STD_LOGIC_VECTOR(4 DOWNTO 0);
+   SIGNAL null_rx_tvalid         : STD_LOGIC:= '0';
+   SIGNAL null_rx_tlast          : STD_LOGIC:= '0';
+   SIGNAL null_rx_tkeep          : STD_LOGIC_VECTOR((C_DATA_WIDTH/8)-1  DOWNTO 0):= (others => '0');
+   SIGNAL null_rdst_rdy          : STD_LOGIC:= '0';
+   SIGNAL null_is_eof            : STD_LOGIC_VECTOR(4 DOWNTO 0):= (others => '0');
 
    -- Declare intermediate signals for referenced outputs
-   SIGNAL m_axis_rx_tdata_xhdl0  : STD_LOGIC_VECTOR(C_DATA_WIDTH - 1 DOWNTO 0);
-   SIGNAL m_axis_rx_tvalid_xhdl4 : STD_LOGIC;
-   SIGNAL m_axis_rx_tkeep_xhdl2  : STD_LOGIC_VECTOR((C_DATA_WIDTH/8)-1 DOWNTO 0);
-   SIGNAL m_axis_rx_tlast_xhdl1  : STD_LOGIC;
-   SIGNAL m_axis_rx_tuser_xhdl3  : STD_LOGIC_VECTOR(21 DOWNTO 0);
-   SIGNAL trn_rdst_rdy_xhdl6     : STD_LOGIC;
-   SIGNAL np_counter_xhdl5       : STD_LOGIC_VECTOR(2 DOWNTO 0);
+   SIGNAL m_axis_rx_tdata_xhdl0  : STD_LOGIC_VECTOR(C_DATA_WIDTH - 1 DOWNTO 0):= (others => '0');
+   SIGNAL m_axis_rx_tvalid_xhdl4 : STD_LOGIC:= '0';
+   SIGNAL m_axis_rx_tkeep_xhdl2  : STD_LOGIC_VECTOR((C_DATA_WIDTH/8)-1 DOWNTO 0):= (others => '0');
+   SIGNAL m_axis_rx_tlast_xhdl1  : STD_LOGIC:= '0';
+   SIGNAL m_axis_rx_tuser_xhdl3  : STD_LOGIC_VECTOR(21 DOWNTO 0):= (others => '0');
+   SIGNAL trn_rdst_rdy_xhdl6     : STD_LOGIC:= '0';
+   SIGNAL np_counter_xhdl5       : STD_LOGIC_VECTOR(2 DOWNTO 0):= (others => '0');
 
    COMPONENT cl_a7pcie_x4_axi_basic_rx_null_gen IS
    GENERIC (

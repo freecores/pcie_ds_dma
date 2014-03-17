@@ -49,7 +49,7 @@
 -------------------------------------------------------------------------------
 -- Project    : Series-7 Integrated Block for PCI Express
 -- File       : cl_a7pcie_x4_axi_basic_tx.vhd
--- Version    : 1.10
+-- Version    : 1.11
 --
 -- Description:
 -- AXI to TRN TX module. Instantiates pipeline and throttle control TX

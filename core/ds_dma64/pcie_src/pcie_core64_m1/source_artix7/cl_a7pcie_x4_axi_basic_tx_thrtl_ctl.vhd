@@ -49,7 +49,7 @@
 -------------------------------------------------------------------------------
 -- Project    : Series-7 Integrated Block for PCI Express
 -- File       : cl_a7pcie_x4_axi_basic_tx_thrtl_ctl.vhd
--- Version    : 1.10
+-- Version    : 1.11
 --
 -- Description:
 --    TX throttle controller. Anticipates back-pressure from PCIe block and
@@ -181,75 +181,75 @@ ARCHITECTURE trans OF cl_a7pcie_x4_axi_basic_tx_thrtl_ctl IS
   CONSTANT PM_ENTER_L1               : INTEGER := 32;
   CONSTANT POWERSTATE_D0             : INTEGER := 0;
 
-  SIGNAL lnk_up_thrtl           : STD_LOGIC;
-  SIGNAL lnk_up_trig            : STD_LOGIC;
-  SIGNAL lnk_up_exit            : STD_LOGIC;
-  SIGNAL tbuf_av_min_thrtl      : STD_LOGIC;
-  SIGNAL tbuf_av_min_trig       : STD_LOGIC;
-  SIGNAL tbuf_av_gap_thrtl      : STD_LOGIC;
-  SIGNAL tbuf_gap_cnt           : STD_LOGIC_VECTOR(2 DOWNTO 0);
-  SIGNAL tbuf_gap_cnt_t         : STD_LOGIC_VECTOR(2 DOWNTO 0);
-  SIGNAL tbuf_av_gap_trig       : STD_LOGIC;
-  SIGNAL tbuf_av_gap_exit       : STD_LOGIC;
-  SIGNAL gap_trig_tlast         : STD_LOGIC;
-  SIGNAL gap_trig_tlast_1       : STD_LOGIC;
-  SIGNAL gap_trig_decr          : STD_LOGIC;
-  SIGNAL gap_trig_decr_1        : STD_LOGIC;
-  SIGNAL gap_trig_decr_2        : STD_LOGIC;
-  SIGNAL tbuf_av_d              : STD_LOGIC_VECTOR(5 DOWNTO 0);
-  SIGNAL tcfg_req_thrtl         : STD_LOGIC;
-  SIGNAL tcfg_req_cnt           : STD_LOGIC_VECTOR(1 DOWNTO 0);
-  SIGNAL trn_tdst_rdy_d         : STD_LOGIC;
-  SIGNAL tcfg_req_trig          : STD_LOGIC;
-  SIGNAL tcfg_req_exit          : STD_LOGIC;
-  SIGNAL tcfg_gnt_log           : STD_LOGIC;
-  SIGNAL tcfg_gnt_pipe          : STD_LOGIC_VECTOR(TCFG_GNT_PIPE_STAGES-1 DOWNTO 0);
-  SIGNAL pre_throttle           : STD_LOGIC;
-  SIGNAL reg_throttle           : STD_LOGIC;
-  SIGNAL exit_crit              : STD_LOGIC;
-  SIGNAL reg_tcfg_gnt           : STD_LOGIC;
-  SIGNAL trn_tcfg_req_d         : STD_LOGIC;
-  SIGNAL tcfg_gnt_pending       : STD_LOGIC;
-  SIGNAL wire_to_turnoff        : STD_LOGIC;
-  SIGNAL reg_turnoff_ok         : STD_LOGIC;
-  SIGNAL tready_thrtl_mux       : STD_LOGIC;
-  SIGNAL ppm_L1_thrtl           : STD_LOGIC;
-  SIGNAL ppm_L1_trig            : STD_LOGIC;
-  SIGNAL ppm_L1_exit            : STD_LOGIC;
-  SIGNAL cfg_pcie_link_state_d  : STD_LOGIC_VECTOR(2 DOWNTO 0);
-  SIGNAL trn_rdllp_src_rdy_d    : STD_LOGIC;
-  SIGNAL ppm_L23_thrtl          : STD_LOGIC;
-  SIGNAL ppm_L23_trig           : STD_LOGIC;
-  SIGNAL cfg_turnoff_ok_pending : STD_LOGIC;
-  SIGNAL reg_tlast              : STD_LOGIC;
-  SIGNAL cur_state              : STD_LOGIC;
-  SIGNAL next_state             : STD_LOGIC;
+  SIGNAL lnk_up_thrtl           : STD_LOGIC:= '0';
+  SIGNAL lnk_up_trig            : STD_LOGIC:= '0';
+  SIGNAL lnk_up_exit            : STD_LOGIC:= '0';
+  SIGNAL tbuf_av_min_thrtl      : STD_LOGIC:= '0';
+  SIGNAL tbuf_av_min_trig       : STD_LOGIC:= '0';
+  SIGNAL tbuf_av_gap_thrtl      : STD_LOGIC:= '0';
+  SIGNAL tbuf_gap_cnt           : STD_LOGIC_VECTOR(2 DOWNTO 0):= (others => '0');
+  SIGNAL tbuf_gap_cnt_t         : STD_LOGIC_VECTOR(2 DOWNTO 0):= (others => '0');
+  SIGNAL tbuf_av_gap_trig       : STD_LOGIC:= '0';
+  SIGNAL tbuf_av_gap_exit       : STD_LOGIC:= '0';
+  SIGNAL gap_trig_tlast         : STD_LOGIC:= '0';
+  SIGNAL gap_trig_tlast_1       : STD_LOGIC:= '0';
+  SIGNAL gap_trig_decr          : STD_LOGIC:= '0';
+  SIGNAL gap_trig_decr_1        : STD_LOGIC:= '0';
+  SIGNAL gap_trig_decr_2        : STD_LOGIC:= '0';
+  SIGNAL tbuf_av_d              : STD_LOGIC_VECTOR(5 DOWNTO 0):= (others => '0');
+  SIGNAL tcfg_req_thrtl         : STD_LOGIC:= '0';
+  SIGNAL tcfg_req_cnt           : STD_LOGIC_VECTOR(1 DOWNTO 0):= (others => '0');
+  SIGNAL trn_tdst_rdy_d         : STD_LOGIC:= '0';
+  SIGNAL tcfg_req_trig          : STD_LOGIC:= '0';
+  SIGNAL tcfg_req_exit          : STD_LOGIC:= '0';
+  SIGNAL tcfg_gnt_log           : STD_LOGIC:= '0';
+  SIGNAL tcfg_gnt_pipe          : STD_LOGIC_VECTOR(TCFG_GNT_PIPE_STAGES-1 DOWNTO 0):= (others => '0');
+  SIGNAL pre_throttle           : STD_LOGIC:= '0';
+  SIGNAL reg_throttle           : STD_LOGIC:= '0';
+  SIGNAL exit_crit              : STD_LOGIC:= '0';
+  SIGNAL reg_tcfg_gnt           : STD_LOGIC:= '0';
+  SIGNAL trn_tcfg_req_d         : STD_LOGIC:= '0';
+  SIGNAL tcfg_gnt_pending       : STD_LOGIC:= '0';
+  SIGNAL wire_to_turnoff        : STD_LOGIC:= '0';
+  SIGNAL reg_turnoff_ok         : STD_LOGIC:= '0';
+  SIGNAL tready_thrtl_mux       : STD_LOGIC:= '0';
+  SIGNAL ppm_L1_thrtl           : STD_LOGIC:= '0';
+  SIGNAL ppm_L1_trig            : STD_LOGIC:= '0';
+  SIGNAL ppm_L1_exit            : STD_LOGIC:= '0';
+  SIGNAL cfg_pcie_link_state_d  : STD_LOGIC_VECTOR(2 DOWNTO 0):= (others => '0');
+  SIGNAL trn_rdllp_src_rdy_d    : STD_LOGIC:= '0';
+  SIGNAL ppm_L23_thrtl          : STD_LOGIC:= '0';
+  SIGNAL ppm_L23_trig           : STD_LOGIC:= '0';
+  SIGNAL cfg_turnoff_ok_pending : STD_LOGIC:= '0';
+  SIGNAL reg_tlast              : STD_LOGIC:= '0';
+  SIGNAL cur_state              : STD_LOGIC:= '0';
+  SIGNAL next_state             : STD_LOGIC:= '0';
 
-  SIGNAL reg_axi_in_pkt         : STD_LOGIC;
-  SIGNAL axi_in_pkt             : STD_LOGIC;
-  SIGNAL axi_pkt_ending         : STD_LOGIC;
-  SIGNAL axi_throttled          : STD_LOGIC;
-  SIGNAL axi_thrtl_ok           : STD_LOGIC;
-  SIGNAL tx_ecrc_pause          : STD_LOGIC;
+  SIGNAL reg_axi_in_pkt         : STD_LOGIC:= '0';
+  SIGNAL axi_in_pkt             : STD_LOGIC:= '0';
+  SIGNAL axi_pkt_ending         : STD_LOGIC:= '0';
+  SIGNAL axi_throttled          : STD_LOGIC:= '0';
+  SIGNAL axi_thrtl_ok           : STD_LOGIC:= '0';
+  SIGNAL tx_ecrc_pause          : STD_LOGIC:= '0';
 
-  SIGNAL gap_trig_tcfg          : STD_LOGIC;
-  SIGNAL reg_to_turnoff         : STD_LOGIC;
-  SIGNAL reg_tx_ecrc_pkt        : STD_LOGIC;
+  SIGNAL gap_trig_tcfg          : STD_LOGIC:= '0';
+  SIGNAL reg_to_turnoff         : STD_LOGIC:= '0';
+  SIGNAL reg_tx_ecrc_pkt        : STD_LOGIC:= '0';
 
-  SIGNAL tx_ecrc_pkt            : STD_LOGIC;
-  SIGNAL packet_fmt             : STD_LOGIC_VECTOR(1 DOWNTO 0);
-  SIGNAL packet_td              : STD_LOGIC;
-  SIGNAL header_len             : STD_LOGIC_VECTOR(2 DOWNTO 0);
-  SIGNAL payload_len            : STD_LOGIC_VECTOR(9 DOWNTO 0);
-  SIGNAL packet_len             : STD_LOGIC_VECTOR(13 DOWNTO 0);
-  SIGNAL pause_needed           : STD_LOGIC;
+  SIGNAL tx_ecrc_pkt            : STD_LOGIC:= '0';
+  SIGNAL packet_fmt             : STD_LOGIC_VECTOR(1 DOWNTO 0):= (others => '0');
+  SIGNAL packet_td              : STD_LOGIC:= '0';
+  SIGNAL header_len             : STD_LOGIC_VECTOR(2 DOWNTO 0):= (others => '0');
+  SIGNAL payload_len            : STD_LOGIC_VECTOR(9 DOWNTO 0):= (others => '0');
+  SIGNAL packet_len             : STD_LOGIC_VECTOR(13 DOWNTO 0):= (others => '0');
+  SIGNAL pause_needed           : STD_LOGIC:= '0';
 
   -- Declare intermediate signals for referenced outputs
-  SIGNAL cfg_turnoff_ok_xhdl0   : STD_LOGIC;
-  SIGNAL tready_thrtl_xhdl1     : STD_LOGIC;
+  SIGNAL cfg_turnoff_ok_xhdl0   : STD_LOGIC:= '0';
+  SIGNAL tready_thrtl_xhdl1     : STD_LOGIC:= '0';
 --   TYPE T_STATE is  (IDLE_A,THROTTLE);
 --   SIGNAL CUR_STATE_A, NEXT_STATE_A : T_STATE;
-  SIGNAL CUR_STATE_A, NEXT_STATE_A : STD_LOGIC;
+  SIGNAL CUR_STATE_A, NEXT_STATE_A : STD_LOGIC := '0';
 
   constant IDLE : std_logic := '0';
   constant THROTTLE : std_logic := '1';

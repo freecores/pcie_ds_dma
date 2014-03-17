@@ -49,7 +49,7 @@
 -------------------------------------------------------------------------------
 -- Project    : Series-7 Integrated Block for PCI Express
 -- File       : cl_a7pcie_x4_pcie_7x.vhd
--- Version    : 1.10
+-- Version    : 1.11
 --
 -- Description: Solution wrapper for Virtex7 Hard Block for PCI Express
 --
@@ -540,8 +540,8 @@ port(
   drp_we                                         : in std_logic;
   drp_addr                                       : in std_logic_vector(8 downto 0);
   drp_di                                         : in std_logic_vector(15 downto 0);
-  drp_rdy                                        : out std_logic;
-  drp_do                                         : out std_logic_vector(15 downto 0);
+  drp_rdy                                        : out std_logic := '0' ;
+  drp_do                                         : out std_logic_vector(15 downto 0):= (others => '0');
   dbg_mode                                       : in std_logic_vector(1 downto 0);
   dbg_sub_mode                                   : in std_logic;
   pl_dbg_mode                                    : in std_logic_vector( 2 downto 0);

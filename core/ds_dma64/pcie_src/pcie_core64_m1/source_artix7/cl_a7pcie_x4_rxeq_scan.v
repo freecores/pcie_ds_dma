@@ -49,7 +49,7 @@
 //-----------------------------------------------------------------------------
 // Project    : Series-7 Integrated Block for PCI Express
 // File       : cl_a7pcie_x4_rxeq_scan.v
-// Version    : 1.10
+// Version    : 1.11
 //------------------------------------------------------------------------------
 //  Filename     :  rxeq_scan.v
 //  Description  :  PIPE RX Equalization Eye Scan Module for 7 Series Transceiver

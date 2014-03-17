@@ -49,7 +49,7 @@
 -------------------------------------------------------------------------------
 -- Project    : Series-7 Integrated Block for PCI Express
 -- File       : cl_a7pcie_x4_gt_rx_valid_filter_7x.vhd
--- Version    : 1.10
+-- Version    : 1.11
 ---- Description: GTX module for 7-series Integrated PCIe Block
 ----
 ----
@@ -103,14 +103,14 @@ architecture pcie_7x of cl_a7pcie_x4_gt_rx_valid_filter_7x is
   constant FTSOS_COM             : std_logic_vector(7 downto 0) := X"BC";
   constant FTSOS_FTS             : std_logic_vector(7 downto 0) := X"3C";
 
-  signal   reg_state_eios_det    : std_logic_vector(4 downto 0);
-  signal   state_eios_det        : std_logic_vector(4 downto 0);
+  signal   reg_state_eios_det    : std_logic_vector(4 downto 0):= (others => '0');
+  signal   state_eios_det        : std_logic_vector(4 downto 0):= (others => '0');
 
-  signal   reg_eios_detected     : std_logic;
-  signal   eios_detected         : std_logic;
+  signal   reg_eios_detected     : std_logic:= '0';
+  signal   eios_detected         : std_logic:= '0';
 
-  signal   reg_symbol_after_eios : std_logic;
-  signal   symbol_after_eios     : std_logic;
+  signal   reg_symbol_after_eios : std_logic:= '0';
+  signal   symbol_after_eios     : std_logic:= '0';
 
   constant USER_RXVLD_IDL        : std_logic_vector(3 downto 0) := "0001";
   constant USER_RXVLD_EI         : std_logic_vector(3 downto 0) := "0010";
@@ -118,15 +118,15 @@ architecture pcie_7x of cl_a7pcie_x4_gt_rx_valid_filter_7x is
   constant USER_RXVLD_EI_DB1     : std_logic_vector(3 downto 0) := "1000";
 
 
-  signal   gt_rxcharisk_q        : std_logic_vector( 1 downto 0);
-  signal   gt_rxdata_q           : std_logic_vector(15 downto 0);
-  signal   gt_rxvalid_q          : std_logic;
-  signal   gt_rxelecidle_q       : std_logic;
+  signal   gt_rxcharisk_q        : std_logic_vector( 1 downto 0):= (others => '0');
+  signal   gt_rxdata_q           : std_logic_vector(15 downto 0):= (others => '0');
+  signal   gt_rxvalid_q          : std_logic:= '0';
+  signal   gt_rxelecidle_q       : std_logic:= '0';
 
-  signal   gt_rx_status_q        : std_logic_vector( 2 downto 0);
-  signal   gt_rx_phy_status_q    : std_logic;
-  signal   gt_rx_is_skp0_q       : std_logic;                    
-  signal   gt_rx_is_skp1_q       : std_logic;                    
+  signal   gt_rx_status_q        : std_logic_vector( 2 downto 0):= (others => '0');
+  signal   gt_rx_phy_status_q    : std_logic:= '0';
+  signal   gt_rx_is_skp0_q       : std_logic:= '0';                    
+  signal   gt_rx_is_skp1_q       : std_logic:= '0';                    
 
   begin  
 

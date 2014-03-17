@@ -155,7 +155,7 @@ begin
 	test_init( "src\testbench\log\test.log" );
 --	test_init( "test.log" );
 	
-	wait for 180 us;	
+	wait for 250 us;	
 	
 
 	--test_dsc_incorrect( cmd, ret );	   

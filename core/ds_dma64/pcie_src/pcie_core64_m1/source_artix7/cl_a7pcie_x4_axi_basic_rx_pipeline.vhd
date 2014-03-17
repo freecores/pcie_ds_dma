@@ -49,7 +49,7 @@
 -------------------------------------------------------------------------------
 -- Project    : Series-7 Integrated Block for PCI Express
 -- File       : cl_a7pcie_x4_axi_basic_rx_pipeline.vhd
--- Version    : 1.10
+-- Version    : 1.11
 --
 -- Description:
 --  TRN to AXI RX pipeline. Converts received data from TRN protocol to AXI.
@@ -121,61 +121,61 @@ END cl_a7pcie_x4_axi_basic_rx_pipeline;
 
 ARCHITECTURE trans OF cl_a7pcie_x4_axi_basic_rx_pipeline IS
 
-  SIGNAL is_sof                 : STD_LOGIC_VECTOR(4 DOWNTO 0);
-  SIGNAL is_sof_prev            : STD_LOGIC_VECTOR(4 DOWNTO 0);
+  SIGNAL is_sof                 : STD_LOGIC_VECTOR(4 DOWNTO 0):= (others => '0');
+  SIGNAL is_sof_prev            : STD_LOGIC_VECTOR(4 DOWNTO 0):= (others => '0');
 
-  SIGNAL is_eof                 : STD_LOGIC_VECTOR(4 DOWNTO 0);
-  SIGNAL is_eof_prev            : STD_LOGIC_VECTOR(4 DOWNTO 0);
+  SIGNAL is_eof                 : STD_LOGIC_VECTOR(4 DOWNTO 0):= (others => '0');
+  SIGNAL is_eof_prev            : STD_LOGIC_VECTOR(4 DOWNTO 0):= (others => '0');
 
-  SIGNAL reg_tkeep              : STD_LOGIC_VECTOR((C_DATA_WIDTH/8)-1 DOWNTO 0);
-  SIGNAL tkeep                  : STD_LOGIC_VECTOR((C_DATA_WIDTH/8)-1 DOWNTO 0);
-  SIGNAL tkeep_prev             : STD_LOGIC_VECTOR((C_DATA_WIDTH/8)-1 DOWNTO 0);
+  SIGNAL reg_tkeep              : STD_LOGIC_VECTOR((C_DATA_WIDTH/8)-1 DOWNTO 0):= (others => '0');
+  SIGNAL tkeep                  : STD_LOGIC_VECTOR((C_DATA_WIDTH/8)-1 DOWNTO 0):= (others => '0');
+  SIGNAL tkeep_prev             : STD_LOGIC_VECTOR((C_DATA_WIDTH/8)-1 DOWNTO 0):= (others => '0');
 
-  SIGNAL reg_tlast              : STD_LOGIC;
-  SIGNAL rsrc_rdy_filtered      : STD_LOGIC;
+  SIGNAL reg_tlast              : STD_LOGIC:= '0';
+  SIGNAL rsrc_rdy_filtered      : STD_LOGIC:= '0';
 
-  SIGNAL trn_rd_DW_swapped      : STD_LOGIC_VECTOR(C_DATA_WIDTH - 1 DOWNTO 0);
-  SIGNAL trn_rd_prev            : STD_LOGIC_VECTOR(C_DATA_WIDTH - 1 DOWNTO 0);
+  SIGNAL trn_rd_DW_swapped      : STD_LOGIC_VECTOR(C_DATA_WIDTH - 1 DOWNTO 0):= (others => '0');
+  SIGNAL trn_rd_prev            : STD_LOGIC_VECTOR(C_DATA_WIDTH - 1 DOWNTO 0):= (others => '0');
 
-  SIGNAL data_hold              : STD_LOGIC;
-  SIGNAL data_prev              : STD_LOGIC;
+  SIGNAL data_hold              : STD_LOGIC:= '0';
+  SIGNAL data_prev              : STD_LOGIC:= '0';
 
-  SIGNAL trn_reof_prev          : STD_LOGIC;
-  SIGNAL trn_rrem_prev          : STD_LOGIC_VECTOR(C_REM_WIDTH - 1 DOWNTO 0);
-  SIGNAL trn_rsrc_rdy_prev      : STD_LOGIC;
-  SIGNAL trn_rsrc_dsc_prev      : STD_LOGIC;
-  SIGNAL trn_rsof_prev          : STD_LOGIC;
-  SIGNAL trn_rbar_hit_prev      : STD_LOGIC_VECTOR(6 DOWNTO 0);
-  SIGNAL trn_rerrfwd_prev       : STD_LOGIC;
-  SIGNAL trn_recrc_err_prev     : STD_LOGIC;
+  SIGNAL trn_reof_prev          : STD_LOGIC:= '0';
+  SIGNAL trn_rrem_prev          : STD_LOGIC_VECTOR(C_REM_WIDTH - 1 DOWNTO 0):= (others => '0');
+  SIGNAL trn_rsrc_rdy_prev      : STD_LOGIC:= '0';
+  SIGNAL trn_rsrc_dsc_prev      : STD_LOGIC:= '0';
+  SIGNAL trn_rsof_prev          : STD_LOGIC:= '0';
+  SIGNAL trn_rbar_hit_prev      : STD_LOGIC_VECTOR(6 DOWNTO 0):= (others => '0');
+  SIGNAL trn_rerrfwd_prev       : STD_LOGIC:= '0';
+  SIGNAL trn_recrc_err_prev     : STD_LOGIC:= '0';
 
   -- Null packet handling signals
-  SIGNAL null_mux_sel           : STD_LOGIC;
-  SIGNAL trn_in_packet          : STD_LOGIC;
-  SIGNAL dsc_flag               : STD_LOGIC;
-  SIGNAL dsc_detect             : STD_LOGIC;
-  SIGNAL reg_dsc_detect         : STD_LOGIC;
-  SIGNAL trn_rsrc_dsc_d         : STD_LOGIC;
+  SIGNAL null_mux_sel           : STD_LOGIC:= '0';
+  SIGNAL trn_in_packet          : STD_LOGIC:= '0';
+  SIGNAL dsc_flag               : STD_LOGIC:= '0';
+  SIGNAL dsc_detect             : STD_LOGIC:= '0';
+  SIGNAL reg_dsc_detect         : STD_LOGIC:= '0';
+  SIGNAL trn_rsrc_dsc_d         : STD_LOGIC:= '0';
 
   -- Declare intermediate signals for referenced outputs
-  SIGNAL m_axis_rx_tdata_xhdl0  : STD_LOGIC_VECTOR(C_DATA_WIDTH - 1 DOWNTO 0);
-  SIGNAL m_axis_rx_tvalid_xhdl2 : STD_LOGIC;
-  SIGNAL m_axis_rx_tuser_xhdl1  : STD_LOGIC_VECTOR(21 DOWNTO 0);
-  SIGNAL trn_rdst_rdy_xhdl4     : STD_LOGIC;
-  SIGNAL mrd_lower              : STD_LOGIC;
-  SIGNAL mrd_lk_lower           : STD_LOGIC;
-  SIGNAL io_rdwr_lower          : STD_LOGIC;
-  SIGNAL cfg_rdwr_lower         : STD_LOGIC;
-  SIGNAL atomic_lower           : STD_LOGIC;
-  SIGNAL np_pkt_lower           : STD_LOGIC;
-  SIGNAL mrd_upper              : STD_LOGIC;
-  SIGNAL mrd_lk_upper           : STD_LOGIC;
-  SIGNAL io_rdwr_upper          : STD_LOGIC;
-  SIGNAL cfg_rdwr_upper         : STD_LOGIC;
-  SIGNAL atomic_upper           : STD_LOGIC;
-  SIGNAL np_pkt_upper           : STD_LOGIC;
-  SIGNAL pkt_accepted           : STD_LOGIC;
-  SIGNAL reg_np_counter         : STD_LOGIC_VECTOR(2 DOWNTO 0);
+  SIGNAL m_axis_rx_tdata_xhdl0  : STD_LOGIC_VECTOR(C_DATA_WIDTH - 1 DOWNTO 0):= (others => '0');
+  SIGNAL m_axis_rx_tvalid_xhdl2 : STD_LOGIC:= '0';
+  SIGNAL m_axis_rx_tuser_xhdl1  : STD_LOGIC_VECTOR(21 DOWNTO 0):= (others => '0');
+  SIGNAL trn_rdst_rdy_xhdl4     : STD_LOGIC:= '0';
+  SIGNAL mrd_lower              : STD_LOGIC:= '0';
+  SIGNAL mrd_lk_lower           : STD_LOGIC:= '0';
+  SIGNAL io_rdwr_lower          : STD_LOGIC:= '0';
+  SIGNAL cfg_rdwr_lower         : STD_LOGIC:= '0';
+  SIGNAL atomic_lower           : STD_LOGIC:= '0';
+  SIGNAL np_pkt_lower           : STD_LOGIC:= '0';
+  SIGNAL mrd_upper              : STD_LOGIC:= '0';
+  SIGNAL mrd_lk_upper           : STD_LOGIC:= '0';
+  SIGNAL io_rdwr_upper          : STD_LOGIC:= '0';
+  SIGNAL cfg_rdwr_upper         : STD_LOGIC:= '0';
+  SIGNAL atomic_upper           : STD_LOGIC:= '0';
+  SIGNAL np_pkt_upper           : STD_LOGIC:= '0';
+  SIGNAL pkt_accepted           : STD_LOGIC:= '0';
+  SIGNAL reg_np_counter         : STD_LOGIC_VECTOR(2 DOWNTO 0):= (others => '0');
 
 BEGIN
   -- Drive referenced outputs

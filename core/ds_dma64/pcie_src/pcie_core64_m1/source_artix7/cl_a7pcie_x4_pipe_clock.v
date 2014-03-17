@@ -49,7 +49,7 @@
 //-----------------------------------------------------------------------------
 // Project    : Series-7 Integrated Block for PCI Express
 // File       : cl_a7pcie_x4_pipe_clock.v
-// Version    : 1.10
+// Version    : 1.11
 //------------------------------------------------------------------------------
 //  Filename     :  pipe_clock.v
 //  Description  :  PIPE Clock Module for 7 Series Transceiver
@@ -266,7 +266,7 @@ mmcm_i
 
      //---------- Input ------------------------------------
     .CLKIN1                     (refclk),
-  //.CLKIN2                     (1'd0),                     // not used, comment out CLKIN2 if it cause implementation issues
+    .CLKIN2                     (1'd0),                     // not used, comment out CLKIN2 if it cause implementation issues
   //.CLKIN2                     (refclk),                   // not used, comment out CLKIN2 if it cause implementation issues
     .CLKINSEL                   (1'd1),
     .CLKFBIN                    (mmcm_fb),

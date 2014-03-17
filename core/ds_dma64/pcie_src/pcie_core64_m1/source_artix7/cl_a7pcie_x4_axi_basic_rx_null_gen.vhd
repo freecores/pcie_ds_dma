@@ -49,7 +49,7 @@
 -------------------------------------------------------------------------------
 -- Project    : Series-7 Integrated Block for PCI Express
 -- File       : cl_a7pcie_x4_axi_basic_rx_null_gen.vhd
--- Version    : 1.10
+-- Version    : 1.11
 --
 -- Description:
 -- TRN to AXI RX null generator. Generates null packets for use in discontinue situations.
@@ -127,34 +127,34 @@ ARCHITECTURE TRANS OF cl_a7pcie_x4_axi_basic_rx_null_gen IS
   constant IN_PACKET : std_logic := '1';
      
   -- Signals for tracking a packet on the AXI interface
-  SIGNAL reg_pkt_len_counter   : STD_LOGIC_VECTOR(11 DOWNTO 0);
-  SIGNAL pkt_len_counter       : STD_LOGIC_VECTOR(11 DOWNTO 0);
-  SIGNAL pkt_len_counter_dec   : STD_LOGIC_VECTOR(11 DOWNTO 0);
-  SIGNAL pkt_done              : STD_LOGIC;
+  SIGNAL reg_pkt_len_counter   : STD_LOGIC_VECTOR(11 DOWNTO 0):= (others => '0');
+  SIGNAL pkt_len_counter       : STD_LOGIC_VECTOR(11 DOWNTO 0):= (others => '0');
+  SIGNAL pkt_len_counter_dec   : STD_LOGIC_VECTOR(11 DOWNTO 0):= (others => '0');
+  SIGNAL pkt_done              : STD_LOGIC:= '0';
 
-  SIGNAL new_pkt_len           : STD_LOGIC_VECTOR(11 DOWNTO 0);
-  SIGNAL payload_len           : STD_LOGIC_VECTOR(9 DOWNTO 0);
+  SIGNAL new_pkt_len           : STD_LOGIC_VECTOR(11 DOWNTO 0):= (others => '0');
+  SIGNAL payload_len           : STD_LOGIC_VECTOR(9 DOWNTO 0):= (others => '0');
   SIGNAL payload_len_tmp       : STD_LOGIC_VECTOR(9 DOWNTO 0) := (others => '0');
-  SIGNAL packet_fmt            : STD_LOGIC_VECTOR(1 DOWNTO 0);
-  SIGNAL packet_td             : STD_LOGIC;
-  SIGNAL packet_overhead       : STD_LOGIC_VECTOR(3 DOWNTO 0);
+  SIGNAL packet_fmt            : STD_LOGIC_VECTOR(1 DOWNTO 0):= (others => '0');
+  SIGNAL packet_td             : STD_LOGIC:= '0';
+  SIGNAL packet_overhead       : STD_LOGIC_VECTOR(3 DOWNTO 0):= (others => '0');
   -- X-HDL generated signals`
 
-  SIGNAL xhdl2                 : STD_LOGIC_VECTOR(2 DOWNTO 0);
-  SIGNAL reg_is_eof            : STD_LOGIC_VECTOR(4 DOWNTO 0);
-  SIGNAL xhdl5                 : STD_LOGIC_VECTOR(1 DOWNTO 0);
-  SIGNAL xhdl7                 : STD_LOGIC_VECTOR(1 DOWNTO 0);
+  SIGNAL xhdl2                 : STD_LOGIC_VECTOR(2 DOWNTO 0):= (others => '0');
+  SIGNAL reg_is_eof            : STD_LOGIC_VECTOR(4 DOWNTO 0):= (others => '0');
+  SIGNAL xhdl5                 : STD_LOGIC_VECTOR(1 DOWNTO 0):= (others => '0');
+  SIGNAL xhdl7                 : STD_LOGIC_VECTOR(1 DOWNTO 0):= (others => '0');
   --State machine variables and states
-  SIGNAL next_state            : STD_LOGIC;
-  SIGNAL cur_state             : STD_LOGIC;
+  SIGNAL next_state            : STD_LOGIC:= '0';
+  SIGNAL cur_state             : STD_LOGIC:= '0';
 
   -- Declare intermediate signals for referenced outputs
-  SIGNAL null_rx_tlast_xhdl0   : STD_LOGIC;
+  SIGNAL null_rx_tlast_xhdl0   : STD_LOGIC:= '0';
 
   -- Misc.
-  SIGNAL eof_tkeep             : STD_LOGIC_VECTOR((C_DATA_WIDTH/8)-1 DOWNTO 0);
-  SIGNAL straddle_sof          : STD_LOGIC;
-  SIGNAL eof                   : STD_LOGIC;
+  SIGNAL eof_tkeep             : STD_LOGIC_VECTOR((C_DATA_WIDTH/8)-1 DOWNTO 0):= (others => '0');
+  SIGNAL straddle_sof          : STD_LOGIC:= '0';
+  SIGNAL eof                   : STD_LOGIC:= '0';
 
 BEGIN
 
